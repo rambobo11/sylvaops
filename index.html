@@ -1424,7 +1424,7 @@
             <code>vCPU-heures évitées = Économies compute / prix €/vCPU-h</code><br>
             Énergie (kWh) = vCPU-heures × Watts/vCPU ÷ 1000 · CO₂ = Énergie × PUE × Facteur Grid<br>
             ROI net = Investissement / (Économie − Coût récurrent) · VAN 3 ans (taux 8 %/an)
-            <p class="source-note"><strong>Carbone par les vCPU-heures</strong>&nbsp;: le CO₂ cloud n'est plus dérivé des euros (proxy) mais estimé via l'usage compute (prix moyen 0,045 €/vCPU-h · ~12 W IT par vCPU, méthode Cloud Carbon Footprint). Plus rigoureux, et volontairement conservateur : l'empreinte opérationnelle cloud ressort bien plus faible que le matériel sur site.</p>
+            <p class="source-note"><strong>Carbone par les vCPU-heures</strong>&nbsp;: le CO₂ cloud est estimé à partir de l'usage compute (prix moyen 0,045 €/vCPU-h · ~12 W IT par vCPU, méthode Cloud Carbon Footprint). Approche rigoureuse et volontairement conservatrice : l'empreinte opérationnelle cloud ressort bien plus faible que celle du matériel sur site.</p>
             <p class="source-note"><strong>Fourchettes d'incertitude</strong>&nbsp;: chaque KPI affiche une plage. Financier ± 15 % · carbone cloud ± 50 % (coefficients vCPU incertains) · carbone parc ± 25 % (données ADEME/Boavizta).</p>
             <p class="source-note">Sources&nbsp;: facteurs d'émission RTE/ADEME (France 0,05 · Europe 0,23 · Monde 0,35 kgCO₂/kWh) · PUE 1,1–1,3 (Uptime Institute) · coefficients énergie vCPU (Cloud Carbon Footprint, Boavizta) · croissance coûts cloud Flexera 2024.</p>
           </div>
@@ -1662,7 +1662,7 @@
       };
 
       // Marges d'incertitude differenciees par KPI (hypotheses documentees).
-      // Le carbone cloud est plus incertain car derive du proxy cout -> energie.
+      // Le carbone cloud est plus incertain car les coefficients vCPU (prix, watts) le sont.
       var UNC_FIN = 0.15;        // economies financieres (basees sur la facture, plus fiables)
       var UNC_CO2_CLOUD = 0.50;  // carbone cloud (coefficients vCPU incertains)
       var UNC_CO2_PARC = 0.25;   // carbone parc (donnees moyennes ADEME/Boavizta)
