@@ -230,6 +230,30 @@ Paramètres identiques sauf H = 52 h (extinction nocturne réaliste), optimisati
 
 > Ce preset applique une hypothèse d'investissement projet réaliste (**86 700 €** : audit + outillage FinOps + automatisation + gouvernance + conduite du changement) → économie ~75 000 €/an → **ROI ≈ 14 mois**. Un retour plus prudent que 8 mois, jugé plus crédible en soutenance.
 
+### Preset C — « Démo SNCF Connect & Tech » (données publiques)
+
+Scénario **illustratif** calibré sur des données publiques (voir sources en fin de doc). Le budget cloud de SNCF Connect & Tech n'est **pas public** ; il est **posé en hypothèse** de façon à rester cohérent avec leur empreinte carbone cloud publiée.
+
+**Ancrage public :** bilan carbone 2023 ≈ **11 000 t CO₂e**, dont **cloud AWS ≈ 7–8 %** ≈ **800 t CO₂e/an**.
+
+**Calibrage du budget :** avec région AWS Paris (facteur France 0,05), PUE 1,2 et le proxy 0,15 €/kWh, un budget de **~167 000 €/mois** est celui qui reproduit un ordre de grandeur cohérent avec ces ~800 t/an. Le budget est donc *déduit du carbone connu*, pas inventé.
+
+Paramètres : budget 167 000 €/mois, hors-prod 40 %, **part compute 65 % (réaliste)**, extinction 60 h/sem, rightsizing 10 %, stockage 3 %, logs 2 %, datacenter France, PUE 1,2. Parc : 1 200 postes, 15 serveurs sur site, durée 4→6 ans.
+
+| Étape | Calcul | Résultat |
+|-------|--------|----------|
+| Budget_HP | 167 000 × 0,40 | 66 800 € |
+| Budget compute | 66 800 × 0,65 | 43 420 € |
+| Éco_extinction | 43 420 × (60/168) | ≈ 15 507 €/mois |
+| Éco_optimisation | rightsizing + stockage + logs | ≈ 11 141 €/mois |
+| **Éco_totale** | | **≈ 26 648 €/mois** (~16 % du budget) |
+| Éco_annuelle | × 12 | **≈ 320 000 €/an** |
+| CO₂ cloud évité | ≈ 10 659 kg/mois | **≈ 128 t CO₂e/an** (~16 % des ~800 t) |
+| CO₂ parc évité | usage + fabrication amortie | ≈ 24 t CO₂e/an |
+| ROI | 373 000 / 26 648 | **≈ 14 mois** |
+
+> **Posture démo :** SNCF Connect & Tech pratique **déjà** l'extinction des environnements de dev et dispose d'un tableau de bord FinOps + CO₂ (label Numérique Responsable niveau 2). SylvaOps se présente donc en **complément** : benchmark externe, gouvernance, extension du périmètre (parc sur site, autres environnements) et objectivation de l'avant-vente — **jamais** comme si rien n'existait. Tous les chiffres sont **à valider avec le client**.
+
 ---
 
 ## 6. Modalités de calcul et logique applicative
@@ -285,3 +309,18 @@ CO₂_total_fourchette : somme des bornes cloud (± 35 %) et parc (± 25 %)
 | Produire des KPI | ✅ KPI temps réel |
 | Fournir un rapport décisionnel | ✅ synthèse imprimable |
 | Transparence de la méthodologie | ✅ détail + note méthodologique + sources |
+
+---
+
+## 9. Sources (scénario SNCF Connect & Tech)
+
+- **Le Monde Informatique** — *SNCF Connect & Tech tisse sa stratégie numérique responsable à l'heure du cloud et de l'IA* : bilan carbone 2023 ≈ 11 000 t CO₂e, cloud AWS ≈ 7–8 %, dashboard FinOps + CO₂.
+  https://www.lemondeinformatique.fr/actualites/lireamp-sncf-connect-et-tech-tisse-sa-strategie-numerique-responsable-a-l-heure-du-cloud-et-de-l-ia-97522.html
+- **Silicon.fr** — *SNCF Connect & Tech détaille sa recette d'écoconception web* : autoscaling, extinction automatique des environnements de dev hors heures de travail.
+  https://www.silicon.fr/green-it-1374/sncf-connect-tech-ecoconception-224599
+- **Futura Sciences** — *Numérique responsable : la voie tracée par SNCF Connect & Tech* : 27 M utilisateurs, label Numérique Responsable niveau 2, objectif RGESN.
+  https://www.futura-sciences.com/tech/actualites/technologie-numerique-responsable-voie-tracee-sncf-connect-tech-126629/
+- **groupe-sncf.com** — résultats financiers annuels 2024/2025 : CA ~43 Md€, 284 000 collaborateurs.
+  https://www.groupe-sncf.com/medias-publics/2026-02/cp-resultats-financiers-annuels-2025-groupe-sncf.pdf
+
+> ⚠️ Le budget cloud (~167 k€/mois) et le parc sur site sont des **hypothèses posées** par calibrage, non des données publiées. À valider avec le client avant tout usage réel.

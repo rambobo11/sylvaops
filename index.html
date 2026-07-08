@@ -541,6 +541,14 @@
       display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
       max-width: 1120px; margin: 0 auto 20px; padding: 0 24px;
     }
+    .sncf-note {
+      max-width: 1072px; margin: -8px auto 22px; padding: 14px 18px;
+      background: var(--forest-pale); border: 1px solid var(--forest-light);
+      border-left: 3px solid var(--forest); border-radius: var(--radius);
+      font-size: 0.82rem; color: var(--ink-muted); line-height: 1.55;
+    }
+    .sncf-note strong { color: var(--forest); }
+    .sncf-note__src { display: block; margin-top: 8px; font-size: 0.72rem; font-style: italic; opacity: 0.85; }
     .preset-bar__label { font-size: 0.8rem; font-weight: 600; color: var(--ink-muted); margin-right: 4px; }
     .preset-btn {
       padding: 9px 16px; border-radius: 100px; font-size: 0.82rem; font-weight: 600;
@@ -1047,8 +1055,17 @@
         <span class="preset-bar__label">Scénarios&nbsp;:</span>
         <button class="preset-btn preset-btn--active" id="presetCdc" type="button">Cas référence (CDC)</button>
         <button class="preset-btn" id="presetBusiness" type="button">Cas business réaliste</button>
+        <button class="preset-btn" id="presetSncf" type="button">Démo SNCF Connect &amp; Tech</button>
         <button class="preset-btn" id="presetReset" type="button">Réinitialiser</button>
         <button class="preset-btn" id="modeToggle" type="button" style="margin-left:auto;">Mode détaillé</button>
+      </div>
+
+      <div class="sncf-note" id="sncfNote" hidden>
+        <strong>Scénario illustratif « SNCF Connect &amp; Tech »</strong> — construit à partir de <em>données publiques</em>.
+        Bilan carbone 2023 ≈ 11 000 t CO₂e, dont <strong>cloud AWS ≈ 7–8 %</strong> (≈ 800 t CO₂e/an).
+        Le budget cloud n'étant pas public, il est <strong>posé en hypothèse (~167 k€/mois)</strong>, calibré pour rester cohérent avec cette empreinte (région AWS Paris, facteur France 0,05, PUE 1,2).
+        La part compute planifiable est fixée à 65 % (réaliste). SNCF Connect &amp; Tech pratique déjà l'extinction des environnements de dev et dispose d'un tableau de bord FinOps + CO₂ : SylvaOps se positionne en <strong>complément</strong> (benchmark, gouvernance, extension du périmètre), pas en substitution.
+        <span class="sncf-note__src">Sources : Le Monde Informatique, Silicon.fr, Futura Sciences, groupe-sncf.com — chiffres à valider avec le client.</span>
       </div>
 
       <div class="calc-layout">
@@ -1831,17 +1848,23 @@
       var PARC_DEFAULTS = { siteLocation: 'france', nbPostes: 1200, consoPoste: 120, reductionPostes: 20, nbServeurs: 50, consoServeur: 4000, reductionServeurs: 15, empreintePoste: 200, empreinteServeur: 1500, dureeActuelle: 4, dureeCible: 6 };
       function withParc(cfg) { for (var k in PARC_DEFAULTS) { cfg[k] = PARC_DEFAULTS[k]; } return cfg; }
 
+      var sncfNote = document.getElementById('sncfNote');
       document.getElementById('presetCdc').addEventListener('click', function () {
         applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 84, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 140000 }));
-        setActivePreset('presetCdc');
+        setActivePreset('presetCdc'); sncfNote.hidden = true;
       });
       document.getElementById('presetBusiness').addEventListener('click', function () {
         applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 52, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 86700 }));
-        setActivePreset('presetBusiness');
+        setActivePreset('presetBusiness'); sncfNote.hidden = true;
+      });
+      document.getElementById('presetSncf').addEventListener('click', function () {
+        applyPreset({ budget: 167000, horsProd: 40, envCount: 20, extinction: 60, computeShare: 65, rightsizing: 10, stockage: 3, logs: 2, datacenter: 'france', pue: 12, energyCost: 15, investissement: 373000,
+          siteLocation: 'france', nbPostes: 1200, consoPoste: 120, reductionPostes: 20, nbServeurs: 15, consoServeur: 4000, reductionServeurs: 15, empreintePoste: 200, empreinteServeur: 1500, dureeActuelle: 4, dureeCible: 6 });
+        setActivePreset('presetSncf'); sncfNote.hidden = false;
       });
       document.getElementById('presetReset').addEventListener('click', function () {
         applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 84, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 0 }));
-        setActivePreset('presetReset');
+        setActivePreset('presetReset'); sncfNote.hidden = true;
       });
 
       /* ── Mode simple / détaillé ── */
