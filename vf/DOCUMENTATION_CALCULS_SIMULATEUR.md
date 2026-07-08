@@ -252,6 +252,27 @@ Paramètres identiques sauf H = 52 h (extinction nocturne réaliste), optimisati
 
 ---
 
+## 7 bis. Fourchettes d'incertitude sur les KPI
+
+Pour éviter une **fausse impression de précision**, chaque KPI est affiché avec une **plage** (min – max) plutôt qu'un chiffre unique. Les marges sont **différenciées** selon la fiabilité de la donnée sous-jacente :
+
+| KPI | Marge | Justification |
+|-----|-------|---------------|
+| Économie financière (€/mois, €/an) | **± 15 %** | Basée sur la facture cloud réelle → donnée la plus fiable |
+| Carbone cloud (kg CO₂/mois) | **± 35 %** | Dérivé du proxy coût→énergie → hypothèse la plus incertaine |
+| Carbone parc sur site | **± 25 %** | Données moyennes ADEME/Boavizta, pas l'inventaire réel |
+
+```
+Borne_basse = Valeur × (1 − marge)
+Borne_haute = Valeur × (1 + marge)
+ROI_fourchette : ROI_meilleur = I / (Éco × 1,15) ; ROI_pire = I / (Éco × 0,85)
+CO₂_total_fourchette : somme des bornes cloud (± 35 %) et parc (± 25 %)
+```
+
+> Message de soutenance : « Nous affichons des fourchettes, pas des chiffres exacts, car un POC en avant-vente donne des **ordres de grandeur**. La marge la plus large est sur le carbone cloud, ce qui reflète honnêtement la limite de notre proxy coût→énergie. »
+
+---
+
 ## 8. Correspondance avec le cahier des charges (CDC §9.6)
 
 | Exigence fonctionnelle CDC | Couverture par le calculateur |
