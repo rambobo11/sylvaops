@@ -1063,8 +1063,9 @@
       <div class="sncf-note" id="sncfNote" hidden>
         <strong>Scénario illustratif « SNCF Connect &amp; Tech »</strong> — construit à partir de <em>données publiques</em>.
         Bilan carbone 2023 ≈ 11 000 t CO₂e, dont <strong>cloud AWS ≈ 7–8 %</strong> (≈ 800 t CO₂e/an).
-        Le budget cloud n'étant pas public, il est <strong>posé en hypothèse (~167 k€/mois)</strong>, calibré pour rester cohérent avec cette empreinte (région AWS Paris, facteur France 0,05, PUE 1,2).
-        La part compute planifiable est fixée à 65 % (réaliste). SNCF Connect &amp; Tech pratique déjà l'extinction des environnements de dev et dispose d'un tableau de bord FinOps + CO₂ : SylvaOps se positionne en <strong>complément</strong> (benchmark, gouvernance, extension du périmètre), pas en substitution.
+        Le budget cloud n'étant pas public, il est <strong>posé en hypothèse (~200 k€/mois)</strong> avec une décomposition compute 60 % / stockage 30 % / réseau 10 % (région AWS Europe, PUE 1,2).
+        Le carbone est estimé par la <strong>méthode vCPU-heures</strong> (volontairement conservatrice) : l'empreinte opérationnelle évitée ressort donc en dizaines de tonnes/an, une <em>fraction</em> des ~800 t publiées (périmètre AWS plus large).
+        SNCF Connect &amp; Tech pratique déjà l'extinction des environnements de dev et dispose d'un tableau de bord FinOps + CO₂ : SylvaOps se positionne en <strong>complément</strong> (benchmark, gouvernance, extension du périmètre), pas en substitution.
         <span class="sncf-note__src">Sources : Le Monde Informatique, Silicon.fr, Futura Sciences, groupe-sncf.com — chiffres à valider avec le client.</span>
       </div>
 
@@ -1080,6 +1081,30 @@
               <span class="value-display" id="budgetDisplay">50 000 €</span>
             </label>
             <input type="number" id="budget" value="50000" min="0" step="1000">
+          </div>
+
+          <div class="input-group advanced-params">
+            <label for="computePct">
+              Part compute du budget<span class="advanced-badge">avancé</span>
+              <span class="value-display" id="computePctDisplay">60 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="computePctFill"></div>
+              <input type="range" id="computePct" min="0" max="100" value="60" step="5">
+            </div>
+            <p class="source-note">Décomposition de la facture. Seul le compute est éteignable ; l'extinction et le rightsizing n'agissent que sur cette part.</p>
+          </div>
+
+          <div class="input-group advanced-params">
+            <label for="storagePct">
+              Part stockage du budget<span class="advanced-badge">avancé</span>
+              <span class="value-display" id="storagePctDisplay">30 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="storagePctFill"></div>
+              <input type="range" id="storagePct" min="0" max="100" value="30" step="5">
+            </div>
+            <p class="source-note">Le reste (100 − compute − stockage) est considéré comme réseau/divers. Le levier « stockage » s'applique sur cette part uniquement.</p>
           </div>
 
           <div class="input-group">
@@ -1115,18 +1140,6 @@
               <div class="slider-fill" id="extinctionFill"></div>
               <input type="range" id="extinction" min="0" max="168" value="84" step="1">
             </div>
-          </div>
-
-          <div class="input-group advanced-params">
-            <label for="computeShare">
-              Part compute planifiable (éteignable)<span class="advanced-badge">avancé</span>
-              <span class="value-display" id="computeShareDisplay">100 %</span>
-            </label>
-            <div class="slider-wrap">
-              <div class="slider-fill" id="computeShareFill"></div>
-              <input type="range" id="computeShare" min="0" max="100" value="100" step="5">
-            </div>
-            <p class="source-note">Seul le compute s'arrête à l'extinction ; stockage, IP, licences restent facturés. En pratique 50–70 %. 100 % = hypothèse théorique maximale.</p>
           </div>
 
           <p class="input-section-title">Optimisations complémentaires</p>
@@ -1185,18 +1198,6 @@
               <input type="range" id="pue" min="10" max="20" value="12" step="1">
             </div>
             <p class="source-note">PUE = énergie totale / énergie IT. 1,0 = parfait, 1,5+ = peu efficient.</p>
-          </div>
-
-          <div class="input-group">
-            <label for="energyCost">
-              Coût énergétique (proxy €/kWh)
-              <span class="value-display" id="energyCostDisplay">0,15 €</span>
-            </label>
-            <div class="slider-wrap">
-              <div class="slider-fill" id="energyCostFill"></div>
-              <input type="range" id="energyCost" min="5" max="30" value="15" step="1">
-            </div>
-            <p class="source-note">Ratio reliant dépense cloud et énergie consommée. Sert à estimer les kWh, ce n'est pas une mesure directe.</p>
           </div>
 
           <p class="input-section-title">Parc matériel sur site</p>
@@ -1300,6 +1301,15 @@
             </label>
             <input type="number" id="investissement" value="0" min="0" step="5000">
           </div>
+
+          <div class="input-group advanced-params">
+            <label for="recurringCost">
+              Coût récurrent mensuel (outillage, licences)<span class="advanced-badge">avancé</span>
+              <span class="value-display" id="recurringCostDisplay">0 €</span>
+            </label>
+            <input type="number" id="recurringCost" value="0" min="0" step="100">
+            <p class="source-note">Déduit des économies pour le ROI net et la VAN (valeur actuelle nette sur 3 ans, taux 8 %/an).</p>
+          </div>
         </div>
 
         <div class="calc-panel" aria-labelledby="calc-results-title" aria-live="polite">
@@ -1348,14 +1358,19 @@
 
           <div class="calc-detail" aria-label="Détail du calcul">
             <div class="calc-detail__title">Détail du calcul (traçabilité)</div>
-            <div class="calc-detail__row"><span>Budget Hors-Prod = Budget × %HP</span><span id="dBudgetHP">20 000 €</span></div>
+            <div class="calc-detail__row"><span>Budget compute / stockage / réseau</span><span id="dSplit">30 000 / 15 000 / 5 000 €</span></div>
+            <div class="calc-detail__row"><span>Budget compute Hors-Prod = compute × %HP</span><span id="dBudgetHP">12 000 €</span></div>
             <div class="calc-detail__row"><span>Facteur extinction = Heures / 168</span><span id="dFactorExt">0,50</span></div>
-            <div class="calc-detail__row"><span>Gain extinction</span><span id="dGainExt">10 000 €</span></div>
+            <div class="calc-detail__row"><span>Gain extinction</span><span id="dGainExt">6 000 €</span></div>
             <div class="calc-detail__row"><span>Gain rightsizing + stockage + logs</span><span id="dGainOptim">0 €</span></div>
-            <div class="calc-detail__row calc-detail__row--total"><span>Économie totale / mois</span><span id="dTotal">10 000 €</span></div>
-            <div class="calc-detail__row"><span>Réduction vs facture totale</span><span id="dPctReduction">20 %</span></div>
-            <div class="calc-detail__row"><span>Énergie = Économie / coût kWh</span><span id="dEnergy">66 667 kWh</span></div>
-            <div class="calc-detail__row"><span>CO₂ = kWh × PUE × facteur grid</span><span id="dCo2">4 000 kg</span></div>
+            <div class="calc-detail__row calc-detail__row--total"><span>Économie totale / mois</span><span id="dTotal">6 000 €</span></div>
+            <div class="calc-detail__row"><span>Réduction vs facture totale</span><span id="dPctReduction">12 %</span></div>
+            <div class="calc-detail__row"><span>Économie / environnement non-prod</span><span id="dPerEnv">500 €</span></div>
+            <div class="calc-detail__row"><span>vCPU-heures évitées = éco. compute / prix vCPU-h</span><span id="dVcpu">133 333 h</span></div>
+            <div class="calc-detail__row"><span>Énergie = vCPU-h × W/vCPU ÷ 1000</span><span id="dEnergy">1 600 kWh</span></div>
+            <div class="calc-detail__row"><span>CO₂ = Énergie × PUE × facteur grid</span><span id="dCo2">96 kg</span></div>
+            <div class="calc-detail__row"><span>Économie nette / mois (− coût récurrent)</span><span id="dNet">6 000 €</span></div>
+            <div class="calc-detail__row calc-detail__row--total"><span>VAN sur 3 ans (taux 8 %/an)</span><span id="dVan">—</span></div>
           </div>
 
           <h3 style="margin-top:8px;">Parc matériel sur site (impact annuel)</h3>
@@ -1395,15 +1410,17 @@
           <div class="report-box" id="reportBox" aria-live="polite"></div>
 
           <div class="methodology" style="margin-top:20px;">
-            <strong>Note méthodologique</strong> (norme SCI / ISO 21031, PUE, mix électrique)&nbsp;:<br>
-            Budget Hors-Prod = Budget × (Hors-Prod / 100)<br>
-            Gain extinction = Budget Hors-Prod × (Heures / 168)<br>
-            Gain rightsizing = Budget Hors-Prod restant × (Rightsizing / 100)<br>
-            Gain stockage = Budget × (Stockage / 100) · Gain logs = Budget × (Logs / 100)<br>
-            Énergie (kWh) = Économie totale € / coût énergétique <code>(proxy FinOps)</code><br>
-            CO₂ (kg) = Énergie × PUE × Facteur Grid
-            <p class="source-note"><strong>Fourchettes d'incertitude</strong>&nbsp;: chaque KPI est affiché avec une plage assumée plutôt qu'un chiffre unique (fausse précision évitée). Économies financières ± 15 % (basées sur la facture) · carbone cloud ± 35 % (dérivé du proxy coût→énergie, notre hypothèse la plus incertaine) · carbone parc ± 25 % (données moyennes ADEME/Boavizta).</p>
-            <p class="source-note">Sources&nbsp;: facteurs d'émission RTE/ADEME (France 0,05 · Europe 0,23 · Monde 0,35 kgCO₂/kWh) · PUE moyen data center 1,1–1,3 (Uptime Institute) · croissance coûts cloud Flexera 2024. Le coût énergétique est un proxy FinOps reliant dépense cloud et énergie, non une mesure de compteur.</p>
+            <strong>Note méthodologique</strong> (norme SCI / ISO 21031, méthode Cloud Carbon Footprint)&nbsp;:<br>
+            Budget compute = Budget × (Part compute / 100) · idem stockage · réseau = reste<br>
+            Gain extinction = Budget compute Hors-Prod × (Heures / 168)<br>
+            Gain rightsizing = Budget compute Hors-Prod restant × (Rightsizing / 100)<br>
+            Gain stockage = Budget stockage × (Stockage / 100) · Gain logs = (Stockage + Réseau) × (Logs / 100)<br>
+            <code>vCPU-heures évitées = Économies compute / prix €/vCPU-h</code><br>
+            Énergie (kWh) = vCPU-heures × Watts/vCPU ÷ 1000 · CO₂ = Énergie × PUE × Facteur Grid<br>
+            ROI net = Investissement / (Économie − Coût récurrent) · VAN 3 ans (taux 8 %/an)
+            <p class="source-note"><strong>Carbone par les vCPU-heures</strong>&nbsp;: le CO₂ cloud n'est plus dérivé des euros (proxy) mais estimé via l'usage compute (prix moyen 0,045 €/vCPU-h · ~12 W IT par vCPU, méthode Cloud Carbon Footprint). Plus rigoureux, et volontairement conservateur : l'empreinte opérationnelle cloud ressort bien plus faible que le matériel sur site.</p>
+            <p class="source-note"><strong>Fourchettes d'incertitude</strong>&nbsp;: chaque KPI affiche une plage. Financier ± 15 % · carbone cloud ± 50 % (coefficients vCPU incertains) · carbone parc ± 25 % (données ADEME/Boavizta).</p>
+            <p class="source-note">Sources&nbsp;: facteurs d'émission RTE/ADEME (France 0,05 · Europe 0,23 · Monde 0,35 kgCO₂/kWh) · PUE 1,1–1,3 (Uptime Institute) · coefficients énergie vCPU (Cloud Carbon Footprint, Boavizta) · croissance coûts cloud Flexera 2024.</p>
           </div>
         </div>
       </div>
@@ -1538,10 +1555,11 @@
         rightsizing: document.getElementById('rightsizing'),
         stockage: document.getElementById('stockage'),
         logs: document.getElementById('logs'),
-        computeShare: document.getElementById('computeShare'),
+        computePct: document.getElementById('computePct'),
+        storagePct: document.getElementById('storagePct'),
         datacenter: document.getElementById('datacenter'),
         pue: document.getElementById('pue'),
-        energyCost: document.getElementById('energyCost'),
+        recurringCost: document.getElementById('recurringCost'),
         siteLocation: document.getElementById('siteLocation'),
         nbPostes: document.getElementById('nbPostes'),
         consoPoste: document.getElementById('consoPoste'),
@@ -1564,14 +1582,15 @@
         rightsizing: document.getElementById('rightsizingDisplay'),
         stockage: document.getElementById('stockageDisplay'),
         logs: document.getElementById('logsDisplay'),
-        computeShare: document.getElementById('computeShareDisplay'),
+        computePct: document.getElementById('computePctDisplay'),
+        storagePct: document.getElementById('storagePctDisplay'),
         pue: document.getElementById('pueDisplay'),
-        energyCost: document.getElementById('energyCostDisplay'),
         reductionPostes: document.getElementById('reductionPostesDisplay'),
         reductionServeurs: document.getElementById('reductionServeursDisplay'),
         dureeActuelle: document.getElementById('dureeActuelleDisplay'),
         dureeCible: document.getElementById('dureeCibleDisplay'),
-        investissement: document.getElementById('investissementDisplay')
+        investissement: document.getElementById('investissementDisplay'),
+        recurringCost: document.getElementById('recurringCostDisplay')
       };
 
       var fills = {
@@ -1581,9 +1600,9 @@
         rightsizing: document.getElementById('rightsizingFill'),
         stockage: document.getElementById('stockageFill'),
         logs: document.getElementById('logsFill'),
-        computeShare: document.getElementById('computeShareFill'),
+        computePct: document.getElementById('computePctFill'),
+        storagePct: document.getElementById('storagePctFill'),
         pue: document.getElementById('pueFill'),
-        energyCost: document.getElementById('energyCostFill'),
         reductionPostes: document.getElementById('reductionPostesFill'),
         reductionServeurs: document.getElementById('reductionServeursFill'),
         dureeActuelle: document.getElementById('dureeActuelleFill'),
@@ -1591,14 +1610,19 @@
       };
 
       var detail = {
+        split: document.getElementById('dSplit'),
         budgetHP: document.getElementById('dBudgetHP'),
         factorExt: document.getElementById('dFactorExt'),
         gainExt: document.getElementById('dGainExt'),
         gainOptim: document.getElementById('dGainOptim'),
         total: document.getElementById('dTotal'),
         pctReduction: document.getElementById('dPctReduction'),
+        perEnv: document.getElementById('dPerEnv'),
+        vcpu: document.getElementById('dVcpu'),
         energy: document.getElementById('dEnergy'),
         co2: document.getElementById('dCo2'),
+        net: document.getElementById('dNet'),
+        van: document.getElementById('dVan'),
         parcEnergy: document.getElementById('dParcEnergy'),
         parcUsage: document.getElementById('dParcUsage'),
         parcFab: document.getElementById('dParcFab'),
@@ -1634,8 +1658,13 @@
       // Marges d'incertitude differenciees par KPI (hypotheses documentees).
       // Le carbone cloud est plus incertain car derive du proxy cout -> energie.
       var UNC_FIN = 0.15;        // economies financieres (basees sur la facture, plus fiables)
-      var UNC_CO2_CLOUD = 0.35;  // carbone cloud (proxy euro->kWh, point faible assume)
+      var UNC_CO2_CLOUD = 0.50;  // carbone cloud (coefficients vCPU incertains)
       var UNC_CO2_PARC = 0.25;   // carbone parc (donnees moyennes ADEME/Boavizta)
+
+      // Coefficients carbone cloud (methode vCPU-heures, Cloud Carbon Footprint)
+      var PRIX_VCPU_H = 0.045;   // prix moyen d'une vCPU-heure on-demand (usage general), en euro
+      var WATTS_PER_VCPU = 12;   // puissance IT moyenne par vCPU au niveau serveur (hors PUE), en W
+      var TAUX_ACTU_AN = 0.08;   // taux d'actualisation annuel pour la VAN
 
       function formatNumber(n) { return Math.round(n).toLocaleString('fr-FR'); }
 
@@ -1665,7 +1694,7 @@
             desc: 'Tiering et nettoyage : ' + r.stockage + ' % du budget stockage',
             gain: euro(r.economieStockage) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
           { on: r.economieLogs > 0, title: 'Rationalisation des logs & monitoring',
-            desc: 'Politique de rétention : ' + r.logs + ' % du budget',
+            desc: 'Politique de rétention : ' + r.logs + ' % du budget stockage + réseau',
             gain: euro(r.economieLogs) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
           { on: r.co2Fabrication > 0, title: 'Allonger la durée de vie du matériel',
             desc: 'Passage de ' + r.dureeActuelle + ' à ' + r.dureeCible + ' ans (postes + serveurs)',
@@ -1691,25 +1720,37 @@
         var stockage = parseFloat(els.stockage.value);
         var logs = parseFloat(els.logs.value);
         var pue = parseFloat(els.pue.value) / 10;
-        var energyCost = parseFloat(els.energyCost.value) / 100;
         var investissement = Math.max(0, parseFloat(els.investissement.value) || 0);
+        var recurringCost = Math.max(0, parseFloat(els.recurringCost.value) || 0);
         var gridFactor = GRID_FACTORS[els.datacenter.value];
 
-        var computeShare = parseFloat(els.computeShare.value);
+        // Decomposition du budget cloud
+        var computePct = parseFloat(els.computePct.value);
+        var storagePct = parseFloat(els.storagePct.value);
+        var networkPct = Math.max(0, 100 - computePct - storagePct);
+        var budgetComputeTot = budget * (computePct / 100);
+        var budgetStorage = budget * (storagePct / 100);
+        var budgetNetwork = budget * (networkPct / 100);
+
+        // Leviers appliques sur le bon sous-budget (en cascade sur le compute)
         var facteurExtinction = extinction / 168;
-        var budgetHorsProd = budget * (horsProd / 100);
-        var budgetCompute = budgetHorsProd * (computeShare / 100);
-        var economieExtinction = budgetCompute * facteurExtinction;
-        var budgetComputeRestant = budgetCompute - economieExtinction;
-        var economieRightsizing = budgetComputeRestant * (rightsizing / 100);
-        var economieStockage = budget * (stockage / 100);
-        var economieLogs = budget * (logs / 100);
+        var budgetComputeHP = budgetComputeTot * (horsProd / 100);
+        var economieExtinction = budgetComputeHP * facteurExtinction;
+        var budgetComputeHPRestant = budgetComputeHP - economieExtinction;
+        var economieRightsizing = budgetComputeHPRestant * (rightsizing / 100);
+        var economieStockage = budgetStorage * (stockage / 100);
+        var economieLogs = (budgetStorage + budgetNetwork) * (logs / 100);
         var economieOptim = economieRightsizing + economieStockage + economieLogs;
         var economieTotale = economieExtinction + economieOptim;
-        var economieEnergie = energyCost > 0 ? economieTotale / energyCost : 0;
-        var economieCarbone = economieEnergie * pue * gridFactor;
         var economieAnnuelle = economieTotale * 12;
         var pctReduction = budget > 0 ? (economieTotale / budget * 100) : 0;
+        var economieParEnv = envCount > 0 ? economieTotale / envCount : 0;
+
+        // Carbone cloud via vCPU-heures : seules les economies compute generent de l'energie
+        var economieComputeCloud = economieExtinction + economieRightsizing;
+        var vcpuHeuresEvitees = PRIX_VCPU_H > 0 ? economieComputeCloud / PRIX_VCPU_H : 0;
+        var economieEnergie = vcpuHeuresEvitees * WATTS_PER_VCPU / 1000;
+        var economieCarbone = economieEnergie * pue * gridFactor;
 
         /* ── Parc matériel sur site (annuel) ── */
         var nbPostes = Math.max(0, parseFloat(els.nbPostes.value) || 0);
@@ -1736,12 +1777,20 @@
         var co2CloudAnnuel = economieCarbone * 12;
         var co2TotalAnnuel = co2CloudAnnuel + co2ParcAnnuel;
 
+        var economieNette = economieTotale - recurringCost;
         var roiText = 'Instantané';
         var roiMonths = 0;
-        if (investissement > 0 && economieTotale > 0) {
-          roiMonths = investissement / economieTotale;
+        if (investissement > 0 && economieNette > 0) {
+          roiMonths = investissement / economieNette;
           roiText = (Math.round(roiMonths * 10) / 10).toLocaleString('fr-FR') + ' mois';
+        } else if (investissement > 0) {
+          roiText = 'Non rentable';
         }
+        // VAN sur 36 mois (taux annuel actualise mensuellement)
+        var rMensuel = Math.pow(1 + TAUX_ACTU_AN, 1 / 12) - 1;
+        var van = -investissement;
+        for (var t = 1; t <= 36; t++) { van += economieNette / Math.pow(1 + rMensuel, t); }
+        var vanText = investissement > 0 ? formatNumber(van) + ' €' : '—';
 
         displays.budget.textContent = formatNumber(budget) + ' €';
         displays.horsProd.textContent = horsProd + ' %';
@@ -1750,43 +1799,51 @@
         displays.rightsizing.textContent = rightsizing + ' %';
         displays.stockage.textContent = stockage + ' %';
         displays.logs.textContent = logs + ' %';
-        displays.computeShare.textContent = computeShare + ' %';
+        displays.computePct.textContent = computePct + ' %';
+        displays.storagePct.textContent = storagePct + ' %';
         displays.pue.textContent = pue.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-        displays.energyCost.textContent = energyCost.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
         displays.reductionPostes.textContent = reductionPostes + ' %';
         displays.reductionServeurs.textContent = reductionServeurs + ' %';
         displays.dureeActuelle.textContent = dureeActuelle + ' ans';
         displays.dureeCible.textContent = dureeCible + ' ans';
         displays.investissement.textContent = formatNumber(investissement) + ' €';
+        displays.recurringCost.textContent = formatNumber(recurringCost) + ' €';
 
         Object.keys(fills).forEach(function (key) { updateSliderFill(els[key], fills[key]); });
 
         lastResult = {
           budget: budget, horsProd: horsProd, envCount: envCount, extinction: extinction,
           rightsizing: rightsizing, stockage: stockage, logs: logs, pue: pue,
-          energyCost: energyCost, investissement: investissement,
+          investissement: investissement, recurringCost: recurringCost,
           gridLabel: GRID_LABELS[els.datacenter.value], gridFactor: gridFactor,
-          computeShare: computeShare, pctReduction: pctReduction,
+          computePct: computePct, storagePct: storagePct, networkPct: networkPct,
+          pctReduction: pctReduction, economieParEnv: economieParEnv,
           siteLabel: GRID_LABELS[els.siteLocation.value],
-          budgetHorsProd: budgetHorsProd, facteurExtinction: facteurExtinction,
+          budgetComputeHP: budgetComputeHP, facteurExtinction: facteurExtinction,
           economieExtinction: economieExtinction, economieRightsizing: economieRightsizing,
           economieStockage: economieStockage, economieLogs: economieLogs, economieOptim: economieOptim,
-          economieTotale: economieTotale, economieEnergie: economieEnergie,
+          economieTotale: economieTotale, economieEnergie: economieEnergie, vcpuHeuresEvitees: vcpuHeuresEvitees,
           economieCarbone: economieCarbone, economieAnnuelle: economieAnnuelle,
+          economieNette: economieNette, van: van,
           roiText: roiText, roiMonths: roiMonths,
           nbPostes: nbPostes, nbServeurs: nbServeurs, dureeActuelle: dureeActuelle, dureeCible: dureeCible,
           energieParcEvitee: energieParcEvitee, co2ParcUsage: co2ParcUsage, co2Fabrication: co2Fabrication,
           co2ParcAnnuel: co2ParcAnnuel, co2CloudAnnuel: co2CloudAnnuel, co2TotalAnnuel: co2TotalAnnuel
         };
 
-        detail.budgetHP.textContent = euro(budgetHorsProd);
+        detail.split.textContent = formatNumber(budgetComputeTot) + ' / ' + formatNumber(budgetStorage) + ' / ' + formatNumber(budgetNetwork) + ' €';
+        detail.budgetHP.textContent = euro(budgetComputeHP);
         detail.factorExt.textContent = facteurExtinction.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         detail.gainExt.textContent = euro(economieExtinction);
         detail.gainOptim.textContent = euro(economieOptim);
         detail.total.textContent = euro(economieTotale);
         detail.pctReduction.textContent = (Math.round(pctReduction * 10) / 10).toLocaleString('fr-FR') + ' %';
+        detail.perEnv.textContent = euro(economieParEnv);
+        detail.vcpu.textContent = formatNumber(vcpuHeuresEvitees) + ' h';
         detail.energy.textContent = formatNumber(economieEnergie) + ' kWh';
         detail.co2.textContent = formatNumber(economieCarbone) + ' kg';
+        detail.net.textContent = euro(economieNette);
+        detail.van.textContent = vanText;
         detail.parcEnergy.textContent = formatNumber(energieParcEvitee) + ' kWh';
         detail.parcUsage.textContent = formatNumber(co2ParcUsage) + ' kg';
         detail.parcFab.textContent = formatNumber(co2Fabrication) + ' kg';
@@ -1850,20 +1907,20 @@
 
       var sncfNote = document.getElementById('sncfNote');
       document.getElementById('presetCdc').addEventListener('click', function () {
-        applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 84, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 140000 }));
+        applyPreset(withParc({ budget: 50000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 12, extinction: 84, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, investissement: 84000, recurringCost: 0 }));
         setActivePreset('presetCdc'); sncfNote.hidden = true;
       });
       document.getElementById('presetBusiness').addEventListener('click', function () {
-        applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 52, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 86700 }));
+        applyPreset(withParc({ budget: 50000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 12, extinction: 52, rightsizing: 10, stockage: 5, logs: 3, datacenter: 'france', pue: 12, investissement: 71300, recurringCost: 800 }));
         setActivePreset('presetBusiness'); sncfNote.hidden = true;
       });
       document.getElementById('presetSncf').addEventListener('click', function () {
-        applyPreset({ budget: 167000, horsProd: 40, envCount: 20, extinction: 60, computeShare: 65, rightsizing: 10, stockage: 3, logs: 2, datacenter: 'france', pue: 12, energyCost: 15, investissement: 373000,
+        applyPreset({ budget: 200000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 20, extinction: 60, rightsizing: 10, stockage: 3, logs: 2, datacenter: 'europe', pue: 12, investissement: 310000, recurringCost: 1500,
           siteLocation: 'france', nbPostes: 1200, consoPoste: 120, reductionPostes: 20, nbServeurs: 15, consoServeur: 4000, reductionServeurs: 15, empreintePoste: 200, empreinteServeur: 1500, dureeActuelle: 4, dureeCible: 6 });
         setActivePreset('presetSncf'); sncfNote.hidden = false;
       });
       document.getElementById('presetReset').addEventListener('click', function () {
-        applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 84, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 0 }));
+        applyPreset(withParc({ budget: 50000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 12, extinction: 84, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, investissement: 0, recurringCost: 0 }));
         setActivePreset('presetReset'); sncfNote.hidden = true;
       });
 
@@ -1889,9 +1946,11 @@
           ' %</strong> hors-production (' + r.envCount + ' environnements DEV/TEST), la démarche GreenOps permet une économie estimée à <strong>' +
           euro(r.economieTotale) + ' par mois</strong>, soit <strong>' + euro(r.economieAnnuelle) + ' par an</strong>' +
           (r.budget > 0 ? ' (' + (Math.round(r.economieTotale / r.budget * 1000) / 10).toLocaleString('fr-FR') + ' % du budget)' : '') + '.</p>' +
-          '<p>Répartition&nbsp;: extinction automatique <strong>' + euro(r.economieExtinction) + '</strong> (part compute planifiable ' + r.computeShare +
-          ' %), optimisations (rightsizing, stockage, logs) <strong>' + euro(r.economieOptim) + '</strong>.</p>' +
-          '<p>Impact environnemental Cloud&nbsp;: <strong>' + formatNumber(r.economieEnergie) + ' kWh/mois</strong> économisés, soit <strong>' +
+          '<p>Décomposition budget&nbsp;: compute ' + r.computePct + ' %, stockage ' + r.storagePct + ' %, réseau ' + r.networkPct +
+          ' %. Répartition des gains&nbsp;: extinction <strong>' + euro(r.economieExtinction) + '</strong>, optimisations (rightsizing, stockage, logs) <strong>' +
+          euro(r.economieOptim) + '</strong>' + (r.envCount > 0 ? ' — soit ' + euro(r.economieParEnv) + '/environnement' : '') + '.</p>' +
+          '<p>Impact environnemental Cloud (méthode vCPU-heures)&nbsp;: <strong>' + formatNumber(r.vcpuHeuresEvitees) + ' vCPU-h/mois</strong> évitées → <strong>' +
+          formatNumber(r.economieEnergie) + ' kWh/mois</strong>, soit <strong>' +
           formatNumber(r.economieCarbone) + ' kg CO₂/mois</strong> évités (' + r.gridLabel + ', PUE ' +
           r.pue.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ', norme SCI).</p>' +
           '<p>Parc matériel sur site (' + formatNumber(r.nbPostes) + ' postes, ' + formatNumber(r.nbServeurs) + ' serveurs)&nbsp;: <strong>' +
@@ -1900,7 +1959,9 @@
           '<p><strong>Empreinte carbone totale évitée&nbsp;: ' + formatNumber(r.co2TotalAnnuel) + ' kg CO₂/an</strong> (Cloud ' +
           formatNumber(r.co2CloudAnnuel) + ' kg + parc ' + formatNumber(r.co2ParcAnnuel) + ' kg).</p>' +
           '<p>Retour sur investissement&nbsp;: pour un investissement projet de <strong>' + euro(r.investissement) +
-          '</strong>, le ROI est atteint en <strong>' + r.roiText + '</strong>.</p>' +
+          '</strong>' + (r.recurringCost > 0 ? ' et un coût récurrent de ' + euro(r.recurringCost) + '/mois' : '') +
+          ', le ROI (net) est atteint en <strong>' + r.roiText + '</strong>' +
+          (r.investissement > 0 ? ' — VAN sur 3 ans ≈ <strong>' + formatNumber(r.van) + ' €</strong> (taux 8 %/an)' : '') + '.</p>' +
           '<p style="font-size:0.75rem; color:var(--ink-light);">Estimation indicative basée sur des hypothèses paramétrables et des facteurs publics (RTE/ADEME, Flexera, Uptime Institute). Un audit réel est requis pour un chiffrage définitif.</p>';
         reportBox.classList.add('visible');
         reportBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });

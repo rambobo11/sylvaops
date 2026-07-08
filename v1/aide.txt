@@ -1,0 +1,32 @@
+Ton PPT devient :
+	1.	Introduction
+	2.	Entreprise
+	3.	Problématique
+	4.	Équipe projet
+	5.	Rôles
+	6.	Contexte
+	7.	PESTEL
+	8.	SWOT
+	9.	Solution
+	10.	Architecture
+	11.	Cartographie
+	12.	Roadmap
+	13.	Planning
+	14.	Process
+	15.	Cybersécurité
+	16.	Risques
+	17.	KPI
+	18.	ROI
+	19.	Dashboard
+	20.	Conclusion
+
+Table des matières
+Structure (présentation équipe)
+Résume présentation entreprise (marque, histoire, contexte, chiffre, étape clés)
+Environnement (micro-environnement, PESTEL, SWOT combinatoire)
+Problématique
+Présentation projet, solution produit (plus grosse parties, cahier des charges, technologie)
+-Cybersécurité 
+-Gestion de projet (Roadmap, plan)
+-Risque, prévision financière
+-Annexes
