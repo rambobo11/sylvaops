@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SylvaOps Consulting — Cabinet FinOps & Green IT. Optimisez vos coûts Cloud et réduisez votre empreinte carbone numérique.">
+  <title>SylvaOps Consulting — FinOps & Green IT</title>
+  <link rel="icon" href="logo/logoblackc.png" type="image/png">
+  <script>
+    (function () {
+      var saved = localStorage.getItem('sylvaops-theme');
+      if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --canvas: #f6f7f9;
+      --canvas-alt: #eef0f4;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --ink-muted: #64748b;
+      --ink-light: #94a3b8;
+      --forest: #1a5c42;
+      --forest-light: #227a58;
+      --forest-pale: #e8f5ef;
+      --forest-glow: rgba(26, 92, 66, 0.12);
+      --text-inverse: #ffffff;
+      --border: #e2e8f0;
+      --header-bg: rgba(255, 255, 255, 0.9);
+      --overlay: rgba(15, 23, 42, 0.5);
+      --cta-start: #ffffff;
+      --cta-end: #e8f5ef;
+      --code-bg: rgba(26, 92, 66, 0.08);
+      --thumb-ring: #ffffff;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 40px rgba(15, 23, 42, 0.1);
+      --radius: 12px;
+      --radius-lg: 16px;
+      --header-h: 68px;
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color-scheme: light;
+    }
+
+    [data-theme="dark"] {
+      --canvas: #0b1120;
+      --canvas-alt: #151d2e;
+      --surface: #111827;
+      --ink: #f1f5f9;
+      --ink-muted: #94a3b8;
+      --ink-light: #64748b;
+      --forest: #34d399;
+      --forest-light: #6ee7b7;
+      --forest-pale: rgba(52, 211, 153, 0.12);
+      --forest-glow: rgba(52, 211, 153, 0.22);
+      --border: #1e293b;
+      --header-bg: rgba(11, 17, 32, 0.92);
+      --overlay: rgba(0, 0, 0, 0.7);
+      --cta-start: #111827;
+      --cta-end: rgba(52, 211, 153, 0.1);
+      --code-bg: rgba(52, 211, 153, 0.14);
+      --thumb-ring: #1e293b;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.55);
+      color-scheme: dark;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+
+    body {
+      font-family: var(--font);
+      background: var(--canvas);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    :focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* ── Pages ── */
+    .page { display: none; animation: fadeIn 0.35s ease; }
+    .page--active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Header ── */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--header-h);
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .header__inner {
+      max-width: 1120px; margin: 0 auto; padding: 0 24px;
+      height: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: var(--ink);
+      background: none; border: none; cursor: pointer; padding: 0;
+      font-family: var(--font);
+    }
+
+    .logo__img {
+      height: 44px;
+      width: auto;
+      max-width: 180px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .header__actions { display: flex; align-items: center; gap: 8px; }
+
+    .nav { display: flex; align-items: center; gap: 4px; }
+
+    .nav__link {
+      text-decoration: none; color: var(--ink-muted);
+      font-size: 0.875rem; font-weight: 500;
+      padding: 8px 14px; border-radius: 8px;
+      transition: color var(--transition), background var(--transition);
+      background: none; border: none; cursor: pointer; font-family: var(--font);
+    }
+
+    .nav__link:hover { color: var(--ink); background: var(--canvas-alt); }
+    .nav__link--active { color: var(--forest); background: var(--forest-pale); font-weight: 600; }
+
+    .nav__cta {
+      background: var(--forest) !important; color: var(--text-inverse) !important; margin-left: 4px;
+    }
+    .nav__cta:hover { background: var(--forest-light) !important; }
+
+    .theme-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; padding: 0;
+      background: var(--canvas-alt); border: 1px solid var(--border);
+      border-radius: 10px; cursor: pointer; color: var(--ink-muted);
+      transition: color var(--transition), background var(--transition), border-color var(--transition);
+    }
+    .theme-toggle:hover { color: var(--ink); background: var(--surface); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    .theme-toggle .icon-sun { display: none; }
+    .theme-toggle .icon-moon { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+    [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+    .menu-toggle {
+      display: none; background: none; border: none;
+      cursor: pointer; padding: 8px; color: var(--ink);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: calc(var(--header-h) + 48px) 24px 72px;
+      max-width: 1120px; margin: 0 auto;
+    }
+
+    .hero--center { text-align: center; }
+
+    .hero__logo {
+      height: clamp(100px, 18vw, 160px);
+      width: auto;
+      max-width: min(320px, 90vw);
+      object-fit: contain;
+      margin: 0 auto 28px;
+      display: block;
+    }
+
+    .hero__badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--forest-pale); color: var(--forest);
+      font-size: 0.8rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 100px; margin-bottom: 20px;
+    }
+
+    .hero__badge-dot { width: 6px; height: 6px; background: var(--forest); border-radius: 50%; }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+      max-width: 720px; margin: 0 auto 18px;
+    }
+
+    .hero__subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--ink-muted); max-width: 600px;
+      margin: 0 auto 32px;
+    }
+
+    .hero__actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 10px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; border: none; cursor: pointer;
+      font-family: var(--font);
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn--primary { background: var(--forest); color: var(--text-inverse); box-shadow: 0 4px 14px var(--forest-glow); }
+    .btn--primary:hover { background: var(--forest-light); box-shadow: 0 6px 20px var(--forest-glow); }
+    .btn--secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--border); }
+    .btn--secondary:hover { background: var(--canvas-alt); }
+
+    .hero__stats {
+      display: flex; justify-content: center; gap: 48px;
+      margin-top: 56px; flex-wrap: wrap;
+    }
+    .hero__stat-value { font-size: 2rem; font-weight: 700; color: var(--forest); letter-spacing: -0.02em; }
+    .hero__stat-label { font-size: 0.85rem; color: var(--ink-muted); margin-top: 4px; }
+
+    /* ── Sections ── */
+    .section { padding: 72px 24px; }
+    .section--alt { background: var(--surface); }
+    .section__inner { max-width: 1120px; margin: 0 auto; }
+    .section__header { text-align: center; margin-bottom: 44px; }
+    .section__label {
+      font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--forest); margin-bottom: 10px;
+    }
+    .section__title { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; letter-spacing: -0.02em; }
+    .section__desc { color: var(--ink-muted); margin-top: 12px; max-width: 560px; margin-left: auto; margin-right: auto; }
+
+    /* ── About ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    }
+    .about-text p { color: var(--ink-muted); margin-bottom: 16px; font-size: 0.95rem; }
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-cards { display: grid; gap: 14px; }
+    .about-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px 22px;
+      box-shadow: var(--shadow-sm);
+    }
+    .section--alt .about-card { background: var(--canvas); }
+    .about-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; color: var(--forest); }
+    .about-card p { font-size: 0.85rem; color: var(--ink-muted); }
+
+    /* ── Values ── */
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .value-card {
+      text-align: center; padding: 32px 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .value-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .value-card__icon {
+      width: 48px; height: 48px; margin: 0 auto 16px;
+      background: var(--forest-pale); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .value-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 8px; }
+    .value-card p { font-size: 0.85rem; color: var(--ink-muted); }
+
+    /* ── Method ── */
+    .method-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .method-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px 24px;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .section--alt .method-card { background: var(--canvas); }
+    .method-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .method-card__step {
+      width: 36px; height: 36px; background: var(--forest-pale); color: var(--forest);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem; margin-bottom: 16px;
+    }
+    .method-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; }
+    .method-card p { font-size: 0.875rem; color: var(--ink-muted); line-height: 1.5; }
+
+    /* ── Sectors ── */
+    .sectors-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .sector-tag {
+      padding: 10px 20px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; font-size: 0.875rem; font-weight: 500; color: var(--ink-muted);
+    }
+
+    /* ── Calculator ── */
+    .calc-hero {
+      padding: calc(var(--header-h) + 40px) 24px 32px;
+      max-width: 1120px; margin: 0 auto; text-align: center;
+    }
+    .calc-hero h1 { font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .calc-hero p { color: var(--ink-muted); max-width: 540px; margin: 0 auto; }
+
+    .calc-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start;
+      max-width: 1120px; margin: 0 auto; padding: 0 24px 72px;
+    }
+
+    .calc-panel {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-sm);
+    }
+    .calc-panel h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 20px; }
+
+    .input-section-title {
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--ink-light);
+      margin: 24px 0 16px; padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+    .input-section-title:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+    .input-group { margin-bottom: 22px; }
+    .input-group:last-child { margin-bottom: 0; }
+
+    .input-group label {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-size: 0.85rem; font-weight: 500; margin-bottom: 8px;
+    }
+    .input-group label .value-display { font-weight: 700; color: var(--forest); font-variant-numeric: tabular-nums; }
+
+    .input-group input[type="number"],
+    .input-group select {
+      width: 100%; padding: 11px 14px;
+      border: 1px solid var(--border); border-radius: 10px;
+      font-size: 0.95rem; font-family: var(--font); color: var(--ink); background: var(--canvas);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .input-group input[type="number"]:focus,
+    .input-group select:focus {
+      border-color: var(--forest); box-shadow: 0 0 0 3px var(--forest-glow); outline: none;
+    }
+
+    .slider-wrap { position: relative; padding: 4px 0; }
+    input[type="range"] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 6px; border-radius: 3px;
+      background: var(--canvas-alt); outline: none; cursor: pointer; position: relative; z-index: 1;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+      background: var(--forest); border: 3px solid var(--thumb-ring);
+      box-shadow: var(--shadow-md); cursor: pointer; transition: transform var(--transition);
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+    input[type="range"]::-moz-range-thumb {
+      width: 22px; height: 22px; border-radius: 50%;
+      background: var(--forest); border: 3px solid var(--thumb-ring); box-shadow: var(--shadow-md); cursor: pointer;
+    }
+    input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: var(--canvas-alt); }
+    .slider-fill {
+      position: absolute; top: 50%; left: 0; height: 6px; border-radius: 3px;
+      background: var(--forest); transform: translateY(-50%); pointer-events: none;
+      transition: width 0.1s ease;
+    }
+
+    .kpi-grid { display: grid; gap: 14px; margin-bottom: 20px; }
+    .kpi-card {
+      background: var(--canvas); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      transition: transform var(--transition);
+    }
+    .kpi-card--highlight {
+      background: linear-gradient(135deg, var(--forest) 0%, var(--forest-light) 100%);
+      border-color: transparent; color: var(--text-inverse);
+    }
+    .kpi-card--small { padding: 14px 18px; }
+    .kpi-card__label {
+      font-size: 0.75rem; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.05em; opacity: 0.75; margin-bottom: 6px;
+    }
+    .kpi-card__value {
+      font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 700;
+      letter-spacing: -0.03em; font-variant-numeric: tabular-nums;
+      transition: opacity 0.15s ease;
+    }
+    .kpi-card__value.updating { opacity: 0.45; }
+    .kpi-card__value--sm { font-size: 1.15rem; }
+    .kpi-card__unit { font-size: 0.85rem; font-weight: 500; opacity: 0.7; margin-left: 4px; }
+    .kpi-card--highlight .kpi-card__label { opacity: 0.85; }
+
+    .kpi-breakdown {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;
+    }
+
+    .methodology {
+      background: var(--forest-pale); border-radius: var(--radius);
+      padding: 18px; font-size: 0.78rem; color: var(--ink-muted); line-height: 1.7;
+    }
+    .methodology strong { color: var(--forest); }
+    .methodology code {
+      background: var(--code-bg); padding: 1px 5px; border-radius: 4px;
+      font-size: 0.76rem; font-family: "SF Mono", "Fira Code", monospace;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center; padding: 64px 24px;
+      background: linear-gradient(180deg, var(--cta-start) 0%, var(--cta-end) 100%);
+    }
+    .cta-section h2 { font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
+    .cta-section p { color: var(--ink-muted); margin-bottom: 28px; }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: var(--overlay);
+      backdrop-filter: blur(4px); z-index: 200;
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+      opacity: 0; visibility: hidden; transition: opacity var(--transition), visibility var(--transition);
+    }
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    .modal {
+      position: relative; background: var(--surface); border-radius: var(--radius-lg);
+      padding: 36px; max-width: 440px; width: 100%; box-shadow: var(--shadow-lg);
+      transform: translateY(16px) scale(0.97); transition: transform var(--transition);
+    }
+    .modal-overlay.active .modal { transform: translateY(0) scale(1); }
+    .modal__close {
+      position: absolute; top: 16px; right: 16px;
+      background: none; border: none; cursor: pointer; color: var(--ink-muted);
+      padding: 8px; border-radius: 8px;
+    }
+    .modal__close:hover { background: var(--canvas-alt); color: var(--ink); }
+    .modal h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; }
+    .modal__desc { font-size: 0.875rem; color: var(--ink-muted); margin-bottom: 24px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 6px; }
+    .form-group input {
+      width: 100%; padding: 12px 14px; border: 1px solid var(--border);
+      border-radius: 10px; font-size: 0.95rem; font-family: var(--font);
+      color: var(--ink); background: var(--canvas);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .form-group input:focus { border-color: var(--forest); box-shadow: 0 0 0 3px var(--forest-glow); outline: none; }
+    .form-group input.error { border-color: #ef4444; }
+    .form-error { font-size: 0.78rem; color: #ef4444; margin-top: 4px; display: none; }
+    .form-error.visible { display: block; }
+    .modal__submit { width: 100%; margin-top: 8px; }
+    .modal__success { text-align: center; display: none; }
+    .modal__success.visible { display: block; }
+    .modal__success-icon {
+      width: 56px; height: 56px; background: var(--forest-pale); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    }
+    .modal__success-icon svg { width: 28px; height: 28px; stroke: var(--forest); fill: none; stroke-width: 2.5; }
+    .modal__form.hidden { display: none; }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 28px 24px; text-align: center;
+      font-size: 0.8rem; color: var(--ink-light); border-top: 1px solid var(--border);
+    }
+    .footer__sources { max-width: 820px; margin: 12px auto 0; font-size: 0.72rem; line-height: 1.6; opacity: 0.85; }
+
+    /* ── Badge POC & Disclaimer ── */
+    .badge-poc {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(217, 119, 6, 0.12); color: #b45309;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 5px 12px; border-radius: 100px; margin-bottom: 16px;
+    }
+    [data-theme="dark"] .badge-poc { background: rgba(251, 191, 36, 0.15); color: #fbbf24; }
+    .badge-poc__dot { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+
+    .disclaimer {
+      display: flex; gap: 10px; align-items: flex-start;
+      background: var(--canvas-alt); border: 1px dashed var(--border);
+      border-radius: var(--radius); padding: 14px 16px;
+      font-size: 0.8rem; color: var(--ink-muted); line-height: 1.5;
+      max-width: 720px; margin: 0 auto 28px;
+    }
+    .disclaimer svg { width: 18px; height: 18px; flex-shrink: 0; stroke: var(--forest); margin-top: 1px; }
+
+    /* ── Problématique ── */
+    .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .problem-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--forest);
+      border-radius: var(--radius); padding: 24px;
+    }
+    .problem-card__num { font-size: 1.6rem; font-weight: 700; color: var(--forest); letter-spacing: -0.02em; }
+    .problem-card h3 { font-size: 0.95rem; font-weight: 600; margin: 8px 0 6px; }
+    .problem-card p { font-size: 0.85rem; color: var(--ink-muted); }
+
+    /* ── 4 Piliers ── */
+    .pillars-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .pillar-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 26px 22px; text-align: center;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .pillar-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .pillar-card__icon {
+      width: 46px; height: 46px; margin: 0 auto 14px;
+      background: var(--forest-pale); border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pillar-card__icon svg { width: 22px; height: 22px; stroke: var(--forest); fill: none; stroke-width: 2; }
+    .pillar-card h3 { font-size: 0.98rem; font-weight: 600; margin-bottom: 6px; }
+    .pillar-card p { font-size: 0.82rem; color: var(--ink-muted); }
+
+    /* ── Roadmap ── */
+    .roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .roadmap-step { position: relative; padding: 0 16px; text-align: center; }
+    .roadmap-step__dot {
+      width: 40px; height: 40px; margin: 0 auto 16px; position: relative; z-index: 2;
+      background: var(--forest); color: var(--text-inverse);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; box-shadow: 0 0 0 5px var(--canvas);
+    }
+    .roadmap-step:not(:last-child)::after {
+      content: ''; position: absolute; top: 20px; left: 50%; width: 100%; height: 2px;
+      background: var(--border); z-index: 1;
+    }
+    .roadmap-step h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 4px; }
+    .roadmap-step__time { font-size: 0.75rem; font-weight: 600; color: var(--forest); margin-bottom: 6px; }
+    .roadmap-step p { font-size: 0.8rem; color: var(--ink-muted); }
+
+    /* ── Presets ── */
+    .preset-bar {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      max-width: 1120px; margin: 0 auto 20px; padding: 0 24px;
+    }
+    .preset-bar__label { font-size: 0.8rem; font-weight: 600; color: var(--ink-muted); margin-right: 4px; }
+    .preset-btn {
+      padding: 9px 16px; border-radius: 100px; font-size: 0.82rem; font-weight: 600;
+      background: var(--surface); color: var(--ink); border: 1px solid var(--border);
+      cursor: pointer; font-family: var(--font);
+      transition: all var(--transition);
+    }
+    .preset-btn:hover { border-color: var(--forest); color: var(--forest); }
+    .preset-btn--active { background: var(--forest); color: var(--text-inverse); border-color: var(--forest); }
+
+    /* ── Détail du calcul ── */
+    .calc-detail {
+      background: var(--canvas); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px 18px; margin-bottom: 20px;
+      font-size: 0.8rem; font-variant-numeric: tabular-nums;
+    }
+    .calc-detail__title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-light); margin-bottom: 10px; }
+    .calc-detail__row { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px dotted var(--border); }
+    .calc-detail__row:last-child { border-bottom: none; }
+    .calc-detail__row span:first-child { color: var(--ink-muted); }
+    .calc-detail__row span:last-child { font-weight: 600; color: var(--ink); }
+    .calc-detail__row--total span { color: var(--forest); font-weight: 700; }
+
+    /* ── Recommandations ── */
+    .reco-list { display: grid; gap: 12px; }
+    .reco-card {
+      display: flex; justify-content: space-between; align-items: center; gap: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 3px solid var(--forest); border-radius: var(--radius); padding: 14px 16px;
+    }
+    .reco-card__text h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 2px; }
+    .reco-card__text p { font-size: 0.78rem; color: var(--ink-muted); }
+    .reco-card__gain { font-size: 1rem; font-weight: 700; color: var(--forest); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .reco-card--off { opacity: 0.5; border-left-color: var(--border); }
+
+    /* ── Rapport ── */
+    .report-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .report-box {
+      background: var(--canvas); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px; margin-top: 16px;
+      font-size: 0.85rem; line-height: 1.7; color: var(--ink); display: none;
+    }
+    .report-box.visible { display: block; }
+    .report-box h4 { font-size: 0.95rem; margin-bottom: 8px; color: var(--forest); }
+    .report-box p { margin-bottom: 10px; }
+    .report-box strong { color: var(--forest); }
+
+    /* ── Conformité ── */
+    .compliance-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .compliance-card {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+    }
+    .compliance-card svg { width: 22px; height: 22px; stroke: var(--forest); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 2px; }
+    .compliance-card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+    .compliance-card p { font-size: 0.82rem; color: var(--ink-muted); }
+
+    /* ── Checkbox RGPD ── */
+    .checkbox-group { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 16px; }
+    .checkbox-group input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--forest); flex-shrink: 0; cursor: pointer; }
+    .checkbox-group label { font-size: 0.78rem; color: var(--ink-muted); line-height: 1.5; }
+
+    /* ── Sources tooltip ── */
+    .source-note { font-size: 0.72rem; color: var(--ink-light); margin-top: 6px; font-style: italic; }
+
+    /* ── Paramètres avancés (mode détaillé) ── */
+    .advanced-params { display: none; }
+    .advanced-params.visible { display: block; }
+    .advanced-badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--forest); background: var(--forest-pale);
+      padding: 2px 7px; border-radius: 100px; margin-left: 8px; vertical-align: middle;
+    }
+
+    /* ── Témoignages ── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .testimonial-card {
+      display: flex; flex-direction: column;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 26px 24px;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .testimonial-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .testimonial-card__quote { font-size: 0.9rem; color: var(--ink); line-height: 1.6; flex: 1; margin-bottom: 18px; }
+    .testimonial-card__quote::before { content: '\201C'; color: var(--forest); font-size: 2.2rem; line-height: 0; vertical-align: -0.35em; margin-right: 4px; }
+    .testimonial-card__author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-card__avatar {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+      background: var(--forest-pale); color: var(--forest);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem;
+    }
+    .testimonial-card__name { font-size: 0.88rem; font-weight: 600; }
+    .testimonial-card__role { font-size: 0.78rem; color: var(--ink-muted); }
+    .testimonial-card__metric {
+      margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border);
+      font-size: 0.8rem; font-weight: 600; color: var(--forest);
+    }
+
+    @media print {
+      .header, .preset-bar, .report-actions, .cta-section, .footer, .calc-panel:first-child, .disclaimer { display: none !important; }
+      .report-box { display: block !important; border: none; }
+      .page { display: block !important; }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .method-grid { grid-template-columns: repeat(2, 1fr); }
+      .calc-layout { grid-template-columns: 1fr; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+      .roadmap { grid-template-columns: 1fr; gap: 20px; }
+      .roadmap-step:not(:last-child)::after { display: none; }
+      .compliance-grid { grid-template-columns: 1fr; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav { display: none; }
+      .nav.open {
+        display: flex; flex-direction: column;
+        position: fixed; top: var(--header-h); left: 0; right: 0;
+        background: var(--surface); border-bottom: 1px solid var(--border);
+        padding: 16px; gap: 4px; z-index: 99;
+      }
+      .nav.open .nav__link { padding: 12px 16px; text-align: left; width: 100%; }
+      .menu-toggle { display: block; }
+      .method-grid { grid-template-columns: 1fr; }
+      .hero__stats { gap: 28px; }
+      .kpi-breakdown { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .logo__text { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" role="banner">
+    <div class="header__inner">
+      <button class="logo" id="logoHome" aria-label="SylvaOps Consulting — Accueil">
+        <img src="logo/logoblackc.png" alt="SylvaOps Consulting" class="logo__img" data-logo width="180" height="44">
+      </button>
+      <div class="header__actions">
+        <nav class="nav" id="nav" aria-label="Navigation principale">
+          <button class="nav__link nav__link--active" data-page="accueil" type="button">Accueil</button>
+          <button class="nav__link" data-page="simulateur" type="button">Simulateur</button>
+          <button class="nav__link nav__cta" id="openModalNav" type="button">Audit gratuit</button>
+        </nav>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Activer le mode sombre" aria-pressed="false">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
+        <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ═══ PAGE ACCUEIL ═══ -->
+    <div id="page-accueil" class="page page--active" role="region" aria-label="Page d'accueil">
+
+      <section class="hero hero--center">
+        <img src="logo/logoblackc.png" alt="SylvaOps Consulting" class="hero__logo" data-logo width="320" height="160">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Cabinet FinOps &amp; Green IT
+        </div>
+        <h1>Alliez Performance IT et Sobriété Numérique.</h1>
+        <p class="hero__subtitle">
+          SylvaOps Consulting accompagne les directions IT et Cloud à réduire leurs coûts d'infrastructure jusqu'à 30&nbsp;% tout en diminuant leur empreinte carbone numérique.
+        </p>
+        <div class="hero__actions">
+          <button class="btn btn--primary" data-page="simulateur" type="button">Simuler mes économies</button>
+          <button class="btn btn--secondary" id="openModalHero" type="button">Demander un audit</button>
+        </div>
+        <div class="hero__stats" role="list" aria-label="Indicateurs clés">
+          <div role="listitem">
+            <div class="hero__stat-value">−30&nbsp;%</div>
+            <div class="hero__stat-label">Coûts Cloud optimisables</div>
+          </div>
+          <div role="listitem">
+            <div class="hero__stat-value">14 mois</div>
+            <div class="hero__stat-label">ROI moyen constaté</div>
+          </div>
+          <div role="listitem">
+            <div class="hero__stat-value">4&nbsp;%</div>
+            <div class="hero__stat-label">GES numériques mondiaux</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="problematique">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Le constat</div>
+            <h2 class="section__title">Une problématique à trois dimensions</h2>
+            <p class="section__desc">Les directions IT doivent réduire coûts et empreinte carbone sans dégrader la qualité de service.</p>
+          </div>
+          <div class="problem-grid">
+            <article class="problem-card">
+              <div class="problem-card__num">+15 à 20&nbsp;%</div>
+              <h3>Inflation des coûts Cloud</h3>
+              <p>Les dépenses cloud croissent de 15 à 20&nbsp;% par an (Flexera, State of the Cloud 2024), avec une large part non optimisée.</p>
+            </article>
+            <article class="problem-card">
+              <div class="problem-card__num">24&nbsp;h/24</div>
+              <h3>Environnements sous-utilisés</h3>
+              <p>Les environnements DEV/TEST restent allumés la nuit et le week-end sans usage réel, générant un gaspillage direct.</p>
+            </article>
+            <article class="problem-card">
+              <div class="problem-card__num">4&nbsp;%</div>
+              <h3>Empreinte carbone numérique</h3>
+              <p>Le numérique représente ~4&nbsp;% des émissions mondiales de GES, un poids qui pourrait doubler d'ici 2030.</p>
+            </article>
+          </div>
+          <p style="text-align:center; max-width:720px; margin:32px auto 0; color:var(--ink-muted); font-size:0.95rem;">
+            <strong style="color:var(--ink);">Comment réduire l'empreinte environnementale et les coûts d'exploitation IT, tout en garantissant la disponibilité, la sécurité et la conformité du service&nbsp;?</strong>
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="piliers">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Notre réponse</div>
+            <h2 class="section__title">Quatre impératifs, une démarche</h2>
+            <p class="section__desc">La démarche GreenOps concilie quatre exigences souvent perçues comme contradictoires.</p>
+          </div>
+          <div class="pillars-grid">
+            <article class="pillar-card">
+              <div class="pillar-card__icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+              <h3>Performance économique</h3>
+              <p>Maîtriser et réduire les coûts d'exploitation IT.</p>
+            </article>
+            <article class="pillar-card">
+              <div class="pillar-card__icon"><svg viewBox="0 0 24 24"><path d="M12 2C7 7 5 10 5 14a7 7 0 0 0 14 0c0-4-2-7-7-12z"/></svg></div>
+              <h3>Responsabilité environnementale</h3>
+              <p>Diminuer la consommation énergétique et l'empreinte carbone.</p>
+            </article>
+            <article class="pillar-card">
+              <div class="pillar-card__icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+              <h3>Excellence opérationnelle</h3>
+              <p>Maintenir la qualité, la continuité et la disponibilité des services.</p>
+            </article>
+            <article class="pillar-card">
+              <div class="pillar-card__icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+              <h3>Sécurité &amp; conformité</h3>
+              <p>Garantir la protection des données (RGPD) et le respect des obligations (REEN).</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="apropos">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Le cabinet</div>
+            <h2 class="section__title">Qui sommes-nous&nbsp;?</h2>
+          </div>
+          <div class="about-grid">
+            <div class="about-text">
+              <p>
+                <strong>SylvaOps Consulting</strong> est un cabinet de conseil spécialisé en <strong>FinOps</strong> et <strong>Green IT</strong>. Nous aidons les entreprises à maîtriser la facture Cloud tout en alignant leur stratégie numérique sur les enjeux environnementaux.
+              </p>
+              <p>
+                Face à la hausse continue des coûts Cloud (+15 à 20&nbsp;% par an) et au gaspillage énergétique des environnements non productifs, nous proposons une approche structurée mêlant audit financier, automatisation et gouvernance durable.
+              </p>
+              <p>
+                Notre mission&nbsp;: transformer la contrainte budgétaire en levier de performance responsable, avec des gains mesurables et un retour sur investissement rapide.
+              </p>
+            </div>
+            <div class="about-cards">
+              <div class="about-card">
+                <h3>Expertise FinOps</h3>
+                <p>Optimisation des coûts, rightsizing, réservations et pilotage budgétaire Cloud multi-fournisseurs.</p>
+              </div>
+              <div class="about-card">
+                <h3>Green IT &amp; SCI</h3>
+                <p>Mesure d'impact carbone selon la norme SCI, mix électrique et PUE pour des KPI environnementaux fiables.</p>
+              </div>
+              <div class="about-card">
+                <h3>Automatisation</h3>
+                <p>Extinction programmée, policies Cloud natives et industrialisation des bonnes pratiques DevOps.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="valeurs">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Nos engagements</div>
+            <h2 class="section__title">Performance, sobriété, transparence</h2>
+          </div>
+          <div class="values-grid">
+            <article class="value-card">
+              <div class="value-card__icon" aria-hidden="true">📊</div>
+              <h3>Performance mesurable</h3>
+              <p>Chaque recommandation est chiffrée. Nos clients visualisent leurs économies en temps réel via des dashboards KPI.</p>
+            </article>
+            <article class="value-card">
+              <div class="value-card__icon" aria-hidden="true">🌱</div>
+              <h3>Sobriété numérique</h3>
+              <p>Réduire l'empreinte carbone du numérique sans compromettre la qualité de service ni l'innovation.</p>
+            </article>
+            <article class="value-card">
+              <div class="value-card__icon" aria-hidden="true">🔍</div>
+              <h3>Transparence totale</h3>
+              <p>Méthodologie ouverte, formules explicites et traçabilité de chaque poste d'économie identifié.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="methode">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Notre approche</div>
+            <h2 class="section__title">Une méthode en 4 étapes</h2>
+            <p class="section__desc">De l'audit à la gouvernance, nous accompagnons votre transformation FinOps et Green IT de bout en bout.</p>
+          </div>
+          <div class="method-grid">
+            <article class="method-card">
+              <div class="method-card__step" aria-hidden="true">1</div>
+              <h3>Audit &amp; cartographie</h3>
+              <p>Inventaire des ressources Cloud, analyse des coûts par environnement et identification des gaspillages.</p>
+            </article>
+            <article class="method-card">
+              <div class="method-card__step" aria-hidden="true">2</div>
+              <h3>Optimisation</h3>
+              <p>Rightsizing, tiering du stockage, réduction des logs et rationalisation des instances sur-dimensionnées.</p>
+            </article>
+            <article class="method-card">
+              <div class="method-card__step" aria-hidden="true">3</div>
+              <h3>Automatisation</h3>
+              <p>Extinction programmée des environnements Dev/Test la nuit et le week-end via policies Cloud natives.</p>
+            </article>
+            <article class="method-card">
+              <div class="method-card__step" aria-hidden="true">4</div>
+              <h3>Gouvernance</h3>
+              <p>Dashboard KPI FinOps &amp; Green IT pour piloter coûts, consommation énergétique et émissions carbone.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="roadmap">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Déroulé de la mission</div>
+            <h2 class="section__title">Une mise en œuvre progressive</h2>
+            <p class="section__desc">Une approche par phases, sécurisée et pilotée par les données réelles d'utilisation.</p>
+          </div>
+          <div class="roadmap">
+            <div class="roadmap-step">
+              <div class="roadmap-step__dot">1</div>
+              <div class="roadmap-step__time">Semaines 1–2</div>
+              <h3>Audit</h3>
+              <p>Cartographie des ressources et identification des gaspillages.</p>
+            </div>
+            <div class="roadmap-step">
+              <div class="roadmap-step__dot">2</div>
+              <div class="roadmap-step__time">Semaines 3–4</div>
+              <h3>Quick wins</h3>
+              <p>Rightsizing, nettoyage des ressources orphelines, optimisation stockage.</p>
+            </div>
+            <div class="roadmap-step">
+              <div class="roadmap-step__dot">3</div>
+              <div class="roadmap-step__time">Semaines 5–8</div>
+              <h3>Automatisation</h3>
+              <p>Extinction programmée DEV/TEST via policies cloud natives.</p>
+            </div>
+            <div class="roadmap-step">
+              <div class="roadmap-step__dot">4</div>
+              <div class="roadmap-step__time">En continu</div>
+              <h3>Gouvernance</h3>
+              <p>Dashboard KPI et amélioration continue des indicateurs.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="conformite">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Sécurité &amp; conformité</div>
+            <h2 class="section__title">Une démarche maîtrisée et conforme</h2>
+            <p class="section__desc">L'optimisation ne compromet ni la production, ni la sécurité, ni la conformité réglementaire.</p>
+          </div>
+          <div class="compliance-grid">
+            <div class="compliance-card">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              <div><h3>Production préservée</h3><p>L'extinction automatique ne concerne que les environnements DEV/TEST. La PROD reste disponible 24/7.</p></div>
+            </div>
+            <div class="compliance-card">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <div><h3>RGPD</h3><p>Aucune donnée personnelle traitée dans le démonstrateur. Consentement explicite pour toute prise de contact.</p></div>
+            </div>
+            <div class="compliance-card">
+              <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+              <div><h3>Loi REEN &amp; CSRD</h3><p>La démarche alimente le reporting extra-financier et répond aux obligations de sobriété numérique.</p></div>
+            </div>
+            <div class="compliance-card">
+              <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>
+              <div><h3>Traçabilité</h3><p>Chaque action d'optimisation est journalisée et réversible, garantissant l'auditabilité complète.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--alt" id="secteurs">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Secteurs accompagnés</div>
+            <h2 class="section__title">Des expertises sectorielles</h2>
+            <p class="section__desc">Nous intervenons auprès d'organisations à forte intensité Cloud dans des secteurs exigeants.</p>
+          </div>
+          <div class="sectors-grid">
+            <span class="sector-tag">Transport &amp; Mobilité</span>
+            <span class="sector-tag">Services Financiers</span>
+            <span class="sector-tag">Retail &amp; E-commerce</span>
+            <span class="sector-tag">Industrie</span>
+            <span class="sector-tag">Santé</span>
+            <span class="sector-tag">Énergie</span>
+            <span class="sector-tag">Secteur Public</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="temoignages">
+        <div class="section__inner">
+          <div class="section__header">
+            <div class="section__label">Ils nous font confiance</div>
+            <h2 class="section__title">Ce que disent nos clients</h2>
+            <p class="section__desc">Retours d'expérience illustratifs de directions IT accompagnées par SylvaOps Consulting.</p>
+          </div>
+          <div class="testimonials-grid">
+            <article class="testimonial-card">
+              <p class="testimonial-card__quote">L'audit GreenOps a révélé que nos environnements de test tournaient 24/24 sans usage réel. L'extinction automatique a été un gain immédiat, sans le moindre impact sur la production.</p>
+              <div class="testimonial-card__author">
+                <div class="testimonial-card__avatar" aria-hidden="true">CL</div>
+                <div>
+                  <div class="testimonial-card__name">Claire Lefèvre</div>
+                  <div class="testimonial-card__role">DSI · RATP</div>
+                </div>
+              </div>
+              <div class="testimonial-card__metric">−28 % de coûts Cloud hors-prod en 6 mois</div>
+            </article>
+            <article class="testimonial-card">
+              <p class="testimonial-card__quote">La méthodologie est transparente : chaque euro économisé et chaque kilo de CO₂ évité est traçable. C'est exactement ce dont nous avions besoin pour notre reporting CSRD.</p>
+              <div class="testimonial-card__author">
+                <div class="testimonial-card__avatar" aria-hidden="true">MB</div>
+                <div>
+                  <div class="testimonial-card__name">Mehdi Benali</div>
+                  <div class="testimonial-card__role">Responsable RSE · ENGIE</div>
+                </div>
+              </div>
+              <div class="testimonial-card__metric">−34 t CO₂ évitées sur la première année</div>
+            </article>
+            <article class="testimonial-card">
+              <p class="testimonial-card__quote">Le retour sur investissement a été atteint en un peu plus d'un an. Le simulateur nous a permis de convaincre le comité de direction avec des chiffres concrets dès la phase d'avant-vente.</p>
+              <div class="testimonial-card__author">
+                <div class="testimonial-card__avatar" aria-hidden="true">SR</div>
+                <div>
+                  <div class="testimonial-card__name">Sophie Renaud</div>
+                  <div class="testimonial-card__role">Directrice des Opérations · Capgemini</div>
+                </div>
+              </div>
+              <div class="testimonial-card__metric">ROI atteint en 14 mois</div>
+            </article>
+          </div>
+          <p class="source-note" style="text-align:center; margin-top:24px;">Témoignages illustratifs — projet académique M1 MCSI. Personnes et chiffres fictifs à visée de démonstration.</p>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <h2>Prêt à estimer vos économies&nbsp;?</h2>
+        <p>Utilisez notre simulateur FinOps &amp; Green IT pour projeter l'impact financier et environnemental de vos optimisations Cloud.</p>
+        <button class="btn btn--primary" data-page="simulateur" type="button">Accéder au simulateur</button>
+      </section>
+    </div>
+
+    <!-- ═══ PAGE SIMULATEUR ═══ -->
+    <div id="page-simulateur" class="page" role="region" aria-label="Simulateur FinOps">
+
+      <div class="calc-hero">
+        <span class="badge-poc"><span class="badge-poc__dot"></span>Démonstrateur — Preuve de concept</span>
+        <h1>Simulateur FinOps &amp; Green IT</h1>
+        <p>Ajustez les paramètres de votre infrastructure Cloud pour estimer vos économies financières et votre réduction d'émissions carbone.</p>
+      </div>
+
+      <div class="disclaimer">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span><strong>Estimation indicative.</strong> Les résultats reposent sur des hypothèses paramétrables et des facteurs publics documentés (RTE, ADEME, Flexera). Un audit réel des ressources est nécessaire pour un chiffrage définitif. Aucune donnée n'est transmise à un serveur.</span>
+      </div>
+
+      <div class="preset-bar">
+        <span class="preset-bar__label">Scénarios&nbsp;:</span>
+        <button class="preset-btn preset-btn--active" id="presetCdc" type="button">Cas référence (CDC)</button>
+        <button class="preset-btn" id="presetBusiness" type="button">Cas business réaliste</button>
+        <button class="preset-btn" id="presetReset" type="button">Réinitialiser</button>
+        <button class="preset-btn" id="modeToggle" type="button" style="margin-left:auto;">Mode détaillé</button>
+      </div>
+
+      <div class="calc-layout">
+        <div class="calc-panel" aria-labelledby="calc-inputs-title">
+          <h3 id="calc-inputs-title">Paramètres</h3>
+
+          <p class="input-section-title">Infrastructure Cloud</p>
+
+          <div class="input-group">
+            <label for="budget">
+              Budget Cloud mensuel global
+              <span class="value-display" id="budgetDisplay">50 000 €</span>
+            </label>
+            <input type="number" id="budget" value="50000" min="0" step="1000">
+          </div>
+
+          <div class="input-group">
+            <label for="horsProd">
+              Part environnements Hors-Production (Dev/Test)
+              <span class="value-display" id="horsProdDisplay">40 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="horsProdFill"></div>
+              <input type="range" id="horsProd" min="0" max="100" value="40" step="1">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="envCount">
+              Nombre d'environnements non-prod
+              <span class="value-display" id="envCountDisplay">12</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="envCountFill"></div>
+              <input type="range" id="envCount" min="1" max="50" value="12" step="1">
+            </div>
+          </div>
+
+          <p class="input-section-title">Automatisation &amp; extinction</p>
+
+          <div class="input-group">
+            <label for="extinction">
+              Heures d'extinction prévues / semaine
+              <span class="value-display" id="extinctionDisplay">84 h</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="extinctionFill"></div>
+              <input type="range" id="extinction" min="0" max="168" value="84" step="1">
+            </div>
+          </div>
+
+          <div class="input-group advanced-params">
+            <label for="computeShare">
+              Part compute planifiable (éteignable)<span class="advanced-badge">avancé</span>
+              <span class="value-display" id="computeShareDisplay">100 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="computeShareFill"></div>
+              <input type="range" id="computeShare" min="0" max="100" value="100" step="5">
+            </div>
+            <p class="source-note">Seul le compute s'arrête à l'extinction ; stockage, IP, licences restent facturés. En pratique 50–70 %. 100 % = hypothèse théorique maximale.</p>
+          </div>
+
+          <p class="input-section-title">Optimisations complémentaires</p>
+
+          <div class="input-group">
+            <label for="rightsizing">
+              Rightsizing instances hors-prod
+              <span class="value-display" id="rightsizingDisplay">0 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="rightsizingFill"></div>
+              <input type="range" id="rightsizing" min="0" max="50" value="0" step="1">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="stockage">
+              Optimisation stockage
+              <span class="value-display" id="stockageDisplay">0 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="stockageFill"></div>
+              <input type="range" id="stockage" min="0" max="20" value="0" step="1">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="logs">
+              Réduction logs &amp; monitoring
+              <span class="value-display" id="logsDisplay">0 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="logsFill"></div>
+              <input type="range" id="logs" min="0" max="15" value="0" step="1">
+            </div>
+          </div>
+
+          <p class="input-section-title">Impact environnemental</p>
+
+          <div class="input-group">
+            <label for="datacenter">Localisation datacenter</label>
+            <select id="datacenter">
+              <option value="france">France (Mix décarboné)</option>
+              <option value="europe">Europe (Mix moyen)</option>
+              <option value="monde">Monde (Mix carboné)</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label for="pue">
+              PUE du datacenter
+              <span class="value-display" id="pueDisplay">1,2</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="pueFill"></div>
+              <input type="range" id="pue" min="10" max="20" value="12" step="1">
+            </div>
+            <p class="source-note">PUE = énergie totale / énergie IT. 1,0 = parfait, 1,5+ = peu efficient.</p>
+          </div>
+
+          <div class="input-group">
+            <label for="energyCost">
+              Coût énergétique (proxy €/kWh)
+              <span class="value-display" id="energyCostDisplay">0,15 €</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="energyCostFill"></div>
+              <input type="range" id="energyCost" min="5" max="30" value="15" step="1">
+            </div>
+            <p class="source-note">Ratio reliant dépense cloud et énergie consommée. Sert à estimer les kWh, ce n'est pas une mesure directe.</p>
+          </div>
+
+          <p class="input-section-title">Parc matériel sur site</p>
+
+          <div class="input-group advanced-params">
+            <label for="siteLocation">Électricité du site<span class="advanced-badge">avancé</span></label>
+            <select id="siteLocation">
+              <option value="france">France (mix décarboné)</option>
+              <option value="europe">Europe (mix moyen)</option>
+              <option value="monde">Monde (mix carboné)</option>
+            </select>
+            <p class="source-note">Facteur d'émission du lieu des équipements (indépendant de la région Cloud).</p>
+          </div>
+
+          <div class="input-group">
+            <label for="nbPostes">Nombre de postes de travail (PC / portables)</label>
+            <input type="number" id="nbPostes" value="1200" min="0" step="50">
+          </div>
+
+          <div class="input-group">
+            <label for="consoPoste">Consommation par poste (kWh/an)</label>
+            <input type="number" id="consoPoste" value="120" min="0" step="10">
+            <p class="source-note">~120 kWh/an pour un poste fixe, ~40 pour un portable (ADEME).</p>
+          </div>
+
+          <div class="input-group">
+            <label for="reductionPostes">
+              Réduction usage postes (veille / extinction auto.)
+              <span class="value-display" id="reductionPostesDisplay">20 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="reductionPostesFill"></div>
+              <input type="range" id="reductionPostes" min="0" max="50" value="20" step="1">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="nbServeurs">Nombre de serveurs on-premise</label>
+            <input type="number" id="nbServeurs" value="50" min="0" step="5">
+          </div>
+
+          <div class="input-group">
+            <label for="consoServeur">Consommation par serveur (kWh/an)</label>
+            <input type="number" id="consoServeur" value="4000" min="0" step="100">
+            <p class="source-note">Serveur physique ~3 000–7 000 kWh/an (charge + refroidissement).</p>
+          </div>
+
+          <div class="input-group">
+            <label for="reductionServeurs">
+              Réduction usage serveurs (consolidation / virtualisation)
+              <span class="value-display" id="reductionServeursDisplay">15 %</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="reductionServeursFill"></div>
+              <input type="range" id="reductionServeurs" min="0" max="40" value="15" step="1">
+            </div>
+          </div>
+
+          <p class="input-section-title">Durée de vie &amp; fabrication</p>
+
+          <div class="input-group">
+            <label for="empreintePoste">Empreinte fabrication / poste (kg CO₂e)</label>
+            <input type="number" id="empreintePoste" value="200" min="0" step="10">
+            <p class="source-note">La fabrication ≈ 75 % de l'empreinte d'un ordinateur (ADEME). ~200 kg CO₂e par poste.</p>
+          </div>
+
+          <div class="input-group">
+            <label for="empreinteServeur">Empreinte fabrication / serveur (kg CO₂e)</label>
+            <input type="number" id="empreinteServeur" value="1500" min="0" step="100">
+          </div>
+
+          <div class="input-group">
+            <label for="dureeActuelle">
+              Durée de vie actuelle du matériel
+              <span class="value-display" id="dureeActuelleDisplay">4 ans</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="dureeActuelleFill"></div>
+              <input type="range" id="dureeActuelle" min="2" max="10" value="4" step="1">
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="dureeCible">
+              Durée de vie cible (après démarche)
+              <span class="value-display" id="dureeCibleDisplay">6 ans</span>
+            </label>
+            <div class="slider-wrap">
+              <div class="slider-fill" id="dureeCibleFill"></div>
+              <input type="range" id="dureeCible" min="2" max="12" value="6" step="1">
+            </div>
+            <p class="source-note">Allonger la durée de vie réduit le carbone de fabrication amorti chaque année — levier n°1 du Green IT.</p>
+          </div>
+
+          <p class="input-section-title">Retour sur investissement</p>
+
+          <div class="input-group">
+            <label for="investissement">
+              Investissement projet (€)
+              <span class="value-display" id="investissementDisplay">0 €</span>
+            </label>
+            <input type="number" id="investissement" value="0" min="0" step="5000">
+          </div>
+        </div>
+
+        <div class="calc-panel" aria-labelledby="calc-results-title" aria-live="polite">
+          <h3 id="calc-results-title">Résultats estimés</h3>
+
+          <div class="kpi-grid">
+            <div class="kpi-card kpi-card--highlight">
+              <div class="kpi-card__label">Économie financière totale</div>
+              <div class="kpi-card__value" id="kpiFinancial">10 000<span class="kpi-card__unit">€/mois</span></div>
+            </div>
+          </div>
+
+          <div class="kpi-breakdown">
+            <div class="kpi-card kpi-card--small">
+              <div class="kpi-card__label">Dont extinction auto.</div>
+              <div class="kpi-card__value kpi-card__value--sm" id="kpiExtinction">10 000 €</div>
+            </div>
+            <div class="kpi-card kpi-card--small">
+              <div class="kpi-card__label">Dont optimisations</div>
+              <div class="kpi-card__value kpi-card__value--sm" id="kpiOptim">0 €</div>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-card__label">Émissions CO₂ évitées</div>
+              <div class="kpi-card__value" id="kpiCarbon">4 000<span class="kpi-card__unit">kg CO₂/mois</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-card__label">Énergie économisée</div>
+              <div class="kpi-card__value" id="kpiEnergy">66 667<span class="kpi-card__unit">kWh/mois</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-card__label">Économie annuelle</div>
+              <div class="kpi-card__value" id="kpiAnnual">120 000<span class="kpi-card__unit">€/an</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-card__label">ROI estimé</div>
+              <div class="kpi-card__value" id="kpiRoi">Instantané</div>
+            </div>
+          </div>
+
+          <div class="calc-detail" aria-label="Détail du calcul">
+            <div class="calc-detail__title">Détail du calcul (traçabilité)</div>
+            <div class="calc-detail__row"><span>Budget Hors-Prod = Budget × %HP</span><span id="dBudgetHP">20 000 €</span></div>
+            <div class="calc-detail__row"><span>Facteur extinction = Heures / 168</span><span id="dFactorExt">0,50</span></div>
+            <div class="calc-detail__row"><span>Gain extinction</span><span id="dGainExt">10 000 €</span></div>
+            <div class="calc-detail__row"><span>Gain rightsizing + stockage + logs</span><span id="dGainOptim">0 €</span></div>
+            <div class="calc-detail__row calc-detail__row--total"><span>Économie totale / mois</span><span id="dTotal">10 000 €</span></div>
+            <div class="calc-detail__row"><span>Réduction vs facture totale</span><span id="dPctReduction">20 %</span></div>
+            <div class="calc-detail__row"><span>Énergie = Économie / coût kWh</span><span id="dEnergy">66 667 kWh</span></div>
+            <div class="calc-detail__row"><span>CO₂ = kWh × PUE × facteur grid</span><span id="dCo2">4 000 kg</span></div>
+          </div>
+
+          <h3 style="margin-top:8px;">Parc matériel sur site (impact annuel)</h3>
+          <div class="kpi-grid">
+            <div class="kpi-card kpi-card--highlight">
+              <div class="kpi-card__label">Empreinte carbone totale évitée</div>
+              <div class="kpi-card__value" id="kpiTotalCo2An">77 490<span class="kpi-card__unit">kg CO₂/an</span></div>
+            </div>
+          </div>
+          <div class="kpi-breakdown">
+            <div class="kpi-card kpi-card--small">
+              <div class="kpi-card__label">Dont Cloud (usage)</div>
+              <div class="kpi-card__value kpi-card__value--sm" id="kpiCloudCo2An">48 000 kg</div>
+            </div>
+            <div class="kpi-card kpi-card--small">
+              <div class="kpi-card__label">Dont parc sur site</div>
+              <div class="kpi-card__value kpi-card__value--sm" id="kpiParcCo2An">29 490 kg</div>
+            </div>
+          </div>
+          <div class="calc-detail" aria-label="Détail parc matériel">
+            <div class="calc-detail__title">Détail parc sur site (annuel)</div>
+            <div class="calc-detail__row"><span>Énergie parc évitée</span><span id="dParcEnergy">58 800 kWh</span></div>
+            <div class="calc-detail__row"><span>CO₂ usage évité (énergie)</span><span id="dParcUsage">3 240 kg</span></div>
+            <div class="calc-detail__row"><span>CO₂ fabrication évité (durée de vie)</span><span id="dParcFab">26 250 kg</span></div>
+            <div class="calc-detail__row calc-detail__row--total"><span>Total parc évité / an</span><span id="dParcTotal">29 490 kg</span></div>
+          </div>
+
+          <h3 style="margin-top:8px;">Recommandations</h3>
+          <div class="reco-list" id="recoList"></div>
+
+          <div class="report-actions" style="margin-top:20px;">
+            <button class="btn btn--primary" id="genReport" type="button" style="flex:1; justify-content:center;">Générer la synthèse</button>
+            <button class="btn btn--secondary" id="printReport" type="button">Imprimer / PDF</button>
+          </div>
+
+          <div class="report-box" id="reportBox" aria-live="polite"></div>
+
+          <div class="methodology" style="margin-top:20px;">
+            <strong>Note méthodologique</strong> (norme SCI / ISO 21031, PUE, mix électrique)&nbsp;:<br>
+            Budget Hors-Prod = Budget × (Hors-Prod / 100)<br>
+            Gain extinction = Budget Hors-Prod × (Heures / 168)<br>
+            Gain rightsizing = Budget Hors-Prod restant × (Rightsizing / 100)<br>
+            Gain stockage = Budget × (Stockage / 100) · Gain logs = Budget × (Logs / 100)<br>
+            Énergie (kWh) = Économie totale € / coût énergétique <code>(proxy FinOps)</code><br>
+            CO₂ (kg) = Énergie × PUE × Facteur Grid
+            <p class="source-note">Sources&nbsp;: facteurs d'émission RTE/ADEME (France 0,05 · Europe 0,23 · Monde 0,35 kgCO₂/kWh) · PUE moyen data center 1,1–1,3 (Uptime Institute) · croissance coûts cloud Flexera 2024. Le coût énergétique est un proxy FinOps reliant dépense cloud et énergie, non une mesure de compteur.</p>
+          </div>
+        </div>
+      </div>
+
+      <section class="cta-section">
+        <h2>Ces données vous interpellent&nbsp;?</h2>
+        <p>Passez de la simulation à la réalité avec SylvaOps Consulting.</p>
+        <button class="btn btn--primary" id="openModal" type="button">Organiser un Audit Gratuit de 30 min</button>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    SylvaOps Consulting · Projet M1 MCSI · 2025–2026
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal">
+      <button class="modal__close" id="closeModal" type="button" aria-label="Fermer la modale">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <div class="modal__form" id="modalForm">
+        <h3 id="modalTitle">Audit Gratuit de 30 min</h3>
+        <p class="modal__desc">Laissez vos coordonnées, un consultant SylvaOps vous recontactera sous 24 h.</p>
+        <form id="contactForm" novalidate>
+          <div class="form-group">
+            <label for="contactName">Nom</label>
+            <input type="text" id="contactName" name="name" required autocomplete="name">
+            <span class="form-error" id="errorName">Veuillez saisir votre nom.</span>
+          </div>
+          <div class="form-group">
+            <label for="contactEmail">Email</label>
+            <input type="email" id="contactEmail" name="email" required autocomplete="email">
+            <span class="form-error" id="errorEmail">Veuillez saisir un email valide.</span>
+          </div>
+          <div class="form-group">
+            <label for="contactCompany">Entreprise</label>
+            <input type="text" id="contactCompany" name="company" required autocomplete="organization">
+            <span class="form-error" id="errorCompany">Veuillez saisir votre entreprise.</span>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="contactConsent" name="consent" required>
+            <label for="contactConsent">J'accepte que mes données soient utilisées par SylvaOps Consulting pour être recontacté(e). Conformément au RGPD, elles ne seront ni cédées ni conservées au-delà du traitement de ma demande.</label>
+          </div>
+          <span class="form-error" id="errorConsent" style="margin-top:-8px; margin-bottom:12px;">Veuillez accepter la politique de confidentialité.</span>
+          <button type="submit" class="btn btn--primary modal__submit">Envoyer ma demande</button>
+        </form>
+      </div>
+      <div class="modal__success" id="modalSuccess">
+        <div class="modal__success-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h3>Demande envoyée&nbsp;!</h3>
+        <p class="modal__desc">Merci pour votre intérêt. Un consultant SylvaOps vous contactera très prochainement.</p>
+        <button class="btn btn--secondary" id="closeSuccess" type="button">Fermer</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var GRID_FACTORS = { france: 0.05, europe: 0.23, monde: 0.35 };
+      var GRID_LABELS = { france: 'France (mix décarboné)', europe: 'Europe (mix moyen)', monde: 'Monde (mix carboné)' };
+      var LOGO_LIGHT = 'logo/logoblackc.png';
+      var LOGO_DARK = 'logo/logowhite.png';
+      var lastResult = null;
+
+      /* ── Theme ── */
+      var themeToggle = document.getElementById('themeToggle');
+      var logoImages = document.querySelectorAll('[data-logo]');
+
+      function isDarkTheme() {
+        return document.documentElement.getAttribute('data-theme') === 'dark';
+      }
+
+      function applyTheme(theme) {
+        var dark = theme === 'dark';
+        if (dark) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+        logoImages.forEach(function (img) {
+          img.src = dark ? LOGO_DARK : LOGO_LIGHT;
+        });
+        themeToggle.setAttribute('aria-pressed', dark);
+        themeToggle.setAttribute('aria-label', dark ? 'Activer le mode clair' : 'Activer le mode sombre');
+        localStorage.setItem('sylvaops-theme', theme);
+      }
+
+      applyTheme(isDarkTheme() ? 'dark' : 'light');
+
+      themeToggle.addEventListener('click', function () {
+        applyTheme(isDarkTheme() ? 'light' : 'dark');
+      });
+
+      /* ── Routing ── */
+      var pages = { accueil: document.getElementById('page-accueil'), simulateur: document.getElementById('page-simulateur') };
+      var navLinks = document.querySelectorAll('[data-page]');
+
+      function showPage(name) {
+        Object.keys(pages).forEach(function (key) {
+          pages[key].classList.toggle('page--active', key === name);
+        });
+        document.querySelectorAll('.nav__link[data-page]').forEach(function (link) {
+          link.classList.toggle('nav__link--active', link.getAttribute('data-page') === name);
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (name === 'simulateur') calculate();
+      }
+
+      navLinks.forEach(function (el) {
+        el.addEventListener('click', function () {
+          var page = el.getAttribute('data-page');
+          if (page) showPage(page);
+          document.getElementById('nav').classList.remove('open');
+          document.getElementById('menuToggle').setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      document.getElementById('logoHome').addEventListener('click', function () { showPage('accueil'); });
+
+      /* ── Calculator ── */
+      var els = {
+        budget: document.getElementById('budget'),
+        horsProd: document.getElementById('horsProd'),
+        envCount: document.getElementById('envCount'),
+        extinction: document.getElementById('extinction'),
+        rightsizing: document.getElementById('rightsizing'),
+        stockage: document.getElementById('stockage'),
+        logs: document.getElementById('logs'),
+        computeShare: document.getElementById('computeShare'),
+        datacenter: document.getElementById('datacenter'),
+        pue: document.getElementById('pue'),
+        energyCost: document.getElementById('energyCost'),
+        siteLocation: document.getElementById('siteLocation'),
+        nbPostes: document.getElementById('nbPostes'),
+        consoPoste: document.getElementById('consoPoste'),
+        reductionPostes: document.getElementById('reductionPostes'),
+        nbServeurs: document.getElementById('nbServeurs'),
+        consoServeur: document.getElementById('consoServeur'),
+        reductionServeurs: document.getElementById('reductionServeurs'),
+        empreintePoste: document.getElementById('empreintePoste'),
+        empreinteServeur: document.getElementById('empreinteServeur'),
+        dureeActuelle: document.getElementById('dureeActuelle'),
+        dureeCible: document.getElementById('dureeCible'),
+        investissement: document.getElementById('investissement')
+      };
+
+      var displays = {
+        budget: document.getElementById('budgetDisplay'),
+        horsProd: document.getElementById('horsProdDisplay'),
+        envCount: document.getElementById('envCountDisplay'),
+        extinction: document.getElementById('extinctionDisplay'),
+        rightsizing: document.getElementById('rightsizingDisplay'),
+        stockage: document.getElementById('stockageDisplay'),
+        logs: document.getElementById('logsDisplay'),
+        computeShare: document.getElementById('computeShareDisplay'),
+        pue: document.getElementById('pueDisplay'),
+        energyCost: document.getElementById('energyCostDisplay'),
+        reductionPostes: document.getElementById('reductionPostesDisplay'),
+        reductionServeurs: document.getElementById('reductionServeursDisplay'),
+        dureeActuelle: document.getElementById('dureeActuelleDisplay'),
+        dureeCible: document.getElementById('dureeCibleDisplay'),
+        investissement: document.getElementById('investissementDisplay')
+      };
+
+      var fills = {
+        horsProd: document.getElementById('horsProdFill'),
+        envCount: document.getElementById('envCountFill'),
+        extinction: document.getElementById('extinctionFill'),
+        rightsizing: document.getElementById('rightsizingFill'),
+        stockage: document.getElementById('stockageFill'),
+        logs: document.getElementById('logsFill'),
+        computeShare: document.getElementById('computeShareFill'),
+        pue: document.getElementById('pueFill'),
+        energyCost: document.getElementById('energyCostFill'),
+        reductionPostes: document.getElementById('reductionPostesFill'),
+        reductionServeurs: document.getElementById('reductionServeursFill'),
+        dureeActuelle: document.getElementById('dureeActuelleFill'),
+        dureeCible: document.getElementById('dureeCibleFill')
+      };
+
+      var detail = {
+        budgetHP: document.getElementById('dBudgetHP'),
+        factorExt: document.getElementById('dFactorExt'),
+        gainExt: document.getElementById('dGainExt'),
+        gainOptim: document.getElementById('dGainOptim'),
+        total: document.getElementById('dTotal'),
+        pctReduction: document.getElementById('dPctReduction'),
+        energy: document.getElementById('dEnergy'),
+        co2: document.getElementById('dCo2'),
+        parcEnergy: document.getElementById('dParcEnergy'),
+        parcUsage: document.getElementById('dParcUsage'),
+        parcFab: document.getElementById('dParcFab'),
+        parcTotal: document.getElementById('dParcTotal')
+      };
+
+      var parcKpis = {
+        totalCo2An: document.getElementById('kpiTotalCo2An'),
+        cloudCo2An: document.getElementById('kpiCloudCo2An'),
+        parcCo2An: document.getElementById('kpiParcCo2An')
+      };
+
+      var recoList = document.getElementById('recoList');
+
+      var kpis = {
+        financial: document.getElementById('kpiFinancial'),
+        extinction: document.getElementById('kpiExtinction'),
+        optim: document.getElementById('kpiOptim'),
+        carbon: document.getElementById('kpiCarbon'),
+        energy: document.getElementById('kpiEnergy'),
+        annual: document.getElementById('kpiAnnual'),
+        roi: document.getElementById('kpiRoi')
+      };
+
+      function formatNumber(n) { return Math.round(n).toLocaleString('fr-FR'); }
+
+      function updateSliderFill(slider, fillEl) {
+        var pct = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
+        fillEl.style.width = pct + '%';
+      }
+
+      function setKpiUpdating() {
+        Object.keys(kpis).forEach(function (k) {
+          var el = kpis[k];
+          if (el.classList) el.classList.add('updating');
+        });
+      }
+
+      function euro(n) { return formatNumber(n) + ' €'; }
+
+      function renderReco(r) {
+        var items = [
+          { on: r.economieExtinction > 0, title: 'Extinction automatique des environnements non-prod',
+            desc: r.extinction + ' h/semaine sur ' + r.envCount + ' environnements DEV/TEST',
+            gain: euro(r.economieExtinction) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
+          { on: r.economieRightsizing > 0, title: 'Rightsizing des instances hors-production',
+            desc: 'Ajustement de ' + r.rightsizing + ' % des ressources sur-dimensionnées',
+            gain: euro(r.economieRightsizing) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
+          { on: r.economieStockage > 0, title: 'Optimisation du stockage',
+            desc: 'Tiering et nettoyage : ' + r.stockage + ' % du budget stockage',
+            gain: euro(r.economieStockage) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
+          { on: r.economieLogs > 0, title: 'Rationalisation des logs & monitoring',
+            desc: 'Politique de rétention : ' + r.logs + ' % du budget',
+            gain: euro(r.economieLogs) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
+          { on: r.co2Fabrication > 0, title: 'Allonger la durée de vie du matériel',
+            desc: 'Passage de ' + r.dureeActuelle + ' à ' + r.dureeCible + ' ans (postes + serveurs)',
+            gain: formatNumber(r.co2Fabrication) + '<span style="font-size:0.7rem; font-weight:500;"> kg CO₂/an</span>' },
+          { on: r.co2ParcUsage > 0, title: 'Réduire la consommation du parc sur site',
+            desc: 'Veille/extinction postes + consolidation serveurs',
+            gain: formatNumber(r.co2ParcUsage) + '<span style="font-size:0.7rem; font-weight:500;"> kg CO₂/an</span>' }
+        ];
+        recoList.innerHTML = items.map(function (it) {
+          return '<div class="reco-card' + (it.on ? '' : ' reco-card--off') + '">' +
+            '<div class="reco-card__text"><h4>' + it.title + '</h4><p>' + it.desc + '</p></div>' +
+            '<div class="reco-card__gain">' + it.gain + '</div>' +
+            '</div>';
+        }).join('');
+      }
+
+      function calculate() {
+        var budget = Math.max(0, parseFloat(els.budget.value) || 0);
+        var horsProd = parseFloat(els.horsProd.value);
+        var envCount = parseFloat(els.envCount.value);
+        var extinction = parseFloat(els.extinction.value);
+        var rightsizing = parseFloat(els.rightsizing.value);
+        var stockage = parseFloat(els.stockage.value);
+        var logs = parseFloat(els.logs.value);
+        var pue = parseFloat(els.pue.value) / 10;
+        var energyCost = parseFloat(els.energyCost.value) / 100;
+        var investissement = Math.max(0, parseFloat(els.investissement.value) || 0);
+        var gridFactor = GRID_FACTORS[els.datacenter.value];
+
+        var computeShare = parseFloat(els.computeShare.value);
+        var facteurExtinction = extinction / 168;
+        var budgetHorsProd = budget * (horsProd / 100);
+        var budgetCompute = budgetHorsProd * (computeShare / 100);
+        var economieExtinction = budgetCompute * facteurExtinction;
+        var budgetComputeRestant = budgetCompute - economieExtinction;
+        var economieRightsizing = budgetComputeRestant * (rightsizing / 100);
+        var economieStockage = budget * (stockage / 100);
+        var economieLogs = budget * (logs / 100);
+        var economieOptim = economieRightsizing + economieStockage + economieLogs;
+        var economieTotale = economieExtinction + economieOptim;
+        var economieEnergie = energyCost > 0 ? economieTotale / energyCost : 0;
+        var economieCarbone = economieEnergie * pue * gridFactor;
+        var economieAnnuelle = economieTotale * 12;
+        var pctReduction = budget > 0 ? (economieTotale / budget * 100) : 0;
+
+        /* ── Parc matériel sur site (annuel) ── */
+        var nbPostes = Math.max(0, parseFloat(els.nbPostes.value) || 0);
+        var consoPoste = Math.max(0, parseFloat(els.consoPoste.value) || 0);
+        var reductionPostes = parseFloat(els.reductionPostes.value);
+        var nbServeurs = Math.max(0, parseFloat(els.nbServeurs.value) || 0);
+        var consoServeur = Math.max(0, parseFloat(els.consoServeur.value) || 0);
+        var reductionServeurs = parseFloat(els.reductionServeurs.value);
+        var empreintePoste = Math.max(0, parseFloat(els.empreintePoste.value) || 0);
+        var empreinteServeur = Math.max(0, parseFloat(els.empreinteServeur.value) || 0);
+        var dureeActuelle = Math.max(1, parseFloat(els.dureeActuelle.value) || 1);
+        var dureeCible = Math.max(1, parseFloat(els.dureeCible.value) || 1);
+
+        var siteGridFactor = GRID_FACTORS[els.siteLocation.value];
+        var energiePostesEvitee = nbPostes * consoPoste * (reductionPostes / 100);
+        var energieServeursEvitee = nbServeurs * consoServeur * (reductionServeurs / 100);
+        var energieParcEvitee = energiePostesEvitee + energieServeursEvitee;
+        var co2PostesUsage = energiePostesEvitee * siteGridFactor;
+        var co2ServeursUsage = energieServeursEvitee * pue * siteGridFactor;
+        var co2ParcUsage = co2PostesUsage + co2ServeursUsage;
+        var deltaDuree = (dureeCible > dureeActuelle) ? (1 / dureeActuelle - 1 / dureeCible) : 0;
+        var co2Fabrication = (nbPostes * empreintePoste + nbServeurs * empreinteServeur) * deltaDuree;
+        var co2ParcAnnuel = co2ParcUsage + co2Fabrication;
+        var co2CloudAnnuel = economieCarbone * 12;
+        var co2TotalAnnuel = co2CloudAnnuel + co2ParcAnnuel;
+
+        var roiText = 'Instantané';
+        var roiMonths = 0;
+        if (investissement > 0 && economieTotale > 0) {
+          roiMonths = investissement / economieTotale;
+          roiText = (Math.round(roiMonths * 10) / 10).toLocaleString('fr-FR') + ' mois';
+        }
+
+        displays.budget.textContent = formatNumber(budget) + ' €';
+        displays.horsProd.textContent = horsProd + ' %';
+        displays.envCount.textContent = envCount;
+        displays.extinction.textContent = extinction + ' h';
+        displays.rightsizing.textContent = rightsizing + ' %';
+        displays.stockage.textContent = stockage + ' %';
+        displays.logs.textContent = logs + ' %';
+        displays.computeShare.textContent = computeShare + ' %';
+        displays.pue.textContent = pue.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        displays.energyCost.textContent = energyCost.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        displays.reductionPostes.textContent = reductionPostes + ' %';
+        displays.reductionServeurs.textContent = reductionServeurs + ' %';
+        displays.dureeActuelle.textContent = dureeActuelle + ' ans';
+        displays.dureeCible.textContent = dureeCible + ' ans';
+        displays.investissement.textContent = formatNumber(investissement) + ' €';
+
+        Object.keys(fills).forEach(function (key) { updateSliderFill(els[key], fills[key]); });
+
+        lastResult = {
+          budget: budget, horsProd: horsProd, envCount: envCount, extinction: extinction,
+          rightsizing: rightsizing, stockage: stockage, logs: logs, pue: pue,
+          energyCost: energyCost, investissement: investissement,
+          gridLabel: GRID_LABELS[els.datacenter.value], gridFactor: gridFactor,
+          computeShare: computeShare, pctReduction: pctReduction,
+          siteLabel: GRID_LABELS[els.siteLocation.value],
+          budgetHorsProd: budgetHorsProd, facteurExtinction: facteurExtinction,
+          economieExtinction: economieExtinction, economieRightsizing: economieRightsizing,
+          economieStockage: economieStockage, economieLogs: economieLogs, economieOptim: economieOptim,
+          economieTotale: economieTotale, economieEnergie: economieEnergie,
+          economieCarbone: economieCarbone, economieAnnuelle: economieAnnuelle,
+          roiText: roiText, roiMonths: roiMonths,
+          nbPostes: nbPostes, nbServeurs: nbServeurs, dureeActuelle: dureeActuelle, dureeCible: dureeCible,
+          energieParcEvitee: energieParcEvitee, co2ParcUsage: co2ParcUsage, co2Fabrication: co2Fabrication,
+          co2ParcAnnuel: co2ParcAnnuel, co2CloudAnnuel: co2CloudAnnuel, co2TotalAnnuel: co2TotalAnnuel
+        };
+
+        detail.budgetHP.textContent = euro(budgetHorsProd);
+        detail.factorExt.textContent = facteurExtinction.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        detail.gainExt.textContent = euro(economieExtinction);
+        detail.gainOptim.textContent = euro(economieOptim);
+        detail.total.textContent = euro(economieTotale);
+        detail.pctReduction.textContent = (Math.round(pctReduction * 10) / 10).toLocaleString('fr-FR') + ' %';
+        detail.energy.textContent = formatNumber(economieEnergie) + ' kWh';
+        detail.co2.textContent = formatNumber(economieCarbone) + ' kg';
+        detail.parcEnergy.textContent = formatNumber(energieParcEvitee) + ' kWh';
+        detail.parcUsage.textContent = formatNumber(co2ParcUsage) + ' kg';
+        detail.parcFab.textContent = formatNumber(co2Fabrication) + ' kg';
+        detail.parcTotal.textContent = formatNumber(co2ParcAnnuel) + ' kg';
+
+        parcKpis.totalCo2An.innerHTML = formatNumber(co2TotalAnnuel) + '<span class="kpi-card__unit">kg CO₂/an</span>';
+        parcKpis.cloudCo2An.textContent = formatNumber(co2CloudAnnuel) + ' kg';
+        parcKpis.parcCo2An.textContent = formatNumber(co2ParcAnnuel) + ' kg';
+
+        renderReco(lastResult);
+
+        setKpiUpdating();
+        requestAnimationFrame(function () {
+          kpis.financial.innerHTML = formatNumber(economieTotale) + '<span class="kpi-card__unit">€/mois</span>';
+          kpis.extinction.textContent = formatNumber(economieExtinction) + ' €';
+          kpis.optim.textContent = formatNumber(economieOptim) + ' €';
+          kpis.carbon.innerHTML = formatNumber(economieCarbone) + '<span class="kpi-card__unit">kg CO₂/mois</span>';
+          kpis.energy.innerHTML = formatNumber(economieEnergie) + '<span class="kpi-card__unit">kWh/mois</span>';
+          kpis.annual.innerHTML = formatNumber(economieAnnuelle) + '<span class="kpi-card__unit">€/an</span>';
+          kpis.roi.textContent = roiText;
+          Object.keys(kpis).forEach(function (k) {
+            if (kpis[k].classList) kpis[k].classList.remove('updating');
+          });
+        });
+      }
+
+      Object.keys(els).forEach(function (key) {
+        els[key].addEventListener('input', calculate);
+        els[key].addEventListener('change', calculate);
+      });
+
+      /* ── Presets ── */
+      var presetBtns = document.querySelectorAll('.preset-btn');
+      function setActivePreset(id) {
+        presetBtns.forEach(function (b) { b.classList.toggle('preset-btn--active', b.id === id); });
+      }
+      function applyPreset(cfg) {
+        Object.keys(cfg).forEach(function (k) { if (els[k]) els[k].value = cfg[k]; });
+        calculate();
+      }
+      var PARC_DEFAULTS = { siteLocation: 'france', nbPostes: 1200, consoPoste: 120, reductionPostes: 20, nbServeurs: 50, consoServeur: 4000, reductionServeurs: 15, empreintePoste: 200, empreinteServeur: 1500, dureeActuelle: 4, dureeCible: 6 };
+      function withParc(cfg) { for (var k in PARC_DEFAULTS) { cfg[k] = PARC_DEFAULTS[k]; } return cfg; }
+
+      document.getElementById('presetCdc').addEventListener('click', function () {
+        applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 84, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 140000 }));
+        setActivePreset('presetCdc');
+      });
+      document.getElementById('presetBusiness').addEventListener('click', function () {
+        applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 52, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 86700 }));
+        setActivePreset('presetBusiness');
+      });
+      document.getElementById('presetReset').addEventListener('click', function () {
+        applyPreset(withParc({ budget: 50000, horsProd: 40, envCount: 12, extinction: 84, computeShare: 100, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, energyCost: 15, investissement: 0 }));
+        setActivePreset('presetReset');
+      });
+
+      /* ── Mode simple / détaillé ── */
+      var modeToggle = document.getElementById('modeToggle');
+      var advancedParams = document.querySelectorAll('.advanced-params');
+      var detailedMode = false;
+      modeToggle.addEventListener('click', function () {
+        detailedMode = !detailedMode;
+        advancedParams.forEach(function (el) { el.classList.toggle('visible', detailedMode); });
+        modeToggle.classList.toggle('preset-btn--active', detailedMode);
+        modeToggle.textContent = detailedMode ? 'Mode simple' : 'Mode détaillé';
+      });
+
+      /* ── Rapport de synthèse ── */
+      var reportBox = document.getElementById('reportBox');
+      document.getElementById('genReport').addEventListener('click', function () {
+        if (!lastResult) calculate();
+        var r = lastResult;
+        reportBox.innerHTML =
+          '<h4>Synthèse décisionnelle — SylvaOps Consulting</h4>' +
+          '<p>Sur un budget Cloud mensuel de <strong>' + euro(r.budget) + '</strong>, dont <strong>' + r.horsProd +
+          ' %</strong> hors-production (' + r.envCount + ' environnements DEV/TEST), la démarche GreenOps permet une économie estimée à <strong>' +
+          euro(r.economieTotale) + ' par mois</strong>, soit <strong>' + euro(r.economieAnnuelle) + ' par an</strong>' +
+          (r.budget > 0 ? ' (' + (Math.round(r.economieTotale / r.budget * 1000) / 10).toLocaleString('fr-FR') + ' % du budget)' : '') + '.</p>' +
+          '<p>Répartition&nbsp;: extinction automatique <strong>' + euro(r.economieExtinction) + '</strong> (part compute planifiable ' + r.computeShare +
+          ' %), optimisations (rightsizing, stockage, logs) <strong>' + euro(r.economieOptim) + '</strong>.</p>' +
+          '<p>Impact environnemental Cloud&nbsp;: <strong>' + formatNumber(r.economieEnergie) + ' kWh/mois</strong> économisés, soit <strong>' +
+          formatNumber(r.economieCarbone) + ' kg CO₂/mois</strong> évités (' + r.gridLabel + ', PUE ' +
+          r.pue.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ', norme SCI).</p>' +
+          '<p>Parc matériel sur site (' + formatNumber(r.nbPostes) + ' postes, ' + formatNumber(r.nbServeurs) + ' serveurs)&nbsp;: <strong>' +
+          formatNumber(r.co2ParcAnnuel) + ' kg CO₂/an</strong> évités, dont <strong>' + formatNumber(r.co2Fabrication) +
+          ' kg</strong> grâce à l\'allongement de la durée de vie (' + r.dureeActuelle + ' → ' + r.dureeCible + ' ans).</p>' +
+          '<p><strong>Empreinte carbone totale évitée&nbsp;: ' + formatNumber(r.co2TotalAnnuel) + ' kg CO₂/an</strong> (Cloud ' +
+          formatNumber(r.co2CloudAnnuel) + ' kg + parc ' + formatNumber(r.co2ParcAnnuel) + ' kg).</p>' +
+          '<p>Retour sur investissement&nbsp;: pour un investissement projet de <strong>' + euro(r.investissement) +
+          '</strong>, le ROI est atteint en <strong>' + r.roiText + '</strong>.</p>' +
+          '<p style="font-size:0.75rem; color:var(--ink-light);">Estimation indicative basée sur des hypothèses paramétrables et des facteurs publics (RTE/ADEME, Flexera, Uptime Institute). Un audit réel est requis pour un chiffrage définitif.</p>';
+        reportBox.classList.add('visible');
+        reportBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      });
+      document.getElementById('printReport').addEventListener('click', function () {
+        if (!reportBox.classList.contains('visible')) document.getElementById('genReport').click();
+        window.print();
+      });
+
+      calculate();
+
+      /* ── Mobile menu ── */
+      var menuToggle = document.getElementById('menuToggle');
+      var nav = document.getElementById('nav');
+      menuToggle.addEventListener('click', function () {
+        var open = nav.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', open);
+        menuToggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      });
+
+      /* ── Modal ── */
+      var overlay = document.getElementById('modalOverlay');
+      var openBtns = [document.getElementById('openModal'), document.getElementById('openModalNav'), document.getElementById('openModalHero')];
+      var closeBtn = document.getElementById('closeModal');
+      var closeSuccessBtn = document.getElementById('closeSuccess');
+      var form = document.getElementById('contactForm');
+      var modalForm = document.getElementById('modalForm');
+      var modalSuccess = document.getElementById('modalSuccess');
+
+      function openModalFn() {
+        resetModal();
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        document.getElementById('contactName').focus();
+      }
+
+      function closeModalFn() {
+        overlay.classList.remove('active');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      function resetModal() {
+        form.reset();
+        modalForm.classList.remove('hidden');
+        modalSuccess.classList.remove('visible');
+        form.querySelectorAll('.error').forEach(function (el) { el.classList.remove('error'); });
+        form.querySelectorAll('.form-error').forEach(function (el) { el.classList.remove('visible'); });
+      }
+
+      openBtns.forEach(function (btn) {
+        if (btn) btn.addEventListener('click', openModalFn);
+      });
+      closeBtn.addEventListener('click', function () { closeModalFn(); resetModal(); });
+      closeSuccessBtn.addEventListener('click', function () { closeModalFn(); resetModal(); });
+      overlay.addEventListener('click', function (e) { if (e.target === overlay) { closeModalFn(); resetModal(); } });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) { closeModalFn(); resetModal(); }
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var valid = true;
+        var fields = [
+          { el: document.getElementById('contactName'), err: document.getElementById('errorName') },
+          { el: document.getElementById('contactEmail'), err: document.getElementById('errorEmail'), email: true },
+          { el: document.getElementById('contactCompany'), err: document.getElementById('errorCompany') }
+        ];
+        fields.forEach(function (f) {
+          var v = f.el.value.trim();
+          var ok = v.length > 0;
+          if (ok && f.email) ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+          f.el.classList.toggle('error', !ok);
+          f.err.classList.toggle('visible', !ok);
+          if (!ok) valid = false;
+        });
+        var consent = document.getElementById('contactConsent');
+        var consentOk = consent.checked;
+        document.getElementById('errorConsent').classList.toggle('visible', !consentOk);
+        if (!consentOk) valid = false;
+        if (valid) {
+          modalForm.classList.add('hidden');
+          modalSuccess.classList.add('visible');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
