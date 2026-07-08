@@ -10,11 +10,13 @@ Document de référence méthodologique du simulateur FinOps & Green IT (`index.
 Le simulateur est un **outil d'aide à la décision** (preuve de concept) qui estime, à partir de paramètres d'infrastructure Cloud :
 
 1. l'**économie financière** générée par une démarche GreenOps (€/mois et €/an) ;
-2. l'**énergie économisée** (kWh/mois) ;
-3. les **émissions de CO₂ évitées** (kg CO₂/mois) ;
-4. le **retour sur investissement** (ROI, en mois).
+2. l'**énergie économisée** (kWh/mois) et les **émissions de CO₂ évitées** (kg CO₂/mois), côté cloud **et** parc matériel sur site ;
+3. le **retour sur investissement net** (ROI en mois) et la **VAN** (valeur actuelle nette sur 3 ans) ;
+4. des **recommandations** et une **synthèse décisionnelle imprimable**.
 
-Tous les résultats sont recalculés **en temps réel** à chaque modification d'un paramètre (événements `input` et `change` sur chaque champ). Aucune donnée n'est envoyée à un serveur : 100 % du calcul s'exécute dans le navigateur.
+Tous les résultats sont recalculés **en temps réel** à chaque modification d'un paramètre (événements `input` et `change` sur chaque champ). Aucune donnée n'est envoyée à un serveur : 100 % du calcul s'exécute dans le navigateur (application 100 % côté client).
+
+> Ce document est la **documentation de référence complète** du site : glossaire (§10), technologies (§11), architecture (§12), fonctionnalités (§13), déploiement (§14) et préparation à la soutenance (§15) — en plus de la logique de calcul détaillée (§2 à §9).
 
 ---
 
@@ -334,4 +336,193 @@ CO₂_total_fourchette : somme des bornes cloud (± 50 %) et parc (± 25 %)
 - **groupe-sncf.com** — résultats financiers annuels 2024/2025 : CA ~43 Md€, 284 000 collaborateurs.
   https://www.groupe-sncf.com/medias-publics/2026-02/cp-resultats-financiers-annuels-2025-groupe-sncf.pdf
 
-> ⚠️ Le budget cloud (~167 k€/mois) et le parc sur site sont des **hypothèses posées** par calibrage, non des données publiées. À valider avec le client avant tout usage réel.
+> ⚠️ Le budget cloud (~200 k€/mois) et le parc sur site sont des **hypothèses posées**, non des données publiées. À valider avec le client avant tout usage réel.
+
+---
+
+## 10. Glossaire des acronymes et termes clés
+
+À connaître par cœur pour la soutenance.
+
+### Domaines & concepts
+
+| Terme | Signification | Explication simple |
+|-------|---------------|--------------------|
+| **FinOps** | *Financial Operations* | Discipline de gestion et d'optimisation **financière** du Cloud : rendre visible et maîtriser la dépense cloud, éliminer le gaspillage. |
+| **Green IT** | *Green Information Technology* | Démarche visant à réduire l'**impact environnemental** du numérique (énergie, CO₂, matériel). |
+| **GreenOps** | *Green Operations* | Fusion FinOps + Green IT : optimiser **coûts ET carbone** dans une même démarche opérationnelle. C'est le positionnement de SylvaOps. |
+| **POC** | *Proof of Concept* (preuve de concept) | Prototype qui démontre la faisabilité et la valeur d'une idée, sans être un produit fini. Le simulateur en est un. |
+| **KPI** | *Key Performance Indicator* | Indicateur clé de performance : un chiffre-repère (ex. €/mois économisés). |
+| **ROI** | *Return On Investment* (retour sur investissement) | Temps nécessaire pour que les économies remboursent l'investissement initial. Ici en **mois**. |
+| **VAN** | Valeur Actuelle Nette (*NPV* en anglais) | Somme des gains futurs **actualisés** (ramenés à leur valeur d'aujourd'hui) moins l'investissement. VAN > 0 = projet rentable. |
+| **Hors-prod / Non-prod** | Environnements de non-production | Environnements de **développement, test, recette** — par opposition à la **production** (le service réellement utilisé par les clients). Ils peuvent être éteints la nuit/week-end. |
+| **Rightsizing** | Dimensionnement juste | Ajuster la taille des ressources cloud à leur usage réel (arrêter de surpayer des machines surdimensionnées). |
+| **Embodied carbon** | Carbone de fabrication (incorporé) | CO₂ émis pour **fabriquer** un équipement (extraction, production, transport), amorti sur sa durée de vie — indépendant de son usage. |
+
+### Technique cloud & énergie
+
+| Terme | Signification | Explication simple |
+|-------|---------------|--------------------|
+| **vCPU** | *virtual CPU* (processeur virtuel) | Unité de calcul cloud = une fraction d'un cœur physique louée à l'heure. |
+| **vCPU-heure** | — | Une vCPU utilisée pendant une heure. Unité de base pour estimer énergie et coût du compute. |
+| **Compute** | Ressources de calcul | La partie « processeur » de la facture cloud (machines/instances), par opposition au stockage et au réseau. |
+| **PUE** | *Power Usage Effectiveness* | Efficacité énergétique d'un data center = énergie totale ÷ énergie IT utile. 1,0 = parfait ; 1,2 = efficient ; 2,0 = médiocre. |
+| **Facteur d'émission (grid factor)** | — | Quantité de CO₂ émise par kWh d'électricité, selon le mix électrique du pays (France 0,05 · Europe 0,23 · Monde 0,35 kg CO₂/kWh). |
+| **SCI** | *Software Carbon Intensity* (ISO 21031) | Norme de mesure de l'empreinte carbone d'un logiciel : énergie × PUE × facteur d'émission. |
+| **Cloud Carbon Footprint** | — | Méthodologie/outil open source de référence pour estimer le carbone du cloud à partir de l'usage (vCPU, mémoire…). |
+| **Boavizta** | — | Association fournissant des données ouvertes sur l'empreinte environnementale du matériel numérique. |
+
+### Normes, réglementations & organismes
+
+| Terme | Signification | Explication simple |
+|-------|---------------|--------------------|
+| **RGPD** | Règlement Général sur la Protection des Données | Loi européenne sur les données personnelles. Ici : consentement explicite avant tout contact. |
+| **Loi REEN** | Réduction de l'Empreinte Environnementale du Numérique (2021) | Loi française poussant les organisations vers un numérique plus sobre. |
+| **CSRD** | *Corporate Sustainability Reporting Directive* | Directive européenne imposant aux entreprises un **reporting extra-financier** (dont l'empreinte carbone). |
+| **RGESN** | Référentiel Général d'Écoconception de Services Numériques | Référentiel officiel de bonnes pratiques d'écoconception web. |
+| **ADEME** | Agence de la transition écologique | Source française des facteurs d'émission carbone. |
+| **RTE** | Réseau de Transport d'Électricité | Gestionnaire du réseau électrique français (données sur le mix électrique). |
+| **AIE** | Agence Internationale de l'Énergie | Source des moyennes d'émission mondiales. |
+| **Numérique Responsable (niveau 2)** | Label — | Label attestant d'une démarche structurée de numérique responsable (obtenu par SNCF Connect & Tech). |
+| **MCSI** | Master Conception et Sécurité des Infrastructures (contexte académique) | Le cadre du projet M1. |
+
+---
+
+## 11. Technologies utilisées et choix techniques
+
+### Stack technique
+
+| Techno | Rôle dans le projet | Pourquoi ce choix |
+|--------|---------------------|-------------------|
+| **HTML5** | Structure sémantique (`<header>`, `<section>`, `<nav>`, rôles ARIA). | Standard, accessible, référençable. |
+| **CSS3** | Mise en forme, thème, animations, responsive, styles d'impression. | Puissant sans dépendance externe. |
+| **JavaScript « vanilla » (ES5/ES6)** | Toute l'interactivité et les calculs. | **Aucun framework** : rien à installer, un seul fichier, chargement instantané, pérenne. |
+| **Git + GitHub** | Versionnement du code et hébergement du dépôt. | Historique, collaboration, source de déploiement. |
+| **Vercel** | Hébergement et déploiement continu du site. | Déploiement automatique à chaque `git push`, HTTPS, URL publique gratuite. |
+
+### Points techniques CSS notables
+
+- **Variables CSS (`:root`)** : toutes les couleurs/ombres sont centralisées. Le **mode sombre** ne fait que redéfinir ces variables via `[data-theme="dark"]` → une seule source de vérité.
+- **Flexbox & CSS Grid** : mise en page des cartes, grilles de sections, disposition 2 colonnes du simulateur.
+- **Media queries** : adaptation responsive (points de rupture 900 px et 640 px) → desktop 2 colonnes, mobile empilé, menu burger.
+- **`@media print`** : feuille de style dédiée qui n'imprime que la synthèse (conteneur `#printArea`).
+- **Transitions & `@keyframes`** : animations fluides (apparition, mise à jour des KPI).
+
+### Points techniques JavaScript notables
+
+- **Application 100 % côté client (SPA)** : une seule page HTML, navigation gérée en JS (affichage/masquage des « pages »). Aucun serveur, aucune fuite de données.
+- **`localStorage`** : mémorise le thème choisi (`sylvaops-theme`) entre les visites.
+- **`window.matchMedia('(prefers-color-scheme: dark)')`** : respecte le thème système au premier chargement.
+- **`requestAnimationFrame`** : met à jour les KPI en douceur (animation « updating »).
+- **`Intl` via `toLocaleString('fr-FR')`** : formatage des nombres à la française (espaces milliers, virgule décimale).
+- **Écoute d'événements `input`/`change`** sur chaque champ → recalcul temps réel.
+- **`window.print()` + événement `afterprint`** : génération PDF navigateur puis nettoyage.
+
+---
+
+## 12. Architecture du site
+
+Le site est une **Single-Page Application (SPA)** : un seul fichier `index.html` contenant deux « pages » virtuelles basculées en JavaScript, sans rechargement.
+
+### Navigation
+
+- Barre de navigation fixe (`header`) avec liens **Accueil** / **Simulateur**, bouton **thème** (clair/sombre) et bouton **Audit gratuit**.
+- Menu **burger** sur mobile.
+- Le logo ramène à l'accueil.
+
+### Page 1 — Vitrine (`#page-accueil`)
+
+Enchaînement de sections (fond alterné blanc / gris clair) :
+
+| Section | Contenu | Rôle |
+|---------|---------|------|
+| **Hero** | Titre d'accroche + 2 boutons d'appel à l'action. | Capter l'attention, orienter vers le simulateur. |
+| **Problématique** | 3 cartes : inflation des coûts cloud, environnements sous-utilisés, empreinte carbone. | Poser le problème. |
+| **4 Piliers** | Performance économique, responsabilité environnementale, excellence opérationnelle, sécurité & conformité. | Structurer la promesse. |
+| **À propos** | Présentation du cabinet + expertises (FinOps, Green IT/SCI, automatisation). | Crédibilité. |
+| **Valeurs** | Performance mesurable, sobriété, transparence. | Positionnement. |
+| **Méthode** | 4 étapes : audit, optimisation, automatisation, gouvernance. | Rassurer sur le « comment ». |
+| **Roadmap** | Déroulé de mission progressif. | Concrétiser la mise en œuvre. |
+| **Conformité** | Production préservée, RGPD, Loi REEN & CSRD, traçabilité. | Lever les objections. |
+| **Secteurs** | Références sectorielles (clients fictifs : ENGIE, RATP, Capgemini). | Preuve sociale. |
+| **Témoignages** | Avis clients **fictifs** (mention à assumer). | Preuve sociale. |
+| **CTA final** | Bouton vers le simulateur. | Conversion. |
+
+### Page 2 — Simulateur (`#page-simulateur`)
+
+Disposition **2 colonnes** (desktop) :
+
+- **Colonne gauche — Paramètres** : barre de presets, puis champs regroupés (Infrastructure cloud, Automatisation & extinction, Optimisations, Impact environnemental, Parc matériel sur site, Retour sur investissement).
+- **Colonne droite — Résultats** : KPI temps réel avec fourchettes, blocs de détail (traçabilité), KPI carbone total (cloud + parc), recommandations dynamiques, boutons **Générer la synthèse** / **Imprimer PDF**, note méthodologique.
+
+### Éléments transverses
+
+- **Modale de contact** (formulaire audit gratuit) avec validation et **case de consentement RGPD**, puis écran de confirmation.
+- **Pied de page** (footer).
+- **Conteneur d'impression** `#printArea` (invisible à l'écran).
+
+---
+
+## 13. Fonctionnalités détaillées
+
+| Fonctionnalité | Description | Comment ça marche |
+|----------------|-------------|-------------------|
+| **Navigation SPA** | Basculer Accueil ↔ Simulateur sans rechargement. | JS ajoute/retire la classe `page--active`, remonte en haut de page. |
+| **Mode sombre** | Thème clair/sombre, mémorisé. | Bascule l'attribut `data-theme`, redéfinit les variables CSS, stocke le choix dans `localStorage`, échange les logos clairs/sombres. |
+| **Calcul temps réel** | Chaque curseur/champ met à jour instantanément tous les résultats. | La fonction `calculate()` est appelée à chaque `input`/`change`. |
+| **Curseurs remplis** | La partie « remplie » d'un slider suit sa valeur. | `updateSliderFill()` calcule un pourcentage et colore la piste. |
+| **Presets** | 4 boutons : Cas référence (CDC), Cas business réaliste, Démo SNCF, Réinitialiser. | `applyPreset()` injecte un jeu de valeurs prédéfinies puis recalcule. |
+| **Mode simple / détaillé** | Affiche ou masque les paramètres avancés. | Bascule la classe `visible` sur les `.advanced-params`. |
+| **Fourchettes d'incertitude** | Chaque KPI affiche une plage ± au lieu d'un faux chiffre exact. | Financier ± 15 %, carbone cloud ± 50 %, carbone parc ± 25 %. |
+| **Détail / traçabilité** | Bloc dépliant montrant chaque étape de calcul. | Chaque ligne est mise à jour dans `calculate()`. |
+| **Recommandations dynamiques** | Cartes de leviers, activées/grisées selon les gains. | `renderReco()` génère les cartes selon les résultats. |
+| **Synthèse décisionnelle** | Rapport texte récapitulatif prêt à présenter. | `genReport()` compose un HTML à partir du dernier résultat. |
+| **Impression / PDF** | N'imprime **que** la synthèse (1–2 pages). | Copie la synthèse dans `#printArea`, ajoute la classe `printing`, `window.print()`, nettoyage sur `afterprint`. |
+| **Formulaire de contact + RGPD** | Modale d'audit gratuit avec consentement obligatoire. | Validation côté client, écran de succès (aucune donnée envoyée). |
+| **Responsive** | Adaptation desktop / tablette / mobile. | Media queries + menu burger. |
+| **Accessibilité** | Rôles ARIA, labels, `aria-live` sur la synthèse, navigation clavier. | Attributs sémantiques dans le HTML. |
+| **Note SNCF** | Encadré d'hypothèses affiché uniquement pour le preset SNCF. | Bascule l'attribut `hidden`. |
+
+---
+
+## 14. Déploiement (Git → GitHub → Vercel)
+
+Chaîne de publication en continu :
+
+1. **Développement local** : édition de `index.html`.
+2. **Versionnement** : `git add` + `git commit` enregistrent chaque changement avec un message.
+3. **Publication** : `git push origin main` envoie le code sur **GitHub** (dépôt `rambobo11/sylvaops`).
+4. **Déploiement automatique** : **Vercel** est connecté au dépôt GitHub. À chaque `push`, il reconstruit et met en ligne le site sur une **URL publique HTTPS** en quelques secondes.
+
+Avantages : historique complet, retour arrière possible, mise en ligne sans manipulation manuelle, lien partageable avec le jury/les collègues.
+
+---
+
+## 15. Préparation à la soutenance — questions probables & réponses
+
+**Q : Pourquoi pas de framework (React, etc.) ?**
+R : Le besoin est un POC léger et pérenne. Le HTML/CSS/JS vanilla en un seul fichier se charge instantanément, ne dépend d'aucune bibliothèque à maintenir, et reste 100 % côté client (aucune donnée envoyée). C'est un choix assumé de sobriété — cohérent avec le sujet Green IT.
+
+**Q : D'où viennent vos chiffres / n'est-ce pas du « bullshit » ?**
+R : Chaque résultat est **traçable** (bloc détail), les constantes sont **sourcées** (RTE/ADEME, Uptime Institute, Cloud Carbon Footprint, Boavizta, Flexera), et j'affiche des **fourchettes d'incertitude** plutôt qu'un faux chiffre exact. C'est un outil d'**ordre de grandeur** en avant-vente, pas un audit.
+
+**Q : Pourquoi le carbone cloud est-il si faible face au matériel ?**
+R : Parce que la méthode vCPU-heures est rigoureuse et conservatrice : l'usage cloud opérationnel consomme peu par euro. L'enseignement Green IT est justement là — **le carbone de fabrication du matériel domine**, d'où l'importance d'allonger la durée de vie des équipements.
+
+**Q : Pourquoi ± 50 % sur le carbone cloud ?**
+R : Il combine plusieurs coefficients incertains (prix €/vCPU-h, watts/vCPU, facteur d'émission, PUE). Multiplier des estimations propage l'erreur. ± 50 % est honnête ; un audit réel resserrerait la fourchette.
+
+**Q : Le carbone affiché, c'est l'empreinte du client ?**
+R : Non, c'est le carbone **évité** grâce aux optimisations, pas l'empreinte totale. Tout l'outil raisonne en gains.
+
+**Q : Quelle différence entre FinOps et Green IT ?**
+R : FinOps optimise les **coûts**, Green IT optimise l'**impact environnemental**. GreenOps les réunit : souvent, éteindre une ressource inutile fait gagner **argent ET CO₂** en même temps.
+
+**Q : Comment garantissez-vous que la production n'est pas impactée ?**
+R : L'extinction ne cible que le **hors-production** (dev/test). La prod reste disponible 24/7. Chaque action est journalisée et réversible.
+
+**Q : Le cas SNCF est-il réel ?**
+R : C'est un scénario **illustratif** appuyé sur des données publiques (bilan carbone, part cloud). Le budget cloud est une **hypothèse posée**, à valider avec le client. Les témoignages et clients affichés sont **fictifs**.
+
+**Q : Que feriez-vous pour aller plus loin (perspectives) ?**
+R : Brancher un inventaire réel (nombre de vCPU, instances), affiner les coefficients par région/fournisseur, connecter les APIs de facturation cloud (AWS Cost Explorer), et calculer l'empreinte **totale** (pas seulement évitée).
