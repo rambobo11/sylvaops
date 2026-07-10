@@ -158,6 +158,15 @@
       transition: color var(--transition), background var(--transition), border-color var(--transition);
     }
     .theme-toggle:hover { color: var(--ink); background: var(--surface); }
+    .lang-toggle {
+      display: flex; align-items: center; justify-content: center;
+      min-width: 40px; height: 40px; padding: 0 10px;
+      background: var(--canvas-alt); border: 1px solid var(--border);
+      border-radius: 10px; cursor: pointer; color: var(--ink-muted);
+      font-family: var(--font); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.03em;
+      transition: color var(--transition), background var(--transition), border-color var(--transition);
+    }
+    .lang-toggle:hover { color: var(--forest); background: var(--surface); border-color: var(--forest); }
     .theme-toggle svg { width: 18px; height: 18px; }
     .theme-toggle .icon-sun { display: none; }
     .theme-toggle .icon-moon { display: block; }
@@ -701,10 +710,11 @@
       </button>
       <div class="header__actions">
         <nav class="nav" id="nav" aria-label="Navigation principale">
-          <button class="nav__link nav__link--active" data-page="accueil" type="button">Accueil</button>
-          <button class="nav__link" data-page="simulateur" type="button">Simulateur</button>
-          <button class="nav__link nav__cta" id="openModalNav" type="button">Audit gratuit</button>
+          <button class="nav__link nav__link--active" data-page="accueil" type="button" data-i18n="nav.home">Accueil</button>
+          <button class="nav__link" data-page="simulateur" type="button" data-i18n="nav.simulator">Simulateur</button>
+          <button class="nav__link nav__cta" id="openModalNav" type="button" data-i18n="nav.audit">Audit gratuit</button>
         </nav>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to English">EN</button>
         <button class="theme-toggle" id="themeToggle" type="button" aria-label="Activer le mode sombre" aria-pressed="false">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -725,28 +735,28 @@
         <img src="logo/logoblackc.png" alt="SylvaOps Consulting" class="hero__logo" data-logo width="320" height="160">
         <div class="hero__badge">
           <span class="hero__badge-dot"></span>
-          Cabinet FinOps &amp; Green IT
+          <span data-i18n="hero.badge">Cabinet FinOps &amp; Green IT</span>
         </div>
-        <h1>Alliez Performance IT et Sobriété Numérique.</h1>
-        <p class="hero__subtitle">
+        <h1 data-i18n="hero.title">Alliez Performance IT et Sobriété Numérique.</h1>
+        <p class="hero__subtitle" data-i18n="hero.subtitle">
           SylvaOps Consulting accompagne les directions IT et Cloud à réduire leurs coûts d'infrastructure jusqu'à 30&nbsp;% tout en diminuant leur empreinte carbone numérique.
         </p>
         <div class="hero__actions">
-          <button class="btn btn--primary" data-page="simulateur" type="button">Simuler mes économies</button>
-          <button class="btn btn--secondary" id="openModalHero" type="button">Demander un audit</button>
+          <button class="btn btn--primary" data-page="simulateur" type="button" data-i18n="hero.ctaSim">Simuler mes économies</button>
+          <button class="btn btn--secondary" id="openModalHero" type="button" data-i18n="hero.ctaAudit">Demander un audit</button>
         </div>
         <div class="hero__stats" role="list" aria-label="Indicateurs clés">
           <div role="listitem">
             <div class="hero__stat-value">−30&nbsp;%</div>
-            <div class="hero__stat-label">Coûts Cloud optimisables</div>
+            <div class="hero__stat-label" data-i18n="hero.stat1">Coûts Cloud optimisables</div>
           </div>
           <div role="listitem">
-            <div class="hero__stat-value">14 mois</div>
-            <div class="hero__stat-label">ROI moyen constaté</div>
+            <div class="hero__stat-value" data-i18n="hero.stat2v">14 mois</div>
+            <div class="hero__stat-label" data-i18n="hero.stat2">ROI moyen constaté</div>
           </div>
           <div role="listitem">
             <div class="hero__stat-value">4&nbsp;%</div>
-            <div class="hero__stat-label">GES numériques mondiaux</div>
+            <div class="hero__stat-label" data-i18n="hero.stat3">GES numériques mondiaux</div>
           </div>
         </div>
       </section>
@@ -754,29 +764,29 @@
       <section class="section" id="problematique">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Le constat</div>
-            <h2 class="section__title">Une problématique à trois dimensions</h2>
-            <p class="section__desc">Les directions IT doivent réduire coûts et empreinte carbone sans dégrader la qualité de service.</p>
+            <div class="section__label" data-i18n="prob.label">Le constat</div>
+            <h2 class="section__title" data-i18n="prob.title">Une problématique à trois dimensions</h2>
+            <p class="section__desc" data-i18n="prob.desc">Les directions IT doivent réduire coûts et empreinte carbone sans dégrader la qualité de service.</p>
           </div>
           <div class="problem-grid">
             <article class="problem-card">
               <div class="problem-card__num">+15 à 20&nbsp;%</div>
-              <h3>Inflation des coûts Cloud</h3>
-              <p>Les dépenses cloud croissent de 15 à 20&nbsp;% par an (Flexera, State of the Cloud 2024), avec une large part non optimisée.</p>
+              <h3 data-i18n="prob.c1t">Inflation des coûts Cloud</h3>
+              <p data-i18n="prob.c1d">Les dépenses cloud croissent de 15 à 20&nbsp;% par an (Flexera, State of the Cloud 2024), avec une large part non optimisée.</p>
             </article>
             <article class="problem-card">
               <div class="problem-card__num">24&nbsp;h/24</div>
-              <h3>Environnements sous-utilisés</h3>
-              <p>Les environnements DEV/TEST restent allumés la nuit et le week-end sans usage réel, générant un gaspillage direct.</p>
+              <h3 data-i18n="prob.c2t">Environnements sous-utilisés</h3>
+              <p data-i18n="prob.c2d">Les environnements DEV/TEST restent allumés la nuit et le week-end sans usage réel, générant un gaspillage direct.</p>
             </article>
             <article class="problem-card">
               <div class="problem-card__num">4&nbsp;%</div>
-              <h3>Empreinte carbone numérique</h3>
-              <p>Le numérique représente ~4&nbsp;% des émissions mondiales de GES, un poids qui pourrait doubler d'ici 2030.</p>
+              <h3 data-i18n="prob.c3t">Empreinte carbone numérique</h3>
+              <p data-i18n="prob.c3d">Le numérique représente ~4&nbsp;% des émissions mondiales de GES, un poids qui pourrait doubler d'ici 2030.</p>
             </article>
           </div>
           <p style="text-align:center; max-width:720px; margin:32px auto 0; color:var(--ink-muted); font-size:0.95rem;">
-            <strong style="color:var(--ink);">Comment réduire l'empreinte environnementale et les coûts d'exploitation IT, tout en garantissant la disponibilité, la sécurité et la conformité du service&nbsp;?</strong>
+            <strong style="color:var(--ink);" data-i18n="prob.question">Comment réduire l'empreinte environnementale et les coûts d'exploitation IT, tout en garantissant la disponibilité, la sécurité et la conformité du service&nbsp;?</strong>
           </p>
         </div>
       </section>
@@ -784,30 +794,30 @@
       <section class="section section--alt" id="piliers">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Notre réponse</div>
-            <h2 class="section__title">Quatre impératifs, une démarche</h2>
-            <p class="section__desc">La démarche GreenOps concilie quatre exigences souvent perçues comme contradictoires.</p>
+            <div class="section__label" data-i18n="pil.label">Notre réponse</div>
+            <h2 class="section__title" data-i18n="pil.title">Quatre impératifs, une démarche</h2>
+            <p class="section__desc" data-i18n="pil.desc">La démarche GreenOps concilie quatre exigences souvent perçues comme contradictoires.</p>
           </div>
           <div class="pillars-grid">
             <article class="pillar-card">
               <div class="pillar-card__icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
-              <h3>Performance économique</h3>
-              <p>Maîtriser et réduire les coûts d'exploitation IT.</p>
+              <h3 data-i18n="pil.c1t">Performance économique</h3>
+              <p data-i18n="pil.c1d">Maîtriser et réduire les coûts d'exploitation IT.</p>
             </article>
             <article class="pillar-card">
               <div class="pillar-card__icon"><svg viewBox="0 0 24 24"><path d="M12 2C7 7 5 10 5 14a7 7 0 0 0 14 0c0-4-2-7-7-12z"/></svg></div>
-              <h3>Responsabilité environnementale</h3>
-              <p>Diminuer la consommation énergétique et l'empreinte carbone.</p>
+              <h3 data-i18n="pil.c2t">Responsabilité environnementale</h3>
+              <p data-i18n="pil.c2d">Diminuer la consommation énergétique et l'empreinte carbone.</p>
             </article>
             <article class="pillar-card">
               <div class="pillar-card__icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-              <h3>Excellence opérationnelle</h3>
-              <p>Maintenir la qualité, la continuité et la disponibilité des services.</p>
+              <h3 data-i18n="pil.c3t">Excellence opérationnelle</h3>
+              <p data-i18n="pil.c3d">Maintenir la qualité, la continuité et la disponibilité des services.</p>
             </article>
             <article class="pillar-card">
               <div class="pillar-card__icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-              <h3>Sécurité &amp; conformité</h3>
-              <p>Garantir la protection des données (RGPD) et le respect des obligations (REEN).</p>
+              <h3 data-i18n="pil.c4t">Sécurité &amp; conformité</h3>
+              <p data-i18n="pil.c4d">Garantir la protection des données (RGPD) et le respect des obligations (REEN).</p>
             </article>
           </div>
         </div>
@@ -816,33 +826,33 @@
       <section class="section" id="apropos">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Le cabinet</div>
-            <h2 class="section__title">Qui sommes-nous&nbsp;?</h2>
+            <div class="section__label" data-i18n="about.label">Le cabinet</div>
+            <h2 class="section__title" data-i18n="about.title">Qui sommes-nous&nbsp;?</h2>
           </div>
           <div class="about-grid">
             <div class="about-text">
-              <p>
+              <p data-i18n="about.p1">
                 <strong>SylvaOps Consulting</strong> est un cabinet de conseil spécialisé en <strong>FinOps</strong> et <strong>Green IT</strong>. Nous aidons les entreprises à maîtriser la facture Cloud tout en alignant leur stratégie numérique sur les enjeux environnementaux.
               </p>
-              <p>
+              <p data-i18n="about.p2">
                 Face à la hausse continue des coûts Cloud (+15 à 20&nbsp;% par an) et au gaspillage énergétique des environnements non productifs, nous proposons une approche structurée mêlant audit financier, automatisation et gouvernance durable.
               </p>
-              <p>
+              <p data-i18n="about.p3">
                 Notre mission&nbsp;: transformer la contrainte budgétaire en levier de performance responsable, avec des gains mesurables et un retour sur investissement rapide.
               </p>
             </div>
             <div class="about-cards">
               <div class="about-card">
-                <h3>Expertise FinOps</h3>
-                <p>Optimisation des coûts, rightsizing, réservations et pilotage budgétaire Cloud multi-fournisseurs.</p>
+                <h3 data-i18n="about.c1t">Expertise FinOps</h3>
+                <p data-i18n="about.c1d">Optimisation des coûts, rightsizing, réservations et pilotage budgétaire Cloud multi-fournisseurs.</p>
               </div>
               <div class="about-card">
-                <h3>Green IT &amp; SCI</h3>
-                <p>Mesure d'impact carbone selon la norme SCI, mix électrique et PUE pour des KPI environnementaux fiables.</p>
+                <h3 data-i18n="about.c2t">Green IT &amp; SCI</h3>
+                <p data-i18n="about.c2d">Mesure d'impact carbone selon la norme SCI, mix électrique et PUE pour des KPI environnementaux fiables.</p>
               </div>
               <div class="about-card">
-                <h3>Automatisation</h3>
-                <p>Extinction programmée, policies Cloud natives et industrialisation des bonnes pratiques DevOps.</p>
+                <h3 data-i18n="about.c3t">Automatisation</h3>
+                <p data-i18n="about.c3d">Extinction programmée, policies Cloud natives et industrialisation des bonnes pratiques DevOps.</p>
               </div>
             </div>
           </div>
@@ -852,24 +862,24 @@
       <section class="section section--alt" id="valeurs">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Nos engagements</div>
-            <h2 class="section__title">Performance, sobriété, transparence</h2>
+            <div class="section__label" data-i18n="val.label">Nos engagements</div>
+            <h2 class="section__title" data-i18n="val.title">Performance, sobriété, transparence</h2>
           </div>
           <div class="values-grid">
             <article class="value-card">
               <div class="value-card__icon" aria-hidden="true">📊</div>
-              <h3>Performance mesurable</h3>
-              <p>Chaque recommandation est chiffrée. Nos clients visualisent leurs économies en temps réel via des dashboards KPI.</p>
+              <h3 data-i18n="val.c1t">Performance mesurable</h3>
+              <p data-i18n="val.c1d">Chaque recommandation est chiffrée. Nos clients visualisent leurs économies en temps réel via des dashboards KPI.</p>
             </article>
             <article class="value-card">
               <div class="value-card__icon" aria-hidden="true">🌱</div>
-              <h3>Sobriété numérique</h3>
-              <p>Réduire l'empreinte carbone du numérique sans compromettre la qualité de service ni l'innovation.</p>
+              <h3 data-i18n="val.c2t">Sobriété numérique</h3>
+              <p data-i18n="val.c2d">Réduire l'empreinte carbone du numérique sans compromettre la qualité de service ni l'innovation.</p>
             </article>
             <article class="value-card">
               <div class="value-card__icon" aria-hidden="true">🔍</div>
-              <h3>Transparence totale</h3>
-              <p>Méthodologie ouverte, formules explicites et traçabilité de chaque poste d'économie identifié.</p>
+              <h3 data-i18n="val.c3t">Transparence totale</h3>
+              <p data-i18n="val.c3d">Méthodologie ouverte, formules explicites et traçabilité de chaque poste d'économie identifié.</p>
             </article>
           </div>
         </div>
@@ -878,30 +888,30 @@
       <section class="section" id="methode">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Notre approche</div>
-            <h2 class="section__title">Une méthode en 4 étapes</h2>
-            <p class="section__desc">De l'audit à la gouvernance, nous accompagnons votre transformation FinOps et Green IT de bout en bout.</p>
+            <div class="section__label" data-i18n="meth.label">Notre approche</div>
+            <h2 class="section__title" data-i18n="meth.title">Une méthode en 4 étapes</h2>
+            <p class="section__desc" data-i18n="meth.desc">De l'audit à la gouvernance, nous accompagnons votre transformation FinOps et Green IT de bout en bout.</p>
           </div>
           <div class="method-grid">
             <article class="method-card">
               <div class="method-card__step" aria-hidden="true">1</div>
-              <h3>Audit &amp; cartographie</h3>
-              <p>Inventaire des ressources Cloud, analyse des coûts par environnement et identification des gaspillages.</p>
+              <h3 data-i18n="meth.s1t">Audit &amp; cartographie</h3>
+              <p data-i18n="meth.s1d">Inventaire des ressources Cloud, analyse des coûts par environnement et identification des gaspillages.</p>
             </article>
             <article class="method-card">
               <div class="method-card__step" aria-hidden="true">2</div>
-              <h3>Optimisation</h3>
-              <p>Rightsizing, tiering du stockage, réduction des logs et rationalisation des instances sur-dimensionnées.</p>
+              <h3 data-i18n="meth.s2t">Optimisation</h3>
+              <p data-i18n="meth.s2d">Rightsizing, tiering du stockage, réduction des logs et rationalisation des instances sur-dimensionnées.</p>
             </article>
             <article class="method-card">
               <div class="method-card__step" aria-hidden="true">3</div>
-              <h3>Automatisation</h3>
-              <p>Extinction programmée des environnements Dev/Test la nuit et le week-end via policies Cloud natives.</p>
+              <h3 data-i18n="meth.s3t">Automatisation</h3>
+              <p data-i18n="meth.s3d">Extinction programmée des environnements Dev/Test la nuit et le week-end via policies Cloud natives.</p>
             </article>
             <article class="method-card">
               <div class="method-card__step" aria-hidden="true">4</div>
-              <h3>Gouvernance</h3>
-              <p>Dashboard KPI FinOps &amp; Green IT pour piloter coûts, consommation énergétique et émissions carbone.</p>
+              <h3 data-i18n="meth.s4t">Gouvernance</h3>
+              <p data-i18n="meth.s4d">Dashboard KPI FinOps &amp; Green IT pour piloter coûts, consommation énergétique et émissions carbone.</p>
             </article>
           </div>
         </div>
@@ -910,34 +920,34 @@
       <section class="section section--alt" id="roadmap">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Déroulé de la mission</div>
-            <h2 class="section__title">Une mise en œuvre progressive</h2>
-            <p class="section__desc">Une approche par phases, sécurisée et pilotée par les données réelles d'utilisation.</p>
+            <div class="section__label" data-i18n="road.label">Déroulé de la mission</div>
+            <h2 class="section__title" data-i18n="road.title">Une mise en œuvre progressive</h2>
+            <p class="section__desc" data-i18n="road.desc">Une approche par phases, sécurisée et pilotée par les données réelles d'utilisation.</p>
           </div>
           <div class="roadmap">
             <div class="roadmap-step">
               <div class="roadmap-step__dot">1</div>
-              <div class="roadmap-step__time">Semaines 1–2</div>
-              <h3>Audit</h3>
-              <p>Cartographie des ressources et identification des gaspillages.</p>
+              <div class="roadmap-step__time" data-i18n="road.t1">Semaines 1–2</div>
+              <h3 data-i18n="road.s1t">Audit</h3>
+              <p data-i18n="road.s1d">Cartographie des ressources et identification des gaspillages.</p>
             </div>
             <div class="roadmap-step">
               <div class="roadmap-step__dot">2</div>
-              <div class="roadmap-step__time">Semaines 3–4</div>
-              <h3>Quick wins</h3>
-              <p>Rightsizing, nettoyage des ressources orphelines, optimisation stockage.</p>
+              <div class="roadmap-step__time" data-i18n="road.t2">Semaines 3–4</div>
+              <h3 data-i18n="road.s2t">Quick wins</h3>
+              <p data-i18n="road.s2d">Rightsizing, nettoyage des ressources orphelines, optimisation stockage.</p>
             </div>
             <div class="roadmap-step">
               <div class="roadmap-step__dot">3</div>
-              <div class="roadmap-step__time">Semaines 5–8</div>
-              <h3>Automatisation</h3>
-              <p>Extinction programmée DEV/TEST via policies cloud natives.</p>
+              <div class="roadmap-step__time" data-i18n="road.t3">Semaines 5–8</div>
+              <h3 data-i18n="road.s3t">Automatisation</h3>
+              <p data-i18n="road.s3d">Extinction programmée DEV/TEST via policies cloud natives.</p>
             </div>
             <div class="roadmap-step">
               <div class="roadmap-step__dot">4</div>
-              <div class="roadmap-step__time">En continu</div>
-              <h3>Gouvernance</h3>
-              <p>Dashboard KPI et amélioration continue des indicateurs.</p>
+              <div class="roadmap-step__time" data-i18n="road.t4">En continu</div>
+              <h3 data-i18n="road.s4t">Gouvernance</h3>
+              <p data-i18n="road.s4d">Dashboard KPI et amélioration continue des indicateurs.</p>
             </div>
           </div>
         </div>
@@ -946,26 +956,26 @@
       <section class="section" id="conformite">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Sécurité &amp; conformité</div>
-            <h2 class="section__title">Une démarche maîtrisée et conforme</h2>
-            <p class="section__desc">L'optimisation ne compromet ni la production, ni la sécurité, ni la conformité réglementaire.</p>
+            <div class="section__label" data-i18n="conf.label">Sécurité &amp; conformité</div>
+            <h2 class="section__title" data-i18n="conf.title">Une démarche maîtrisée et conforme</h2>
+            <p class="section__desc" data-i18n="conf.desc">L'optimisation ne compromet ni la production, ni la sécurité, ni la conformité réglementaire.</p>
           </div>
           <div class="compliance-grid">
             <div class="compliance-card">
               <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-              <div><h3>Production préservée</h3><p>L'extinction automatique ne concerne que les environnements DEV/TEST. La PROD reste disponible 24/7.</p></div>
+              <div><h3 data-i18n="conf.c1t">Production préservée</h3><p data-i18n="conf.c1d">L'extinction automatique ne concerne que les environnements DEV/TEST. La PROD reste disponible 24/7.</p></div>
             </div>
             <div class="compliance-card">
               <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <div><h3>RGPD</h3><p>Aucune donnée personnelle traitée dans le démonstrateur. Consentement explicite pour toute prise de contact.</p></div>
+              <div><h3 data-i18n="conf.c2t">RGPD</h3><p data-i18n="conf.c2d">Aucune donnée personnelle traitée dans le démonstrateur. Consentement explicite pour toute prise de contact.</p></div>
             </div>
             <div class="compliance-card">
               <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
-              <div><h3>Loi REEN &amp; CSRD</h3><p>La démarche alimente le reporting extra-financier et répond aux obligations de sobriété numérique.</p></div>
+              <div><h3 data-i18n="conf.c3t">Loi REEN &amp; CSRD</h3><p data-i18n="conf.c3d">La démarche alimente le reporting extra-financier et répond aux obligations de sobriété numérique.</p></div>
             </div>
             <div class="compliance-card">
               <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>
-              <div><h3>Traçabilité</h3><p>Chaque action d'optimisation est journalisée et réversible, garantissant l'auditabilité complète.</p></div>
+              <div><h3 data-i18n="conf.c4t">Traçabilité</h3><p data-i18n="conf.c4d">Chaque action d'optimisation est journalisée et réversible, garantissant l'auditabilité complète.</p></div>
             </div>
           </div>
         </div>
@@ -974,18 +984,18 @@
       <section class="section section--alt" id="secteurs">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Secteurs accompagnés</div>
-            <h2 class="section__title">Des expertises sectorielles</h2>
-            <p class="section__desc">Nous intervenons auprès d'organisations à forte intensité Cloud dans des secteurs exigeants.</p>
+            <div class="section__label" data-i18n="sect.label">Secteurs accompagnés</div>
+            <h2 class="section__title" data-i18n="sect.title">Des expertises sectorielles</h2>
+            <p class="section__desc" data-i18n="sect.desc">Nous intervenons auprès d'organisations à forte intensité Cloud dans des secteurs exigeants.</p>
           </div>
           <div class="sectors-grid">
-            <span class="sector-tag">Transport &amp; Mobilité</span>
-            <span class="sector-tag">Services Financiers</span>
-            <span class="sector-tag">Retail &amp; E-commerce</span>
-            <span class="sector-tag">Industrie</span>
-            <span class="sector-tag">Santé</span>
-            <span class="sector-tag">Énergie</span>
-            <span class="sector-tag">Secteur Public</span>
+            <span class="sector-tag" data-i18n="sect.t1">Transport &amp; Mobilité</span>
+            <span class="sector-tag" data-i18n="sect.t2">Services Financiers</span>
+            <span class="sector-tag" data-i18n="sect.t3">Retail &amp; E-commerce</span>
+            <span class="sector-tag" data-i18n="sect.t4">Industrie</span>
+            <span class="sector-tag" data-i18n="sect.t5">Santé</span>
+            <span class="sector-tag" data-i18n="sect.t6">Énergie</span>
+            <span class="sector-tag" data-i18n="sect.t7">Secteur Public</span>
           </div>
         </div>
       </section>
@@ -993,53 +1003,53 @@
       <section class="section" id="temoignages">
         <div class="section__inner">
           <div class="section__header">
-            <div class="section__label">Ils nous font confiance</div>
-            <h2 class="section__title">Ce que disent nos clients</h2>
-            <p class="section__desc">Retours d'expérience illustratifs de directions IT accompagnées par SylvaOps Consulting.</p>
+            <div class="section__label" data-i18n="tem.label">Ils nous font confiance</div>
+            <h2 class="section__title" data-i18n="tem.title">Ce que disent nos clients</h2>
+            <p class="section__desc" data-i18n="tem.desc">Retours d'expérience illustratifs de directions IT accompagnées par SylvaOps Consulting.</p>
           </div>
           <div class="testimonials-grid">
             <article class="testimonial-card">
-              <p class="testimonial-card__quote">L'audit GreenOps a révélé que nos environnements de test tournaient 24/24 sans usage réel. L'extinction automatique a été un gain immédiat, sans le moindre impact sur la production.</p>
+              <p class="testimonial-card__quote" data-i18n="tem.q1">L'audit GreenOps a révélé que nos environnements de test tournaient 24/24 sans usage réel. L'extinction automatique a été un gain immédiat, sans le moindre impact sur la production.</p>
               <div class="testimonial-card__author">
                 <div class="testimonial-card__avatar" aria-hidden="true">CL</div>
                 <div>
                   <div class="testimonial-card__name">Claire Lefèvre</div>
-                  <div class="testimonial-card__role">DSI · RATP</div>
+                  <div class="testimonial-card__role" data-i18n="tem.r1">DSI · RATP</div>
                 </div>
               </div>
-              <div class="testimonial-card__metric">−28 % de coûts Cloud hors-prod en 6 mois</div>
+              <div class="testimonial-card__metric" data-i18n="tem.m1">−28 % de coûts Cloud hors-prod en 6 mois</div>
             </article>
             <article class="testimonial-card">
-              <p class="testimonial-card__quote">La méthodologie est transparente : chaque euro économisé et chaque kilo de CO₂ évité est traçable. C'est exactement ce dont nous avions besoin pour notre reporting CSRD.</p>
+              <p class="testimonial-card__quote" data-i18n="tem.q2">La méthodologie est transparente : chaque euro économisé et chaque kilo de CO₂ évité est traçable. C'est exactement ce dont nous avions besoin pour notre reporting CSRD.</p>
               <div class="testimonial-card__author">
                 <div class="testimonial-card__avatar" aria-hidden="true">MB</div>
                 <div>
                   <div class="testimonial-card__name">Mehdi Benali</div>
-                  <div class="testimonial-card__role">Responsable RSE · ENGIE</div>
+                  <div class="testimonial-card__role" data-i18n="tem.r2">Responsable RSE · ENGIE</div>
                 </div>
               </div>
-              <div class="testimonial-card__metric">−34 t CO₂ évitées sur la première année</div>
+              <div class="testimonial-card__metric" data-i18n="tem.m2">−34 t CO₂ évitées sur la première année</div>
             </article>
             <article class="testimonial-card">
-              <p class="testimonial-card__quote">Le retour sur investissement a été atteint en un peu plus d'un an. Le simulateur nous a permis de convaincre le comité de direction avec des chiffres concrets dès la phase d'avant-vente.</p>
+              <p class="testimonial-card__quote" data-i18n="tem.q3">Le retour sur investissement a été atteint en un peu plus d'un an. Le simulateur nous a permis de convaincre le comité de direction avec des chiffres concrets dès la phase d'avant-vente.</p>
               <div class="testimonial-card__author">
                 <div class="testimonial-card__avatar" aria-hidden="true">SR</div>
                 <div>
                   <div class="testimonial-card__name">Sophie Renaud</div>
-                  <div class="testimonial-card__role">Directrice des Opérations · Capgemini</div>
+                  <div class="testimonial-card__role" data-i18n="tem.r3">Directrice des Opérations · Capgemini</div>
                 </div>
               </div>
-              <div class="testimonial-card__metric">ROI atteint en 14 mois</div>
+              <div class="testimonial-card__metric" data-i18n="tem.m3">ROI atteint en 14 mois</div>
             </article>
           </div>
-          <p class="source-note" style="text-align:center; margin-top:24px;">Témoignages illustratifs — projet académique M1 MCSI. Personnes et chiffres fictifs à visée de démonstration.</p>
+          <p class="source-note" style="text-align:center; margin-top:24px;" data-i18n="tem.note">Témoignages illustratifs — projet académique M1 MCSI. Personnes et chiffres fictifs à visée de démonstration.</p>
         </div>
       </section>
 
       <section class="cta-section">
-        <h2>Prêt à estimer vos économies&nbsp;?</h2>
-        <p>Utilisez notre simulateur FinOps &amp; Green IT pour projeter l'impact financier et environnemental de vos optimisations Cloud.</p>
-        <button class="btn btn--primary" data-page="simulateur" type="button">Accéder au simulateur</button>
+        <h2 data-i18n="ctaHome.title">Prêt à estimer vos économies&nbsp;?</h2>
+        <p data-i18n="ctaHome.desc">Utilisez notre simulateur FinOps &amp; Green IT pour projeter l'impact financier et environnemental de vos optimisations Cloud.</p>
+        <button class="btn btn--primary" data-page="simulateur" type="button" data-i18n="ctaHome.btn">Accéder au simulateur</button>
       </section>
     </div>
 
@@ -1047,26 +1057,26 @@
     <div id="page-simulateur" class="page" role="region" aria-label="Simulateur FinOps">
 
       <div class="calc-hero">
-        <span class="badge-poc"><span class="badge-poc__dot"></span>Démonstrateur — Preuve de concept</span>
-        <h1>Simulateur FinOps &amp; Green IT</h1>
-        <p>Ajustez les paramètres de votre infrastructure Cloud pour estimer vos économies financières et votre réduction d'émissions carbone.</p>
+        <span class="badge-poc"><span class="badge-poc__dot"></span><span data-i18n="sim.badge">Démonstrateur — Preuve de concept</span></span>
+        <h1 data-i18n="sim.title">Simulateur FinOps &amp; Green IT</h1>
+        <p data-i18n="sim.intro">Ajustez les paramètres de votre infrastructure Cloud pour estimer vos économies financières et votre réduction d'émissions carbone.</p>
       </div>
 
       <div class="disclaimer">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        <span><strong>Estimation indicative.</strong> Les résultats reposent sur des hypothèses paramétrables et des facteurs publics documentés (RTE, ADEME, Flexera). Un audit réel des ressources est nécessaire pour un chiffrage définitif. Aucune donnée n'est transmise à un serveur.</span>
+        <span data-i18n="sim.disclaimer"><strong>Estimation indicative.</strong> Les résultats reposent sur des hypothèses paramétrables et des facteurs publics documentés (RTE, ADEME, Flexera). Un audit réel des ressources est nécessaire pour un chiffrage définitif. Aucune donnée n'est transmise à un serveur.</span>
       </div>
 
       <div class="preset-bar">
-        <span class="preset-bar__label">Scénarios&nbsp;:</span>
-        <button class="preset-btn preset-btn--active" id="presetCdc" type="button">Cas référence (CDC)</button>
-        <button class="preset-btn" id="presetBusiness" type="button">Cas business réaliste</button>
-        <button class="preset-btn" id="presetSncf" type="button">Démo SNCF Connect &amp; Tech</button>
-        <button class="preset-btn" id="presetReset" type="button">Réinitialiser</button>
-        <button class="preset-btn" id="modeToggle" type="button" style="margin-left:auto;">Mode détaillé</button>
+        <span class="preset-bar__label" data-i18n="sim.scenarios">Scénarios&nbsp;:</span>
+        <button class="preset-btn preset-btn--active" id="presetCdc" type="button" data-i18n="sim.presetCdc">Cas référence (CDC)</button>
+        <button class="preset-btn" id="presetBusiness" type="button" data-i18n="sim.presetBusiness">Cas business réaliste</button>
+        <button class="preset-btn" id="presetSncf" type="button" data-i18n="sim.presetSncf">Démo SNCF Connect &amp; Tech</button>
+        <button class="preset-btn" id="presetReset" type="button" data-i18n="sim.presetReset">Réinitialiser</button>
+        <button class="preset-btn" id="modeToggle" type="button" style="margin-left:auto;" data-i18n="sim.modeDetailed">Mode détaillé</button>
       </div>
 
-      <div class="sncf-note" id="sncfNote" hidden>
+      <div class="sncf-note" id="sncfNote" hidden data-i18n="sim.sncfNote">
         <strong>Scénario illustratif « SNCF Connect &amp; Tech »</strong> — construit à partir de <em>données publiques</em>.
         Bilan carbone 2023 ≈ 11 000 t CO₂e, dont <strong>cloud AWS ≈ 7–8 %</strong> (≈ 800 t CO₂e/an).
         Le budget cloud n'étant pas public, il est <strong>posé en hypothèse (~200 k€/mois)</strong> avec une décomposition compute 60 % / stockage 30 % / réseau 10 % (région AWS Europe, PUE 1,2).
@@ -1077,12 +1087,12 @@
 
       <div class="calc-layout">
         <div class="calc-panel" aria-labelledby="calc-inputs-title">
-          <h3 id="calc-inputs-title">Paramètres</h3>
+          <h3 id="calc-inputs-title" data-i18n="sim.paramsTitle">Paramètres</h3>
 
-          <p class="input-section-title">Infrastructure Cloud</p>
+          <p class="input-section-title" data-i18n="sim.secCloud">Infrastructure Cloud</p>
 
           <div class="input-group">
-            <label for="budget">
+            <label for="budget" data-i18n-node="sim.budget">
               Budget Cloud mensuel global
               <span class="value-display" id="budgetDisplay">50 000 €</span>
             </label>
@@ -1090,31 +1100,31 @@
           </div>
 
           <div class="input-group advanced-params">
-            <label for="computePct">
-              Part compute du budget<span class="advanced-badge">avancé</span>
+            <label for="computePct" data-i18n-node="sim.computePct">
+              Part compute du budget<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
               <span class="value-display" id="computePctDisplay">60 %</span>
             </label>
             <div class="slider-wrap">
               <div class="slider-fill" id="computePctFill"></div>
               <input type="range" id="computePct" min="0" max="100" value="60" step="5">
             </div>
-            <p class="source-note">Décomposition de la facture. Seul le compute est éteignable ; l'extinction et le rightsizing n'agissent que sur cette part.</p>
+            <p class="source-note" data-i18n="sim.computePctNote">Décomposition de la facture. Seul le compute est éteignable ; l'extinction et le rightsizing n'agissent que sur cette part.</p>
           </div>
 
           <div class="input-group advanced-params">
-            <label for="storagePct">
-              Part stockage du budget<span class="advanced-badge">avancé</span>
+            <label for="storagePct" data-i18n-node="sim.storagePct">
+              Part stockage du budget<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
               <span class="value-display" id="storagePctDisplay">30 %</span>
             </label>
             <div class="slider-wrap">
               <div class="slider-fill" id="storagePctFill"></div>
               <input type="range" id="storagePct" min="0" max="100" value="30" step="5">
             </div>
-            <p class="source-note">Le reste (100 − compute − stockage) est considéré comme réseau/divers. Le levier « stockage » s'applique sur cette part uniquement.</p>
+            <p class="source-note" data-i18n="sim.storagePctNote">Le reste (100 − compute − stockage) est considéré comme réseau/divers. Le levier « stockage » s'applique sur cette part uniquement.</p>
           </div>
 
           <div class="input-group">
-            <label for="horsProd">
+            <label for="horsProd" data-i18n-node="sim.horsProd">
               Part environnements Hors-Production (Dev/Test)
               <span class="value-display" id="horsProdDisplay">40 %</span>
             </label>
@@ -1125,7 +1135,7 @@
           </div>
 
           <div class="input-group">
-            <label for="envCount">
+            <label for="envCount" data-i18n-node="sim.envCount">
               Nombre d'environnements non-prod
               <span class="value-display" id="envCountDisplay">12</span>
             </label>
@@ -1135,10 +1145,10 @@
             </div>
           </div>
 
-          <p class="input-section-title">Automatisation &amp; extinction</p>
+          <p class="input-section-title" data-i18n="sim.secAuto">Automatisation &amp; extinction</p>
 
           <div class="input-group">
-            <label for="extinction">
+            <label for="extinction" data-i18n-node="sim.extinction">
               Heures d'extinction prévues / semaine
               <span class="value-display" id="extinctionDisplay">84 h</span>
             </label>
@@ -1148,10 +1158,10 @@
             </div>
           </div>
 
-          <p class="input-section-title">Optimisations complémentaires</p>
+          <p class="input-section-title" data-i18n="sim.secOptim">Optimisations complémentaires</p>
 
           <div class="input-group">
-            <label for="rightsizing">
+            <label for="rightsizing" data-i18n-node="sim.rightsizing">
               Rightsizing instances hors-prod
               <span class="value-display" id="rightsizingDisplay">0 %</span>
             </label>
@@ -1162,7 +1172,7 @@
           </div>
 
           <div class="input-group">
-            <label for="stockage">
+            <label for="stockage" data-i18n-node="sim.stockage">
               Optimisation stockage
               <span class="value-display" id="stockageDisplay">0 %</span>
             </label>
@@ -1173,7 +1183,7 @@
           </div>
 
           <div class="input-group">
-            <label for="logs">
+            <label for="logs" data-i18n-node="sim.logs">
               Réduction logs &amp; monitoring
               <span class="value-display" id="logsDisplay">0 %</span>
             </label>
@@ -1183,19 +1193,19 @@
             </div>
           </div>
 
-          <p class="input-section-title">Impact environnemental</p>
+          <p class="input-section-title" data-i18n="sim.secEnv">Impact environnemental</p>
 
           <div class="input-group">
-            <label for="datacenter">Localisation datacenter</label>
+            <label for="datacenter" data-i18n="sim.datacenter">Localisation datacenter</label>
             <select id="datacenter">
-              <option value="france">France (Mix décarboné)</option>
-              <option value="europe">Europe (Mix moyen)</option>
-              <option value="monde">Monde (Mix carboné)</option>
+              <option value="france" data-i18n="sim.optFranceDc">France (Mix décarboné)</option>
+              <option value="europe" data-i18n="sim.optEuropeDc">Europe (Mix moyen)</option>
+              <option value="monde" data-i18n="sim.optMondeDc">Monde (Mix carboné)</option>
             </select>
           </div>
 
           <div class="input-group">
-            <label for="pue">
+            <label for="pue" data-i18n-node="sim.pue">
               PUE du datacenter
               <span class="value-display" id="pueDisplay">1,2</span>
             </label>
@@ -1203,34 +1213,34 @@
               <div class="slider-fill" id="pueFill"></div>
               <input type="range" id="pue" min="10" max="20" value="12" step="1">
             </div>
-            <p class="source-note">PUE = énergie totale / énergie IT. 1,0 = parfait, 1,5+ = peu efficient.</p>
+            <p class="source-note" data-i18n="sim.pueNote">PUE = énergie totale / énergie IT. 1,0 = parfait, 1,5+ = peu efficient.</p>
           </div>
 
-          <p class="input-section-title">Parc matériel sur site</p>
+          <p class="input-section-title" data-i18n="sim.secParc">Parc matériel sur site</p>
 
           <div class="input-group advanced-params">
-            <label for="siteLocation">Électricité du site<span class="advanced-badge">avancé</span></label>
+            <label for="siteLocation" data-i18n-node="sim.siteLocation">Électricité du site<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span></label>
             <select id="siteLocation">
-              <option value="france">France (mix décarboné)</option>
-              <option value="europe">Europe (mix moyen)</option>
-              <option value="monde">Monde (mix carboné)</option>
+              <option value="france" data-i18n="sim.optFrance">France (mix décarboné)</option>
+              <option value="europe" data-i18n="sim.optEurope">Europe (mix moyen)</option>
+              <option value="monde" data-i18n="sim.optMonde">Monde (mix carboné)</option>
             </select>
-            <p class="source-note">Facteur d'émission du lieu des équipements (indépendant de la région Cloud).</p>
+            <p class="source-note" data-i18n="sim.siteLocationNote">Facteur d'émission du lieu des équipements (indépendant de la région Cloud).</p>
           </div>
 
           <div class="input-group">
-            <label for="nbPostes">Nombre de postes de travail (PC / portables)</label>
+            <label for="nbPostes" data-i18n="sim.nbPostes">Nombre de postes de travail (PC / portables)</label>
             <input type="number" id="nbPostes" value="1200" min="0" step="50">
           </div>
 
           <div class="input-group">
-            <label for="consoPoste">Consommation par poste (kWh/an)</label>
+            <label for="consoPoste" data-i18n="sim.consoPoste">Consommation par poste (kWh/an)</label>
             <input type="number" id="consoPoste" value="120" min="0" step="10">
-            <p class="source-note">~120 kWh/an pour un poste fixe, ~40 pour un portable (ADEME).</p>
+            <p class="source-note" data-i18n="sim.consoPosteNote">~120 kWh/an pour un poste fixe, ~40 pour un portable (ADEME).</p>
           </div>
 
           <div class="input-group">
-            <label for="reductionPostes">
+            <label for="reductionPostes" data-i18n-node="sim.reductionPostes">
               Réduction usage postes (veille / extinction auto.)
               <span class="value-display" id="reductionPostesDisplay">20 %</span>
             </label>
@@ -1241,18 +1251,18 @@
           </div>
 
           <div class="input-group">
-            <label for="nbServeurs">Nombre de serveurs on-premise</label>
+            <label for="nbServeurs" data-i18n="sim.nbServeurs">Nombre de serveurs on-premise</label>
             <input type="number" id="nbServeurs" value="50" min="0" step="5">
           </div>
 
           <div class="input-group">
-            <label for="consoServeur">Consommation par serveur (kWh/an)</label>
+            <label for="consoServeur" data-i18n="sim.consoServeur">Consommation par serveur (kWh/an)</label>
             <input type="number" id="consoServeur" value="4000" min="0" step="100">
-            <p class="source-note">Serveur physique ~3 000–7 000 kWh/an (charge + refroidissement).</p>
+            <p class="source-note" data-i18n="sim.consoServeurNote">Serveur physique ~3 000–7 000 kWh/an (charge + refroidissement).</p>
           </div>
 
           <div class="input-group">
-            <label for="reductionServeurs">
+            <label for="reductionServeurs" data-i18n-node="sim.reductionServeurs">
               Réduction usage serveurs (consolidation / virtualisation)
               <span class="value-display" id="reductionServeursDisplay">15 %</span>
             </label>
@@ -1262,21 +1272,21 @@
             </div>
           </div>
 
-          <p class="input-section-title">Durée de vie &amp; fabrication</p>
+          <p class="input-section-title" data-i18n="sim.secDuree">Durée de vie &amp; fabrication</p>
 
           <div class="input-group">
-            <label for="empreintePoste">Empreinte fabrication / poste (kg CO₂e)</label>
+            <label for="empreintePoste" data-i18n="sim.empreintePoste">Empreinte fabrication / poste (kg CO₂e)</label>
             <input type="number" id="empreintePoste" value="200" min="0" step="10">
-            <p class="source-note">La fabrication ≈ 75 % de l'empreinte d'un ordinateur (ADEME). ~200 kg CO₂e par poste.</p>
+            <p class="source-note" data-i18n="sim.empreintePosteNote">La fabrication ≈ 75 % de l'empreinte d'un ordinateur (ADEME). ~200 kg CO₂e par poste.</p>
           </div>
 
           <div class="input-group">
-            <label for="empreinteServeur">Empreinte fabrication / serveur (kg CO₂e)</label>
+            <label for="empreinteServeur" data-i18n="sim.empreinteServeur">Empreinte fabrication / serveur (kg CO₂e)</label>
             <input type="number" id="empreinteServeur" value="1500" min="0" step="100">
           </div>
 
           <div class="input-group">
-            <label for="dureeActuelle">
+            <label for="dureeActuelle" data-i18n-node="sim.dureeActuelle">
               Durée de vie actuelle du matériel
               <span class="value-display" id="dureeActuelleDisplay">4 ans</span>
             </label>
@@ -1287,7 +1297,7 @@
           </div>
 
           <div class="input-group">
-            <label for="dureeCible">
+            <label for="dureeCible" data-i18n-node="sim.dureeCible">
               Durée de vie cible (après démarche)
               <span class="value-display" id="dureeCibleDisplay">6 ans</span>
             </label>
@@ -1295,13 +1305,13 @@
               <div class="slider-fill" id="dureeCibleFill"></div>
               <input type="range" id="dureeCible" min="2" max="12" value="6" step="1">
             </div>
-            <p class="source-note">Allonger la durée de vie réduit le carbone de fabrication amorti chaque année — levier n°1 du Green IT.</p>
+            <p class="source-note" data-i18n="sim.dureeCibleNote">Allonger la durée de vie réduit le carbone de fabrication amorti chaque année — levier n°1 du Green IT.</p>
           </div>
 
-          <p class="input-section-title">Retour sur investissement</p>
+          <p class="input-section-title" data-i18n="sim.secRoi">Retour sur investissement</p>
 
           <div class="input-group">
-            <label for="investissement">
+            <label for="investissement" data-i18n-node="sim.investissement">
               Investissement projet (€)
               <span class="value-display" id="investissementDisplay">0 €</span>
             </label>
@@ -1309,21 +1319,21 @@
           </div>
 
           <div class="input-group advanced-params">
-            <label for="recurringCost">
-              Coût récurrent mensuel (outillage, licences)<span class="advanced-badge">avancé</span>
+            <label for="recurringCost" data-i18n-node="sim.recurringCost">
+              Coût récurrent mensuel (outillage, licences)<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
               <span class="value-display" id="recurringCostDisplay">0 €</span>
             </label>
             <input type="number" id="recurringCost" value="0" min="0" step="100">
-            <p class="source-note">Déduit des économies pour le ROI net et la VAN (valeur actuelle nette sur 3 ans, taux 8 %/an).</p>
+            <p class="source-note" data-i18n="sim.recurringCostNote">Déduit des économies pour le ROI net et la VAN (valeur actuelle nette sur 3 ans, taux 8 %/an).</p>
           </div>
         </div>
 
         <div class="calc-panel" aria-labelledby="calc-results-title" aria-live="polite">
-          <h3 id="calc-results-title">Résultats estimés</h3>
+          <h3 id="calc-results-title" data-i18n="res.title">Résultats estimés</h3>
 
           <div class="kpi-grid">
             <div class="kpi-card kpi-card--highlight">
-              <div class="kpi-card__label">Économie financière totale</div>
+              <div class="kpi-card__label" data-i18n="res.kFin">Économie financière totale</div>
               <div class="kpi-card__value" id="kpiFinancial">6 000<span class="kpi-card__unit">€/mois</span></div>
               <div class="kpi-card__range" id="kpiFinancialRange">fourchette ± 15 % : 5 100 – 6 900 €/mois</div>
             </div>
@@ -1331,91 +1341,91 @@
 
           <div class="kpi-breakdown">
             <div class="kpi-card kpi-card--small">
-              <div class="kpi-card__label">Dont extinction auto.</div>
+              <div class="kpi-card__label" data-i18n="res.kExt">Dont extinction auto.</div>
               <div class="kpi-card__value kpi-card__value--sm" id="kpiExtinction">6 000 €</div>
             </div>
             <div class="kpi-card kpi-card--small">
-              <div class="kpi-card__label">Dont optimisations</div>
+              <div class="kpi-card__label" data-i18n="res.kOptim">Dont optimisations</div>
               <div class="kpi-card__value kpi-card__value--sm" id="kpiOptim">0 €</div>
             </div>
           </div>
 
           <div class="kpi-grid">
             <div class="kpi-card">
-              <div class="kpi-card__label">Émissions CO₂ évitées</div>
+              <div class="kpi-card__label" data-i18n="res.kCarbon">Émissions CO₂ évitées</div>
               <div class="kpi-card__value" id="kpiCarbon">96<span class="kpi-card__unit">kg CO₂/mois</span></div>
               <div class="kpi-card__range" id="kpiCarbonRange">fourchette ± 50 % : 48 – 144 kg/mois</div>
             </div>
             <div class="kpi-card">
-              <div class="kpi-card__label">Énergie économisée</div>
+              <div class="kpi-card__label" data-i18n="res.kEnergy">Énergie économisée</div>
               <div class="kpi-card__value" id="kpiEnergy">1 600<span class="kpi-card__unit">kWh/mois</span></div>
             </div>
             <div class="kpi-card">
-              <div class="kpi-card__label">Économie annuelle</div>
+              <div class="kpi-card__label" data-i18n="res.kAnnual">Économie annuelle</div>
               <div class="kpi-card__value" id="kpiAnnual">72 000<span class="kpi-card__unit">€/an</span></div>
               <div class="kpi-card__range" id="kpiAnnualRange">fourchette ± 15 % : 61 200 – 82 800 €/an</div>
             </div>
             <div class="kpi-card">
-              <div class="kpi-card__label">ROI estimé</div>
+              <div class="kpi-card__label" data-i18n="res.kRoi">ROI estimé</div>
               <div class="kpi-card__value" id="kpiRoi">Instantané</div>
               <div class="kpi-card__range" id="kpiRoiRange">&nbsp;</div>
             </div>
           </div>
 
           <div class="calc-detail" aria-label="Détail du calcul">
-            <div class="calc-detail__title">Détail du calcul (traçabilité)</div>
-            <div class="calc-detail__row"><span>Budget compute / stockage / réseau</span><span id="dSplit">30 000 / 15 000 / 5 000 €</span></div>
-            <div class="calc-detail__row"><span>Budget compute Hors-Prod = compute × %HP</span><span id="dBudgetHP">12 000 €</span></div>
-            <div class="calc-detail__row"><span>Facteur extinction = Heures / 168</span><span id="dFactorExt">0,50</span></div>
-            <div class="calc-detail__row"><span>Gain extinction</span><span id="dGainExt">6 000 €</span></div>
-            <div class="calc-detail__row"><span>Gain rightsizing + stockage + logs</span><span id="dGainOptim">0 €</span></div>
-            <div class="calc-detail__row calc-detail__row--total"><span>Économie totale / mois</span><span id="dTotal">6 000 €</span></div>
-            <div class="calc-detail__row"><span>Réduction vs facture totale</span><span id="dPctReduction">12 %</span></div>
-            <div class="calc-detail__row"><span>Économie / environnement non-prod</span><span id="dPerEnv">500 €</span></div>
-            <div class="calc-detail__row"><span>vCPU-heures évitées = éco. compute / prix vCPU-h</span><span id="dVcpu">133 333 h</span></div>
-            <div class="calc-detail__row"><span>Énergie = vCPU-h × W/vCPU ÷ 1000</span><span id="dEnergy">1 600 kWh</span></div>
-            <div class="calc-detail__row"><span>CO₂ = Énergie × PUE × facteur grid</span><span id="dCo2">96 kg</span></div>
-            <div class="calc-detail__row"><span>Économie nette / mois (− coût récurrent)</span><span id="dNet">6 000 €</span></div>
-            <div class="calc-detail__row calc-detail__row--total"><span>VAN sur 3 ans (taux 8 %/an)</span><span id="dVan">—</span></div>
+            <div class="calc-detail__title" data-i18n="det.title">Détail du calcul (traçabilité)</div>
+            <div class="calc-detail__row"><span data-i18n="det.split">Budget compute / stockage / réseau</span><span id="dSplit">30 000 / 15 000 / 5 000 €</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.budgetHP">Budget compute Hors-Prod = compute × %HP</span><span id="dBudgetHP">12 000 €</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.factorExt">Facteur extinction = Heures / 168</span><span id="dFactorExt">0,50</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.gainExt">Gain extinction</span><span id="dGainExt">6 000 €</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.gainOptim">Gain rightsizing + stockage + logs</span><span id="dGainOptim">0 €</span></div>
+            <div class="calc-detail__row calc-detail__row--total"><span data-i18n="det.total">Économie totale / mois</span><span id="dTotal">6 000 €</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.pctReduction">Réduction vs facture totale</span><span id="dPctReduction">12 %</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.perEnv">Économie / environnement non-prod</span><span id="dPerEnv">500 €</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.vcpu">vCPU-heures évitées = éco. compute / prix vCPU-h</span><span id="dVcpu">133 333 h</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.energy">Énergie = vCPU-h × W/vCPU ÷ 1000</span><span id="dEnergy">1 600 kWh</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.co2">CO₂ = Énergie × PUE × facteur grid</span><span id="dCo2">96 kg</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.net">Économie nette / mois (− coût récurrent)</span><span id="dNet">6 000 €</span></div>
+            <div class="calc-detail__row calc-detail__row--total"><span data-i18n="det.van">VAN sur 3 ans (taux 8 %/an)</span><span id="dVan">—</span></div>
           </div>
 
-          <h3 style="margin-top:8px;">Parc matériel sur site (impact annuel)</h3>
+          <h3 style="margin-top:8px;" data-i18n="res.parcTitle">Parc matériel sur site (impact annuel)</h3>
           <div class="kpi-grid">
             <div class="kpi-card kpi-card--highlight">
-              <div class="kpi-card__label">Empreinte carbone totale évitée</div>
+              <div class="kpi-card__label" data-i18n="res.kTotalCo2">Empreinte carbone totale évitée</div>
               <div class="kpi-card__value" id="kpiTotalCo2An">77 490<span class="kpi-card__unit">kg CO₂/an</span></div>
               <div class="kpi-card__range" id="kpiTotalCo2AnRange">fourchette : 55 000 – 100 000 kg/an</div>
             </div>
           </div>
           <div class="kpi-breakdown">
             <div class="kpi-card kpi-card--small">
-              <div class="kpi-card__label">Dont Cloud (usage)</div>
+              <div class="kpi-card__label" data-i18n="res.kCloudCo2">Dont Cloud (usage)</div>
               <div class="kpi-card__value kpi-card__value--sm" id="kpiCloudCo2An">48 000 kg</div>
             </div>
             <div class="kpi-card kpi-card--small">
-              <div class="kpi-card__label">Dont parc sur site</div>
+              <div class="kpi-card__label" data-i18n="res.kParcCo2">Dont parc sur site</div>
               <div class="kpi-card__value kpi-card__value--sm" id="kpiParcCo2An">29 490 kg</div>
             </div>
           </div>
           <div class="calc-detail" aria-label="Détail parc matériel">
-            <div class="calc-detail__title">Détail parc sur site (annuel)</div>
-            <div class="calc-detail__row"><span>Énergie parc évitée</span><span id="dParcEnergy">58 800 kWh</span></div>
-            <div class="calc-detail__row"><span>CO₂ usage évité (énergie)</span><span id="dParcUsage">3 240 kg</span></div>
-            <div class="calc-detail__row"><span>CO₂ fabrication évité (durée de vie)</span><span id="dParcFab">26 250 kg</span></div>
-            <div class="calc-detail__row calc-detail__row--total"><span>Total parc évité / an</span><span id="dParcTotal">29 490 kg</span></div>
+            <div class="calc-detail__title" data-i18n="det.parcTitle">Détail parc sur site (annuel)</div>
+            <div class="calc-detail__row"><span data-i18n="det.parcEnergy">Énergie parc évitée</span><span id="dParcEnergy">58 800 kWh</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.parcUsage">CO₂ usage évité (énergie)</span><span id="dParcUsage">3 240 kg</span></div>
+            <div class="calc-detail__row"><span data-i18n="det.parcFab">CO₂ fabrication évité (durée de vie)</span><span id="dParcFab">26 250 kg</span></div>
+            <div class="calc-detail__row calc-detail__row--total"><span data-i18n="det.parcTotal">Total parc évité / an</span><span id="dParcTotal">29 490 kg</span></div>
           </div>
 
-          <h3 style="margin-top:8px;">Recommandations</h3>
+          <h3 style="margin-top:8px;" data-i18n="res.recoTitle">Recommandations</h3>
           <div class="reco-list" id="recoList"></div>
 
           <div class="report-actions" style="margin-top:20px;">
-            <button class="btn btn--primary" id="genReport" type="button" style="flex:1; justify-content:center;">Générer la synthèse</button>
-            <button class="btn btn--secondary" id="printReport" type="button">Imprimer / PDF</button>
+            <button class="btn btn--primary" id="genReport" type="button" style="flex:1; justify-content:center;" data-i18n="res.genReport">Générer la synthèse</button>
+            <button class="btn btn--secondary" id="printReport" type="button" data-i18n="res.printReport">Imprimer / PDF</button>
           </div>
 
           <div class="report-box" id="reportBox" aria-live="polite"></div>
 
-          <div class="methodology" style="margin-top:20px;">
+          <div class="methodology" style="margin-top:20px;" data-i18n="res.methodology">
             <strong>Note méthodologique</strong> (norme SCI / ISO 21031, méthode Cloud Carbon Footprint)&nbsp;:<br>
             Budget compute = Budget × (Part compute / 100) · idem stockage · réseau = reste<br>
             Gain extinction = Budget compute Hors-Prod × (Heures / 168)<br>
@@ -1432,14 +1442,14 @@
       </div>
 
       <section class="cta-section">
-        <h2>Ces données vous interpellent&nbsp;?</h2>
-        <p>Passez de la simulation à la réalité avec SylvaOps Consulting.</p>
-        <button class="btn btn--primary" id="openModal" type="button">Organiser un Audit Gratuit de 30 min</button>
+        <h2 data-i18n="ctaSim.title">Ces données vous interpellent&nbsp;?</h2>
+        <p data-i18n="ctaSim.desc">Passez de la simulation à la réalité avec SylvaOps Consulting.</p>
+        <button class="btn btn--primary" id="openModal" type="button" data-i18n="ctaSim.btn">Organiser un Audit Gratuit de 30 min</button>
       </section>
     </div>
   </main>
 
-  <footer class="footer" role="contentinfo">
+  <footer class="footer" role="contentinfo" data-i18n="footer">
     SylvaOps Consulting · Projet M1 MCSI · 2025–2026
   </footer>
 
@@ -1450,39 +1460,39 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
       <div class="modal__form" id="modalForm">
-        <h3 id="modalTitle">Audit Gratuit de 30 min</h3>
-        <p class="modal__desc">Laissez vos coordonnées, un consultant SylvaOps vous recontactera sous 24 h.</p>
+        <h3 id="modalTitle" data-i18n="modal.title">Audit Gratuit de 30 min</h3>
+        <p class="modal__desc" data-i18n="modal.desc">Laissez vos coordonnées, un consultant SylvaOps vous recontactera sous 24 h.</p>
         <form id="contactForm" novalidate>
           <div class="form-group">
-            <label for="contactName">Nom</label>
+            <label for="contactName" data-i18n="modal.name">Nom</label>
             <input type="text" id="contactName" name="name" required autocomplete="name">
-            <span class="form-error" id="errorName">Veuillez saisir votre nom.</span>
+            <span class="form-error" id="errorName" data-i18n="modal.errName">Veuillez saisir votre nom.</span>
           </div>
           <div class="form-group">
-            <label for="contactEmail">Email</label>
+            <label for="contactEmail" data-i18n="modal.email">Email</label>
             <input type="email" id="contactEmail" name="email" required autocomplete="email">
-            <span class="form-error" id="errorEmail">Veuillez saisir un email valide.</span>
+            <span class="form-error" id="errorEmail" data-i18n="modal.errEmail">Veuillez saisir un email valide.</span>
           </div>
           <div class="form-group">
-            <label for="contactCompany">Entreprise</label>
+            <label for="contactCompany" data-i18n="modal.company">Entreprise</label>
             <input type="text" id="contactCompany" name="company" required autocomplete="organization">
-            <span class="form-error" id="errorCompany">Veuillez saisir votre entreprise.</span>
+            <span class="form-error" id="errorCompany" data-i18n="modal.errCompany">Veuillez saisir votre entreprise.</span>
           </div>
           <div class="checkbox-group">
             <input type="checkbox" id="contactConsent" name="consent" required>
-            <label for="contactConsent">J'accepte que mes données soient utilisées par SylvaOps Consulting pour être recontacté(e). Conformément au RGPD, elles ne seront ni cédées ni conservées au-delà du traitement de ma demande.</label>
+            <label for="contactConsent" data-i18n="modal.consent">J'accepte que mes données soient utilisées par SylvaOps Consulting pour être recontacté(e). Conformément au RGPD, elles ne seront ni cédées ni conservées au-delà du traitement de ma demande.</label>
           </div>
-          <span class="form-error" id="errorConsent" style="margin-top:-8px; margin-bottom:12px;">Veuillez accepter la politique de confidentialité.</span>
-          <button type="submit" class="btn btn--primary modal__submit">Envoyer ma demande</button>
+          <span class="form-error" id="errorConsent" style="margin-top:-8px; margin-bottom:12px;" data-i18n="modal.errConsent">Veuillez accepter la politique de confidentialité.</span>
+          <button type="submit" class="btn btn--primary modal__submit" data-i18n="modal.submit">Envoyer ma demande</button>
         </form>
       </div>
       <div class="modal__success" id="modalSuccess">
         <div class="modal__success-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
         </div>
-        <h3>Demande envoyée&nbsp;!</h3>
-        <p class="modal__desc">Merci pour votre intérêt. Un consultant SylvaOps vous contactera très prochainement.</p>
-        <button class="btn btn--secondary" id="closeSuccess" type="button">Fermer</button>
+        <h3 data-i18n="modal.successTitle">Demande envoyée&nbsp;!</h3>
+        <p class="modal__desc" data-i18n="modal.successDesc">Merci pour votre intérêt. Un consultant SylvaOps vous contactera très prochainement.</p>
+        <button class="btn btn--secondary" id="closeSuccess" type="button" data-i18n="modal.close">Fermer</button>
       </div>
     </div>
   </div>
@@ -1496,6 +1506,200 @@
       var LOGO_LIGHT = 'logo/logoblackc.png';
       var LOGO_DARK = 'logo/logowhite.png';
       var lastResult = null;
+
+      /* ═══════════ i18n (FR par défaut, capture du FR dans le DOM) ═══════════ */
+      var LANG = (localStorage.getItem('sylvaops-lang') === 'en') ? 'en' : 'fr';
+      function currentLocale() { return LANG === 'en' ? 'en-US' : 'fr-FR'; }
+      function fmt(s, v) { return s.replace(/\{(\w+)\}/g, function (_, k) { return v[k]; }); }
+
+      // Chaines dynamiques generees en JS (les deux langues).
+      var STR = {
+        fr: {
+          "doc.title": "SylvaOps Consulting — FinOps & Green IT",
+          "doc.desc": "SylvaOps Consulting — Cabinet FinOps & Green IT. Optimisez vos coûts Cloud et réduisez votre empreinte carbone numérique.",
+          "aria.dark": "Activer le mode sombre", "aria.light": "Activer le mode clair",
+          "aria.openMenu": "Ouvrir le menu", "aria.closeMenu": "Fermer le menu",
+          "modeSimple": "Mode simple", "modeDetailed": "Mode détaillé",
+          "uEurMonth": "€/mois", "uEurYear": "€/an", "uKwhMonth": "kWh/mois",
+          "uKgco2Month": "kg CO₂/mois", "uKgco2Year": "kg CO₂/an",
+          "uYears": "ans", "roiInstant": "Instantané", "roiNot": "Non rentable", "roiMonths": "mois",
+          "rangePmPre": "fourchette ± ", "rangePre": "fourchette : ", "pctColon": " % : ",
+          "uKgMonth": "kg/mois", "uKgYear": "kg/an",
+          "region.france": "France (mix décarboné)", "region.europe": "Europe (mix moyen)", "region.monde": "Monde (mix carboné)",
+          "reco.extT": "Extinction automatique des environnements non-prod",
+          "reco.extD": "{h} h/semaine sur {n} environnements DEV/TEST",
+          "reco.rightT": "Rightsizing des instances hors-production",
+          "reco.rightD": "Ajustement de {p} % des ressources sur-dimensionnées",
+          "reco.stoT": "Optimisation du stockage",
+          "reco.stoD": "Tiering et nettoyage : {p} % du budget stockage",
+          "reco.logT": "Rationalisation des logs & monitoring",
+          "reco.logD": "Politique de rétention : {p} % du budget stockage + réseau",
+          "reco.durT": "Allonger la durée de vie du matériel",
+          "reco.durD": "Passage de {a} à {b} ans (postes + serveurs)",
+          "reco.parcT": "Réduire la consommation du parc sur site",
+          "reco.parcD": "Veille/extinction postes + consolidation serveurs",
+          "reco.uMonth": "/mois", "reco.uKgYear": " kg CO₂/an"
+        },
+        en: {
+          "doc.title": "SylvaOps Consulting — FinOps & Green IT",
+          "doc.desc": "SylvaOps Consulting — FinOps & Green IT consultancy. Optimise your Cloud costs and reduce your digital carbon footprint.",
+          "aria.dark": "Switch to dark mode", "aria.light": "Switch to light mode",
+          "aria.openMenu": "Open menu", "aria.closeMenu": "Close menu",
+          "modeSimple": "Simple mode", "modeDetailed": "Detailed mode",
+          "uEurMonth": "€/mo", "uEurYear": "€/yr", "uKwhMonth": "kWh/mo",
+          "uKgco2Month": "kg CO₂/mo", "uKgco2Year": "kg CO₂/yr",
+          "uYears": "yrs", "roiInstant": "Instant", "roiNot": "Not profitable", "roiMonths": "months",
+          "rangePmPre": "range ± ", "rangePre": "range: ", "pctColon": "% : ",
+          "uKgMonth": "kg/mo", "uKgYear": "kg/yr",
+          "region.france": "France (low-carbon mix)", "region.europe": "Europe (average mix)", "region.monde": "World (carbon-intensive mix)",
+          "reco.extT": "Automatic shutdown of non-prod environments",
+          "reco.extD": "{h} h/week on {n} DEV/TEST environments",
+          "reco.rightT": "Rightsizing of non-production instances",
+          "reco.rightD": "Adjusting {p}% of oversized resources",
+          "reco.stoT": "Storage optimisation",
+          "reco.stoD": "Tiering and cleanup: {p}% of the storage budget",
+          "reco.logT": "Rationalising logs & monitoring",
+          "reco.logD": "Retention policy: {p}% of storage + network budget",
+          "reco.durT": "Extend hardware lifespan",
+          "reco.durD": "From {a} to {b} years (workstations + servers)",
+          "reco.parcT": "Reduce on-site hardware consumption",
+          "reco.parcD": "Workstation standby/shutdown + server consolidation",
+          "reco.uMonth": "/mo", "reco.uKgYear": " kg CO₂/yr"
+        }
+      };
+      function t(k) { var s = STR[LANG] && STR[LANG][k]; return (s != null) ? s : (STR.fr[k] != null ? STR.fr[k] : k); }
+
+      // Traductions anglaises du contenu statique (le FR est capturé depuis le DOM).
+      var I18N_EN = {
+        "nav.home": "Home", "nav.simulator": "Simulator", "nav.audit": "Free audit",
+        "hero.badge": "FinOps &amp; Green IT consultancy",
+        "hero.title": "Combine IT Performance with Digital Sobriety.",
+        "hero.subtitle": "SylvaOps Consulting helps IT and Cloud departments cut their infrastructure costs by up to 30&nbsp;% while reducing their digital carbon footprint.",
+        "hero.ctaSim": "Simulate my savings", "hero.ctaAudit": "Request an audit",
+        "hero.stat1": "Optimisable Cloud costs", "hero.stat2v": "14 months", "hero.stat2": "Average observed ROI", "hero.stat3": "Global digital GHG",
+        "prob.label": "The situation", "prob.title": "A three-dimensional challenge",
+        "prob.desc": "IT departments must cut costs and carbon footprint without degrading service quality.",
+        "prob.c1t": "Rising Cloud costs", "prob.c1d": "Cloud spending grows by 15 to 20&nbsp;% per year (Flexera, State of the Cloud 2024), with a large share left unoptimised.",
+        "prob.c2t": "Under-used environments", "prob.c2d": "DEV/TEST environments stay on at night and on weekends with no real usage, causing direct waste.",
+        "prob.c3t": "Digital carbon footprint", "prob.c3d": "Digital technology accounts for ~4&nbsp;% of global GHG emissions, a share that could double by 2030.",
+        "prob.question": "How can we reduce IT's environmental footprint and operating costs while guaranteeing service availability, security and compliance&nbsp;?",
+        "pil.label": "Our answer", "pil.title": "Four imperatives, one approach",
+        "pil.desc": "The GreenOps approach reconciles four requirements often seen as contradictory.",
+        "pil.c1t": "Economic performance", "pil.c1d": "Control and reduce IT operating costs.",
+        "pil.c2t": "Environmental responsibility", "pil.c2d": "Reduce energy consumption and carbon footprint.",
+        "pil.c3t": "Operational excellence", "pil.c3d": "Maintain service quality, continuity and availability.",
+        "pil.c4t": "Security &amp; compliance", "pil.c4d": "Guarantee data protection (GDPR) and regulatory compliance (REEN).",
+        "about.label": "The firm", "about.title": "Who are we&nbsp;?",
+        "about.p1": "<strong>SylvaOps Consulting</strong> is a consultancy specialised in <strong>FinOps</strong> and <strong>Green IT</strong>. We help companies control their Cloud bill while aligning their digital strategy with environmental challenges.",
+        "about.p2": "Faced with the continuous rise in Cloud costs (+15 to 20&nbsp;% per year) and the energy waste of non-productive environments, we offer a structured approach combining financial audit, automation and sustainable governance.",
+        "about.p3": "Our mission&nbsp;: turn the budget constraint into a lever for responsible performance, with measurable gains and a fast return on investment.",
+        "about.c1t": "FinOps expertise", "about.c1d": "Cost optimisation, rightsizing, reservations and multi-cloud budget management.",
+        "about.c2t": "Green IT &amp; SCI", "about.c2d": "Carbon impact measurement per the SCI standard, electricity mix and PUE for reliable environmental KPIs.",
+        "about.c3t": "Automation", "about.c3d": "Scheduled shutdown, cloud-native policies and industrialisation of DevOps best practices.",
+        "val.label": "Our commitments", "val.title": "Performance, sobriety, transparency",
+        "val.c1t": "Measurable performance", "val.c1d": "Every recommendation is quantified. Our clients see their savings in real time through KPI dashboards.",
+        "val.c2t": "Digital sobriety", "val.c2d": "Reduce the digital carbon footprint without compromising service quality or innovation.",
+        "val.c3t": "Full transparency", "val.c3d": "Open methodology, explicit formulas and traceability of every identified saving.",
+        "meth.label": "Our approach", "meth.title": "A 4-step method",
+        "meth.desc": "From audit to governance, we support your FinOps and Green IT transformation end to end.",
+        "meth.s1t": "Audit &amp; mapping", "meth.s1d": "Inventory of Cloud resources, cost analysis per environment and waste identification.",
+        "meth.s2t": "Optimisation", "meth.s2d": "Rightsizing, storage tiering, log reduction and rationalisation of oversized instances.",
+        "meth.s3t": "Automation", "meth.s3d": "Scheduled shutdown of Dev/Test environments at night and on weekends via cloud-native policies.",
+        "meth.s4t": "Governance", "meth.s4d": "FinOps &amp; Green IT KPI dashboard to steer costs, energy consumption and carbon emissions.",
+        "road.label": "Mission timeline", "road.title": "A progressive rollout",
+        "road.desc": "A phased approach, secured and driven by real usage data.",
+        "road.t1": "Weeks 1–2", "road.s1t": "Audit", "road.s1d": "Resource mapping and waste identification.",
+        "road.t2": "Weeks 3–4", "road.s2t": "Quick wins", "road.s2d": "Rightsizing, cleanup of orphan resources, storage optimisation.",
+        "road.t3": "Weeks 5–8", "road.s3t": "Automation", "road.s3d": "Scheduled DEV/TEST shutdown via cloud-native policies.",
+        "road.t4": "Ongoing", "road.s4t": "Governance", "road.s4d": "KPI dashboard and continuous improvement of indicators.",
+        "conf.label": "Security &amp; compliance", "conf.title": "A controlled and compliant approach",
+        "conf.desc": "Optimisation compromises neither production, nor security, nor regulatory compliance.",
+        "conf.c1t": "Production preserved", "conf.c1d": "Automatic shutdown only affects DEV/TEST environments. PROD stays available 24/7.",
+        "conf.c2t": "GDPR", "conf.c2d": "No personal data processed in the demonstrator. Explicit consent for any contact.",
+        "conf.c3t": "REEN Act &amp; CSRD", "conf.c3d": "The approach feeds extra-financial reporting and meets digital-sobriety obligations.",
+        "conf.c4t": "Traceability", "conf.c4d": "Every optimisation action is logged and reversible, ensuring full auditability.",
+        "sect.label": "Sectors served", "sect.title": "Sector-specific expertise",
+        "sect.desc": "We work with Cloud-intensive organisations in demanding sectors.",
+        "sect.t1": "Transport &amp; Mobility", "sect.t2": "Financial Services", "sect.t3": "Retail &amp; E-commerce",
+        "sect.t4": "Industry", "sect.t5": "Healthcare", "sect.t6": "Energy", "sect.t7": "Public Sector",
+        "tem.label": "They trust us", "tem.title": "What our clients say",
+        "tem.desc": "Illustrative feedback from IT departments supported by SylvaOps Consulting.",
+        "tem.q1": "The GreenOps audit revealed that our test environments ran 24/7 with no real usage. Automatic shutdown was an immediate gain, with zero impact on production.",
+        "tem.r1": "CIO · RATP", "tem.m1": "−28% non-prod Cloud costs in 6 months",
+        "tem.q2": "The methodology is transparent: every euro saved and every kilo of CO₂ avoided is traceable. It's exactly what we needed for our CSRD reporting.",
+        "tem.r2": "CSR Manager · ENGIE", "tem.m2": "−34 t CO₂ avoided in the first year",
+        "tem.q3": "The return on investment was reached in a little over a year. The simulator let us convince the executive committee with concrete figures from the pre-sales stage.",
+        "tem.r3": "Head of Operations · Capgemini", "tem.m3": "ROI reached in 14 months",
+        "tem.note": "Illustrative testimonials — M1 MCSI academic project. Fictional people and figures for demonstration purposes.",
+        "ctaHome.title": "Ready to estimate your savings&nbsp;?",
+        "ctaHome.desc": "Use our FinOps &amp; Green IT simulator to project the financial and environmental impact of your Cloud optimisations.",
+        "ctaHome.btn": "Open the simulator",
+        "sim.badge": "Demonstrator — Proof of concept", "sim.title": "FinOps &amp; Green IT Simulator",
+        "sim.intro": "Adjust your Cloud infrastructure parameters to estimate your financial savings and your carbon emissions reduction.",
+        "sim.disclaimer": "<strong>Indicative estimate.</strong> Results rely on adjustable assumptions and documented public factors (RTE, ADEME, Flexera). A real resource audit is required for a definitive costing. No data is sent to any server.",
+        "sim.scenarios": "Scenarios&nbsp;:", "sim.presetCdc": "Reference case (spec)", "sim.presetBusiness": "Realistic business case",
+        "sim.presetSncf": "SNCF Connect &amp; Tech demo", "sim.presetReset": "Reset", "sim.modeDetailed": "Detailed mode",
+        "sim.sncfNote": "<strong>Illustrative &laquo; SNCF Connect &amp; Tech &raquo; scenario</strong> — built from <em>public data</em>. 2023 carbon footprint ≈ 11,000 t CO₂e, of which <strong>AWS cloud ≈ 7–8%</strong> (≈ 800 t CO₂e/yr). As the cloud budget is not public, it is <strong>set as an assumption (~€200k/month)</strong> with a breakdown of compute 60% / storage 30% / network 10% (AWS Europe region, PUE 1.2). Carbon is estimated with the <strong>vCPU-hours method</strong> (deliberately conservative): the avoided operational footprint therefore comes out in tens of tonnes/year, a <em>fraction</em> of the ~800 t published (a broader AWS scope). SNCF Connect &amp; Tech already shuts down dev environments and has a FinOps + CO₂ dashboard: SylvaOps positions itself as a <strong>complement</strong> (benchmark, governance, scope extension), not a substitute. <span class=\"sncf-note__src\">Sources: Le Monde Informatique, Silicon.fr, Futura Sciences, groupe-sncf.com — figures to be validated with the client.</span>",
+        "sim.paramsTitle": "Parameters", "sim.secCloud": "Cloud infrastructure",
+        "sim.budget": "Monthly total Cloud budget",
+        "sim.computePct": "Compute share of budget", "sim.badgeAdv": "advanced",
+        "sim.computePctNote": "Breakdown of the bill. Only compute can be shut down; shutdown and rightsizing only act on this share.",
+        "sim.storagePct": "Storage share of budget",
+        "sim.storagePctNote": "The rest (100 − compute − storage) is treated as network/misc. The \"storage\" lever applies only to this share.",
+        "sim.horsProd": "Share of Non-Production environments (Dev/Test)",
+        "sim.envCount": "Number of non-prod environments",
+        "sim.secAuto": "Automation &amp; shutdown", "sim.extinction": "Planned shutdown hours / week",
+        "sim.secOptim": "Additional optimisations", "sim.rightsizing": "Rightsizing of non-prod instances",
+        "sim.stockage": "Storage optimisation", "sim.logs": "Logs & monitoring reduction",
+        "sim.secEnv": "Environmental impact", "sim.datacenter": "Datacenter location",
+        "sim.optFranceDc": "France (low-carbon mix)", "sim.optEuropeDc": "Europe (average mix)", "sim.optMondeDc": "World (carbon-intensive mix)",
+        "sim.pue": "Datacenter PUE", "sim.pueNote": "PUE = total energy / IT energy. 1.0 = perfect, 1.5+ = inefficient.",
+        "sim.secParc": "On-site hardware", "sim.siteLocation": "Site electricity",
+        "sim.optFrance": "France (low-carbon mix)", "sim.optEurope": "Europe (average mix)", "sim.optMonde": "World (carbon-intensive mix)",
+        "sim.siteLocationNote": "Emission factor of the equipment location (independent of the Cloud region).",
+        "sim.nbPostes": "Number of workstations (PC / laptops)", "sim.consoPoste": "Consumption per workstation (kWh/yr)",
+        "sim.consoPosteNote": "~120 kWh/yr for a desktop, ~40 for a laptop (ADEME).",
+        "sim.reductionPostes": "Workstation usage reduction (standby / auto shutdown)",
+        "sim.nbServeurs": "Number of on-premise servers", "sim.consoServeur": "Consumption per server (kWh/yr)",
+        "sim.consoServeurNote": "Physical server ~3,000–7,000 kWh/yr (load + cooling).",
+        "sim.reductionServeurs": "Server usage reduction (consolidation / virtualisation)",
+        "sim.secDuree": "Lifespan &amp; manufacturing",
+        "sim.empreintePoste": "Manufacturing footprint / workstation (kg CO₂e)",
+        "sim.empreintePosteNote": "Manufacturing ≈ 75% of a computer's footprint (ADEME). ~200 kg CO₂e per workstation.",
+        "sim.empreinteServeur": "Manufacturing footprint / server (kg CO₂e)",
+        "sim.dureeActuelle": "Current hardware lifespan", "sim.dureeCible": "Target lifespan (after the approach)",
+        "sim.dureeCibleNote": "Extending lifespan reduces the manufacturing carbon amortised each year — the #1 Green IT lever.",
+        "sim.secRoi": "Return on investment", "sim.investissement": "Project investment (€)",
+        "sim.recurringCost": "Monthly recurring cost (tooling, licences)",
+        "sim.recurringCostNote": "Deducted from savings for net ROI and NPV (net present value over 3 years, 8%/yr rate).",
+        "res.title": "Estimated results", "res.kFin": "Total financial savings", "res.kExt": "Of which auto shutdown",
+        "res.kOptim": "Of which optimisations", "res.kCarbon": "CO₂ emissions avoided", "res.kEnergy": "Energy saved",
+        "res.kAnnual": "Annual savings", "res.kRoi": "Estimated ROI",
+        "res.parcTitle": "On-site hardware (annual impact)", "res.kTotalCo2": "Total carbon footprint avoided",
+        "res.kCloudCo2": "Of which Cloud (usage)", "res.kParcCo2": "Of which on-site hardware",
+        "res.recoTitle": "Recommendations", "res.genReport": "Generate summary", "res.printReport": "Print / PDF",
+        "res.methodology": "<strong>Methodological note</strong> (SCI / ISO 21031 standard, Cloud Carbon Footprint method)&nbsp;:<br>Compute budget = Budget × (Compute share / 100) · same for storage · network = remainder<br>Shutdown gain = Non-Prod compute budget × (Hours / 168)<br>Rightsizing gain = Remaining Non-Prod compute budget × (Rightsizing / 100)<br>Storage gain = Storage budget × (Storage / 100) · Logs gain = (Storage + Network) × (Logs / 100)<br><code>Avoided vCPU-hours = Compute savings / price €/vCPU-h</code><br>Energy (kWh) = vCPU-hours × Watts/vCPU ÷ 1000 · CO₂ = Energy × PUE × Grid factor<br>Net ROI = Investment / (Savings − Recurring cost) · 3-year NPV (8%/yr rate)<p class=\"source-note\"><strong>Carbon via vCPU-hours</strong>&nbsp;: cloud CO₂ is estimated from compute usage (average price €0.045/vCPU-h · ~12 W IT per vCPU, Cloud Carbon Footprint method). A rigorous and deliberately conservative approach: the cloud operational footprint comes out far lower than that of on-site hardware.</p><p class=\"source-note\"><strong>Uncertainty ranges</strong>&nbsp;: each KPI shows a range. Financial ± 15% · cloud carbon ± 50% (uncertain vCPU coefficients) · hardware carbon ± 25% (ADEME/Boavizta data).</p><p class=\"source-note\">Sources&nbsp;: emission factors RTE/ADEME (France 0.05 · Europe 0.23 · World 0.35 kgCO₂/kWh) · PUE 1.1–1.3 (Uptime Institute) · vCPU energy coefficients (Cloud Carbon Footprint, Boavizta) · cloud cost growth Flexera 2024.</p>",
+        "det.title": "Calculation detail (traceability)", "det.split": "Compute / storage / network budget",
+        "det.budgetHP": "Non-Prod compute budget = compute × %NP", "det.factorExt": "Shutdown factor = Hours / 168",
+        "det.gainExt": "Shutdown gain", "det.gainOptim": "Rightsizing + storage + logs gain",
+        "det.total": "Total savings / month", "det.pctReduction": "Reduction vs total bill",
+        "det.perEnv": "Savings / non-prod environment", "det.vcpu": "Avoided vCPU-hours = compute savings / vCPU-h price",
+        "det.energy": "Energy = vCPU-h × W/vCPU ÷ 1000", "det.co2": "CO₂ = Energy × PUE × grid factor",
+        "det.net": "Net savings / month (− recurring cost)", "det.van": "3-year NPV (8%/yr rate)",
+        "det.parcTitle": "On-site hardware detail (annual)", "det.parcEnergy": "Hardware energy avoided",
+        "det.parcUsage": "Usage CO₂ avoided (energy)", "det.parcFab": "Manufacturing CO₂ avoided (lifespan)",
+        "det.parcTotal": "Total hardware avoided / year",
+        "ctaSim.title": "Do these figures speak to you&nbsp;?", "ctaSim.desc": "Move from simulation to reality with SylvaOps Consulting.",
+        "ctaSim.btn": "Book a free 30-min audit",
+        "footer": "SylvaOps Consulting · M1 MCSI Project · 2025–2026",
+        "modal.title": "Free 30-min Audit", "modal.desc": "Leave your details and a SylvaOps consultant will get back to you within 24 h.",
+        "modal.name": "Name", "modal.errName": "Please enter your name.",
+        "modal.email": "Email", "modal.errEmail": "Please enter a valid email.",
+        "modal.company": "Company", "modal.errCompany": "Please enter your company.",
+        "modal.consent": "I agree that my data may be used by SylvaOps Consulting to be contacted back. In accordance with the GDPR, it will neither be shared nor kept beyond the processing of my request.",
+        "modal.errConsent": "Please accept the privacy policy.", "modal.submit": "Send my request",
+        "modal.successTitle": "Request sent&nbsp;!", "modal.successDesc": "Thank you for your interest. A SylvaOps consultant will contact you very soon.", "modal.close": "Close"
+      };
 
       /* ── Theme ── */
       var themeToggle = document.getElementById('themeToggle');
@@ -1516,7 +1720,7 @@
           img.src = dark ? LOGO_DARK : LOGO_LIGHT;
         });
         themeToggle.setAttribute('aria-pressed', dark);
-        themeToggle.setAttribute('aria-label', dark ? 'Activer le mode clair' : 'Activer le mode sombre');
+        themeToggle.setAttribute('aria-label', dark ? t('aria.light') : t('aria.dark'));
         localStorage.setItem('sylvaops-theme', theme);
       }
 
@@ -1672,7 +1876,7 @@
       var WATTS_PER_VCPU = 12;   // puissance IT moyenne par vCPU au niveau serveur (hors PUE), en W
       var TAUX_ACTU_AN = 0.08;   // taux d'actualisation annuel pour la VAN
 
-      function formatNumber(n) { return Math.round(n).toLocaleString('fr-FR'); }
+      function formatNumber(n) { return Math.round(n).toLocaleString(currentLocale()); }
 
       function updateSliderFill(slider, fillEl) {
         var pct = ((slider.value - slider.min) / (slider.max - slider.min)) * 100;
@@ -1686,28 +1890,30 @@
         });
       }
 
-      function euro(n) { return formatNumber(n) + ' €'; }
+      function euro(n) { var s = formatNumber(n); return LANG === 'en' ? '€' + s : s + ' €'; }
 
       function renderReco(r) {
+        var eur = '<span style="font-size:0.7rem; font-weight:500;">' + t('reco.uMonth') + '</span>';
+        var kgy = '<span style="font-size:0.7rem; font-weight:500;">' + t('reco.uKgYear') + '</span>';
         var items = [
-          { on: r.economieExtinction > 0, title: 'Extinction automatique des environnements non-prod',
-            desc: r.extinction + ' h/semaine sur ' + r.envCount + ' environnements DEV/TEST',
-            gain: euro(r.economieExtinction) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
-          { on: r.economieRightsizing > 0, title: 'Rightsizing des instances hors-production',
-            desc: 'Ajustement de ' + r.rightsizing + ' % des ressources sur-dimensionnées',
-            gain: euro(r.economieRightsizing) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
-          { on: r.economieStockage > 0, title: 'Optimisation du stockage',
-            desc: 'Tiering et nettoyage : ' + r.stockage + ' % du budget stockage',
-            gain: euro(r.economieStockage) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
-          { on: r.economieLogs > 0, title: 'Rationalisation des logs & monitoring',
-            desc: 'Politique de rétention : ' + r.logs + ' % du budget stockage + réseau',
-            gain: euro(r.economieLogs) + '<span style="font-size:0.7rem; font-weight:500;">/mois</span>' },
-          { on: r.co2Fabrication > 0, title: 'Allonger la durée de vie du matériel',
-            desc: 'Passage de ' + r.dureeActuelle + ' à ' + r.dureeCible + ' ans (postes + serveurs)',
-            gain: formatNumber(r.co2Fabrication) + '<span style="font-size:0.7rem; font-weight:500;"> kg CO₂/an</span>' },
-          { on: r.co2ParcUsage > 0, title: 'Réduire la consommation du parc sur site',
-            desc: 'Veille/extinction postes + consolidation serveurs',
-            gain: formatNumber(r.co2ParcUsage) + '<span style="font-size:0.7rem; font-weight:500;"> kg CO₂/an</span>' }
+          { on: r.economieExtinction > 0, title: t('reco.extT'),
+            desc: fmt(t('reco.extD'), { h: r.extinction, n: r.envCount }),
+            gain: euro(r.economieExtinction) + eur },
+          { on: r.economieRightsizing > 0, title: t('reco.rightT'),
+            desc: fmt(t('reco.rightD'), { p: r.rightsizing }),
+            gain: euro(r.economieRightsizing) + eur },
+          { on: r.economieStockage > 0, title: t('reco.stoT'),
+            desc: fmt(t('reco.stoD'), { p: r.stockage }),
+            gain: euro(r.economieStockage) + eur },
+          { on: r.economieLogs > 0, title: t('reco.logT'),
+            desc: fmt(t('reco.logD'), { p: r.logs }),
+            gain: euro(r.economieLogs) + eur },
+          { on: r.co2Fabrication > 0, title: t('reco.durT'),
+            desc: fmt(t('reco.durD'), { a: r.dureeActuelle, b: r.dureeCible }),
+            gain: formatNumber(r.co2Fabrication) + kgy },
+          { on: r.co2ParcUsage > 0, title: t('reco.parcT'),
+            desc: t('reco.parcD'),
+            gain: formatNumber(r.co2ParcUsage) + kgy }
         ];
         recoList.innerHTML = items.map(function (it) {
           return '<div class="reco-card' + (it.on ? '' : ' reco-card--off') + '">' +
@@ -1784,18 +1990,18 @@
         var co2TotalAnnuel = co2CloudAnnuel + co2ParcAnnuel;
 
         var economieNette = economieTotale - recurringCost;
-        var roiText = 'Instantané';
+        var roiText = t('roiInstant');
         var roiMonths = 0;
         if (investissement > 0 && economieNette > 0) {
           roiMonths = investissement / economieNette;
-          roiText = (Math.round(roiMonths * 10) / 10).toLocaleString('fr-FR') + ' mois';
+          roiText = (Math.round(roiMonths * 10) / 10).toLocaleString(currentLocale()) + ' ' + t('roiMonths');
         } else if (investissement > 0) {
-          roiText = 'Non rentable';
+          roiText = t('roiNot');
         }
         // VAN sur 36 mois (taux annuel actualise mensuellement)
         var rMensuel = Math.pow(1 + TAUX_ACTU_AN, 1 / 12) - 1;
         var van = -investissement;
-        for (var t = 1; t <= 36; t++) { van += economieNette / Math.pow(1 + rMensuel, t); }
+        for (var mois = 1; mois <= 36; mois++) { van += economieNette / Math.pow(1 + rMensuel, mois); }
         var vanText = investissement > 0 ? formatNumber(van) + ' €' : '—';
 
         displays.budget.textContent = formatNumber(budget) + ' €';
@@ -1807,11 +2013,11 @@
         displays.logs.textContent = logs + ' %';
         displays.computePct.textContent = computePct + ' %';
         displays.storagePct.textContent = storagePct + ' %';
-        displays.pue.textContent = pue.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        displays.pue.textContent = pue.toLocaleString(currentLocale(), { minimumFractionDigits: 1, maximumFractionDigits: 1 });
         displays.reductionPostes.textContent = reductionPostes + ' %';
         displays.reductionServeurs.textContent = reductionServeurs + ' %';
-        displays.dureeActuelle.textContent = dureeActuelle + ' ans';
-        displays.dureeCible.textContent = dureeCible + ' ans';
+        displays.dureeActuelle.textContent = dureeActuelle + ' ' + t('uYears');
+        displays.dureeCible.textContent = dureeCible + ' ' + t('uYears');
         displays.investissement.textContent = formatNumber(investissement) + ' €';
         displays.recurringCost.textContent = formatNumber(recurringCost) + ' €';
 
@@ -1821,10 +2027,10 @@
           budget: budget, horsProd: horsProd, envCount: envCount, extinction: extinction,
           rightsizing: rightsizing, stockage: stockage, logs: logs, pue: pue,
           investissement: investissement, recurringCost: recurringCost,
-          gridLabel: GRID_LABELS[els.datacenter.value], gridFactor: gridFactor,
+          gridKey: els.datacenter.value, gridFactor: gridFactor,
           computePct: computePct, storagePct: storagePct, networkPct: networkPct,
           pctReduction: pctReduction, economieParEnv: economieParEnv,
-          siteLabel: GRID_LABELS[els.siteLocation.value],
+          siteKey: els.siteLocation.value,
           budgetComputeHP: budgetComputeHP, facteurExtinction: facteurExtinction,
           economieExtinction: economieExtinction, economieRightsizing: economieRightsizing,
           economieStockage: economieStockage, economieLogs: economieLogs, economieOptim: economieOptim,
@@ -1839,11 +2045,11 @@
 
         detail.split.textContent = formatNumber(budgetComputeTot) + ' / ' + formatNumber(budgetStorage) + ' / ' + formatNumber(budgetNetwork) + ' €';
         detail.budgetHP.textContent = euro(budgetComputeHP);
-        detail.factorExt.textContent = facteurExtinction.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        detail.factorExt.textContent = facteurExtinction.toLocaleString(currentLocale(), { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         detail.gainExt.textContent = euro(economieExtinction);
         detail.gainOptim.textContent = euro(economieOptim);
         detail.total.textContent = euro(economieTotale);
-        detail.pctReduction.textContent = (Math.round(pctReduction * 10) / 10).toLocaleString('fr-FR') + ' %';
+        detail.pctReduction.textContent = (Math.round(pctReduction * 10) / 10).toLocaleString(currentLocale()) + ' %';
         detail.perEnv.textContent = euro(economieParEnv);
         detail.vcpu.textContent = formatNumber(vcpuHeuresEvitees) + ' h';
         detail.energy.textContent = formatNumber(economieEnergie) + ' kWh';
@@ -1855,24 +2061,24 @@
         detail.parcFab.textContent = formatNumber(co2Fabrication) + ' kg';
         detail.parcTotal.textContent = formatNumber(co2ParcAnnuel) + ' kg';
 
-        parcKpis.totalCo2An.innerHTML = formatNumber(co2TotalAnnuel) + '<span class="kpi-card__unit">kg CO₂/an</span>';
+        parcKpis.totalCo2An.innerHTML = formatNumber(co2TotalAnnuel) + '<span class="kpi-card__unit">' + t('uKgco2Year') + '</span>';
         parcKpis.cloudCo2An.textContent = formatNumber(co2CloudAnnuel) + ' kg';
         parcKpis.parcCo2An.textContent = formatNumber(co2ParcAnnuel) + ' kg';
 
-        kpiRanges.financial.textContent = 'fourchette ± ' + Math.round(UNC_FIN * 100) + ' % : ' +
-          formatNumber(economieTotale * (1 - UNC_FIN)) + ' – ' + formatNumber(economieTotale * (1 + UNC_FIN)) + ' €/mois';
-        kpiRanges.annual.textContent = 'fourchette ± ' + Math.round(UNC_FIN * 100) + ' % : ' +
-          formatNumber(economieAnnuelle * (1 - UNC_FIN)) + ' – ' + formatNumber(economieAnnuelle * (1 + UNC_FIN)) + ' €/an';
-        kpiRanges.carbon.textContent = 'fourchette ± ' + Math.round(UNC_CO2_CLOUD * 100) + ' % : ' +
-          formatNumber(economieCarbone * (1 - UNC_CO2_CLOUD)) + ' – ' + formatNumber(economieCarbone * (1 + UNC_CO2_CLOUD)) + ' kg/mois';
+        kpiRanges.financial.textContent = t('rangePmPre') + Math.round(UNC_FIN * 100) + t('pctColon') +
+          formatNumber(economieTotale * (1 - UNC_FIN)) + ' – ' + formatNumber(economieTotale * (1 + UNC_FIN)) + ' ' + t('uEurMonth');
+        kpiRanges.annual.textContent = t('rangePmPre') + Math.round(UNC_FIN * 100) + t('pctColon') +
+          formatNumber(economieAnnuelle * (1 - UNC_FIN)) + ' – ' + formatNumber(economieAnnuelle * (1 + UNC_FIN)) + ' ' + t('uEurYear');
+        kpiRanges.carbon.textContent = t('rangePmPre') + Math.round(UNC_CO2_CLOUD * 100) + t('pctColon') +
+          formatNumber(economieCarbone * (1 - UNC_CO2_CLOUD)) + ' – ' + formatNumber(economieCarbone * (1 + UNC_CO2_CLOUD)) + ' ' + t('uKgMonth');
         var totalCo2Low = co2CloudAnnuel * (1 - UNC_CO2_CLOUD) + co2ParcAnnuel * (1 - UNC_CO2_PARC);
         var totalCo2High = co2CloudAnnuel * (1 + UNC_CO2_CLOUD) + co2ParcAnnuel * (1 + UNC_CO2_PARC);
-        kpiRanges.totalCo2An.textContent = 'fourchette : ' + formatNumber(totalCo2Low) + ' – ' + formatNumber(totalCo2High) + ' kg/an';
+        kpiRanges.totalCo2An.textContent = t('rangePre') + formatNumber(totalCo2Low) + ' – ' + formatNumber(totalCo2High) + ' ' + t('uKgYear');
         if (investissement > 0 && economieTotale > 0) {
           var roiBest = investissement / (economieTotale * (1 + UNC_FIN));
           var roiWorst = investissement / (economieTotale * (1 - UNC_FIN));
-          kpiRanges.roi.textContent = 'fourchette : ' + (Math.round(roiBest * 10) / 10).toLocaleString('fr-FR') +
-            ' – ' + (Math.round(roiWorst * 10) / 10).toLocaleString('fr-FR') + ' mois';
+          kpiRanges.roi.textContent = t('rangePre') + (Math.round(roiBest * 10) / 10).toLocaleString(currentLocale()) +
+            ' – ' + (Math.round(roiWorst * 10) / 10).toLocaleString(currentLocale()) + ' ' + t('roiMonths');
         } else {
           kpiRanges.roi.innerHTML = '&nbsp;';
         }
@@ -1881,12 +2087,12 @@
 
         setKpiUpdating();
         requestAnimationFrame(function () {
-          kpis.financial.innerHTML = formatNumber(economieTotale) + '<span class="kpi-card__unit">€/mois</span>';
-          kpis.extinction.textContent = formatNumber(economieExtinction) + ' €';
-          kpis.optim.textContent = formatNumber(economieOptim) + ' €';
-          kpis.carbon.innerHTML = formatNumber(economieCarbone) + '<span class="kpi-card__unit">kg CO₂/mois</span>';
-          kpis.energy.innerHTML = formatNumber(economieEnergie) + '<span class="kpi-card__unit">kWh/mois</span>';
-          kpis.annual.innerHTML = formatNumber(economieAnnuelle) + '<span class="kpi-card__unit">€/an</span>';
+          kpis.financial.innerHTML = formatNumber(economieTotale) + '<span class="kpi-card__unit">' + t('uEurMonth') + '</span>';
+          kpis.extinction.textContent = euro(economieExtinction);
+          kpis.optim.textContent = euro(economieOptim);
+          kpis.carbon.innerHTML = formatNumber(economieCarbone) + '<span class="kpi-card__unit">' + t('uKgco2Month') + '</span>';
+          kpis.energy.innerHTML = formatNumber(economieEnergie) + '<span class="kpi-card__unit">' + t('uKwhMonth') + '</span>';
+          kpis.annual.innerHTML = formatNumber(economieAnnuelle) + '<span class="kpi-card__unit">' + t('uEurYear') + '</span>';
           kpis.roi.textContent = roiText;
           Object.keys(kpis).forEach(function (k) {
             if (kpis[k].classList) kpis[k].classList.remove('updating');
@@ -1938,27 +2144,49 @@
         detailedMode = !detailedMode;
         advancedParams.forEach(function (el) { el.classList.toggle('visible', detailedMode); });
         modeToggle.classList.toggle('preset-btn--active', detailedMode);
-        modeToggle.textContent = detailedMode ? 'Mode simple' : 'Mode détaillé';
+        modeToggle.textContent = detailedMode ? t('modeSimple') : t('modeDetailed');
       });
 
       /* ── Rapport de synthèse ── */
       var reportBox = document.getElementById('reportBox');
-      document.getElementById('genReport').addEventListener('click', function () {
-        if (!lastResult) calculate();
-        var r = lastResult;
-        reportBox.innerHTML =
-          '<h4>Synthèse décisionnelle — SylvaOps Consulting</h4>' +
+      function buildReport(r) {
+        var pueStr = r.pue.toLocaleString(currentLocale(), { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+        var pctBudget = (Math.round(r.economieTotale / r.budget * 1000) / 10).toLocaleString(currentLocale());
+        var region = t('region.' + r.gridKey);
+        if (LANG === 'en') {
+          return '<h4>Decision summary — SylvaOps Consulting</h4>' +
+            '<p>On a monthly Cloud budget of <strong>' + euro(r.budget) + '</strong>, of which <strong>' + r.horsProd +
+            '%</strong> non-production (' + r.envCount + ' DEV/TEST environments), the GreenOps approach enables estimated savings of <strong>' +
+            euro(r.economieTotale) + ' per month</strong>, i.e. <strong>' + euro(r.economieAnnuelle) + ' per year</strong>' +
+            (r.budget > 0 ? ' (' + pctBudget + '% of the budget)' : '') + '.</p>' +
+            '<p>Budget breakdown&nbsp;: compute ' + r.computePct + '%, storage ' + r.storagePct + '%, network ' + r.networkPct +
+            '%. Gain split&nbsp;: shutdown <strong>' + euro(r.economieExtinction) + '</strong>, optimisations (rightsizing, storage, logs) <strong>' +
+            euro(r.economieOptim) + '</strong>' + (r.envCount > 0 ? ' — i.e. ' + euro(r.economieParEnv) + '/environment' : '') + '.</p>' +
+            '<p>Cloud environmental impact (vCPU-hours method)&nbsp;: <strong>' + formatNumber(r.vcpuHeuresEvitees) + ' vCPU-h/month</strong> avoided → <strong>' +
+            formatNumber(r.economieEnergie) + ' kWh/month</strong>, i.e. <strong>' +
+            formatNumber(r.economieCarbone) + ' kg CO₂/month</strong> avoided (' + region + ', PUE ' + pueStr + ', SCI standard).</p>' +
+            '<p>On-site hardware (' + formatNumber(r.nbPostes) + ' workstations, ' + formatNumber(r.nbServeurs) + ' servers)&nbsp;: <strong>' +
+            formatNumber(r.co2ParcAnnuel) + ' kg CO₂/yr</strong> avoided, including <strong>' + formatNumber(r.co2Fabrication) +
+            ' kg</strong> from extending the lifespan (' + r.dureeActuelle + ' → ' + r.dureeCible + ' years).</p>' +
+            '<p><strong>Total carbon footprint avoided&nbsp;: ' + formatNumber(r.co2TotalAnnuel) + ' kg CO₂/yr</strong> (Cloud ' +
+            formatNumber(r.co2CloudAnnuel) + ' kg + hardware ' + formatNumber(r.co2ParcAnnuel) + ' kg).</p>' +
+            '<p>Return on investment&nbsp;: for a project investment of <strong>' + euro(r.investissement) +
+            '</strong>' + (r.recurringCost > 0 ? ' and a recurring cost of ' + euro(r.recurringCost) + '/month' : '') +
+            ', the (net) ROI is reached in <strong>' + r.roiText + '</strong>' +
+            (r.investissement > 0 ? ' — 3-year NPV ≈ <strong>' + euro(r.van) + '</strong> (8%/yr rate)' : '') + '.</p>' +
+            '<p style="font-size:0.75rem; color:var(--ink-light);">Indicative estimate based on adjustable assumptions and public factors (RTE/ADEME, Flexera, Uptime Institute). A real audit is required for a definitive costing.</p>';
+        }
+        return '<h4>Synthèse décisionnelle — SylvaOps Consulting</h4>' +
           '<p>Sur un budget Cloud mensuel de <strong>' + euro(r.budget) + '</strong>, dont <strong>' + r.horsProd +
           ' %</strong> hors-production (' + r.envCount + ' environnements DEV/TEST), la démarche GreenOps permet une économie estimée à <strong>' +
           euro(r.economieTotale) + ' par mois</strong>, soit <strong>' + euro(r.economieAnnuelle) + ' par an</strong>' +
-          (r.budget > 0 ? ' (' + (Math.round(r.economieTotale / r.budget * 1000) / 10).toLocaleString('fr-FR') + ' % du budget)' : '') + '.</p>' +
+          (r.budget > 0 ? ' (' + pctBudget + ' % du budget)' : '') + '.</p>' +
           '<p>Décomposition budget&nbsp;: compute ' + r.computePct + ' %, stockage ' + r.storagePct + ' %, réseau ' + r.networkPct +
           ' %. Répartition des gains&nbsp;: extinction <strong>' + euro(r.economieExtinction) + '</strong>, optimisations (rightsizing, stockage, logs) <strong>' +
           euro(r.economieOptim) + '</strong>' + (r.envCount > 0 ? ' — soit ' + euro(r.economieParEnv) + '/environnement' : '') + '.</p>' +
           '<p>Impact environnemental Cloud (méthode vCPU-heures)&nbsp;: <strong>' + formatNumber(r.vcpuHeuresEvitees) + ' vCPU-h/mois</strong> évitées → <strong>' +
           formatNumber(r.economieEnergie) + ' kWh/mois</strong>, soit <strong>' +
-          formatNumber(r.economieCarbone) + ' kg CO₂/mois</strong> évités (' + r.gridLabel + ', PUE ' +
-          r.pue.toLocaleString('fr-FR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ', norme SCI).</p>' +
+          formatNumber(r.economieCarbone) + ' kg CO₂/mois</strong> évités (' + region + ', PUE ' + pueStr + ', norme SCI).</p>' +
           '<p>Parc matériel sur site (' + formatNumber(r.nbPostes) + ' postes, ' + formatNumber(r.nbServeurs) + ' serveurs)&nbsp;: <strong>' +
           formatNumber(r.co2ParcAnnuel) + ' kg CO₂/an</strong> évités, dont <strong>' + formatNumber(r.co2Fabrication) +
           ' kg</strong> grâce à l\'allongement de la durée de vie (' + r.dureeActuelle + ' → ' + r.dureeCible + ' ans).</p>' +
@@ -1967,8 +2195,12 @@
           '<p>Retour sur investissement&nbsp;: pour un investissement projet de <strong>' + euro(r.investissement) +
           '</strong>' + (r.recurringCost > 0 ? ' et un coût récurrent de ' + euro(r.recurringCost) + '/mois' : '') +
           ', le ROI (net) est atteint en <strong>' + r.roiText + '</strong>' +
-          (r.investissement > 0 ? ' — VAN sur 3 ans ≈ <strong>' + formatNumber(r.van) + ' €</strong> (taux 8 %/an)' : '') + '.</p>' +
+          (r.investissement > 0 ? ' — VAN sur 3 ans ≈ <strong>' + euro(r.van) + '</strong> (taux 8 %/an)' : '') + '.</p>' +
           '<p style="font-size:0.75rem; color:var(--ink-light);">Estimation indicative basée sur des hypothèses paramétrables et des facteurs publics (RTE/ADEME, Flexera, Uptime Institute). Un audit réel est requis pour un chiffrage définitif.</p>';
+      }
+      document.getElementById('genReport').addEventListener('click', function () {
+        if (!lastResult) calculate();
+        reportBox.innerHTML = buildReport(lastResult);
         reportBox.classList.add('visible');
         reportBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
@@ -1992,7 +2224,7 @@
       menuToggle.addEventListener('click', function () {
         var open = nav.classList.toggle('open');
         menuToggle.setAttribute('aria-expanded', open);
-        menuToggle.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+        menuToggle.setAttribute('aria-label', open ? t('aria.closeMenu') : t('aria.openMenu'));
       });
 
       /* ── Modal ── */
@@ -2061,6 +2293,48 @@
           modalSuccess.classList.add('visible');
         }
       });
+
+      /* ── Application de la langue ── */
+      function firstTextNode(el) {
+        for (var i = 0; i < el.childNodes.length; i++) {
+          var n = el.childNodes[i];
+          if (n.nodeType === 3 && n.nodeValue.trim() !== '') return n;
+        }
+        return null;
+      }
+      var i18nEls = [].slice.call(document.querySelectorAll('[data-i18n]'));
+      var i18nNodeEls = [].slice.call(document.querySelectorAll('[data-i18n-node]'));
+      i18nEls.forEach(function (el) { el.__fr = el.innerHTML; });
+      i18nNodeEls.forEach(function (el) { var n = firstTextNode(el); el.__frNode = n ? n.nodeValue : ''; });
+
+      var langToggle = document.getElementById('langToggle');
+      function applyLang(lang) {
+        LANG = (lang === 'en') ? 'en' : 'fr';
+        document.documentElement.setAttribute('lang', LANG);
+        i18nEls.forEach(function (el) {
+          var k = el.getAttribute('data-i18n');
+          el.innerHTML = (LANG === 'en' && I18N_EN[k] != null) ? I18N_EN[k] : el.__fr;
+        });
+        i18nNodeEls.forEach(function (el) {
+          var k = el.getAttribute('data-i18n-node');
+          var n = firstTextNode(el);
+          if (!n) return;
+          n.nodeValue = (LANG === 'en' && I18N_EN[k] != null) ? I18N_EN[k] : el.__frNode;
+        });
+        document.title = t('doc.title');
+        var meta = document.querySelector('meta[name="description"]');
+        if (meta) meta.setAttribute('content', t('doc.desc'));
+        langToggle.textContent = LANG === 'en' ? 'FR' : 'EN';
+        langToggle.setAttribute('aria-label', LANG === 'en' ? 'Passer en français' : 'Switch to English');
+        themeToggle.setAttribute('aria-label', isDarkTheme() ? t('aria.light') : t('aria.dark'));
+        if (menuToggle) menuToggle.setAttribute('aria-label', (nav && nav.classList.contains('open')) ? t('aria.closeMenu') : t('aria.openMenu'));
+        if (modeToggle) modeToggle.textContent = detailedMode ? t('modeSimple') : t('modeDetailed');
+        localStorage.setItem('sylvaops-lang', LANG);
+        calculate();
+        if (reportBox && reportBox.classList.contains('visible')) reportBox.innerHTML = buildReport(lastResult);
+      }
+      langToggle.addEventListener('click', function () { applyLang(LANG === 'en' ? 'fr' : 'en'); });
+      applyLang(LANG);
     })();
   </script>
 </body>
