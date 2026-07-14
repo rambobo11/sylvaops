@@ -1101,7 +1101,7 @@
 
           <div class="input-group advanced-params">
             <label for="computePct" data-i18n-node="sim.computePct">
-              Part compute du budget<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
+              Part compute du budget&nbsp;<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
               <span class="value-display" id="computePctDisplay">60 %</span>
             </label>
             <div class="slider-wrap">
@@ -1113,14 +1113,14 @@
 
           <div class="input-group advanced-params">
             <label for="storagePct" data-i18n-node="sim.storagePct">
-              Part stockage du budget<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
+              Part stockage du budget&nbsp;<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
               <span class="value-display" id="storagePctDisplay">30 %</span>
             </label>
             <div class="slider-wrap">
               <div class="slider-fill" id="storagePctFill"></div>
               <input type="range" id="storagePct" min="0" max="100" value="30" step="5">
             </div>
-            <p class="source-note" data-i18n="sim.storagePctNote">Le reste (100 − compute − stockage) est considéré comme réseau/divers. Le levier « stockage » s'applique sur cette part uniquement.</p>
+            <p class="source-note" data-i18n="sim.storagePctNote">Le reste (100 − compute − stockage) est considéré comme réseau/divers. Le levier «&nbsp;stockage&nbsp;» s'applique sur la part stockage&nbsp;; le levier «&nbsp;logs&nbsp;» sur stockage&nbsp;+&nbsp;réseau.</p>
           </div>
 
           <div class="input-group">
@@ -1219,7 +1219,7 @@
           <p class="input-section-title" data-i18n="sim.secParc">Parc matériel sur site</p>
 
           <div class="input-group advanced-params">
-            <label for="siteLocation" data-i18n-node="sim.siteLocation">Électricité du site<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span></label>
+            <label for="siteLocation" data-i18n-node="sim.siteLocation">Électricité du site&nbsp;<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span></label>
             <select id="siteLocation">
               <option value="france" data-i18n="sim.optFrance">France (mix décarboné)</option>
               <option value="europe" data-i18n="sim.optEurope">Europe (mix moyen)</option>
@@ -1313,14 +1313,14 @@
           <div class="input-group">
             <label for="investissement" data-i18n-node="sim.investissement">
               Investissement projet (€)
-              <span class="value-display" id="investissementDisplay">0 €</span>
+              <span class="value-display" id="investissementDisplay">108 000 €</span>
             </label>
-            <input type="number" id="investissement" value="0" min="0" step="5000">
+            <input type="number" id="investissement" value="108000" min="0" step="5000">
           </div>
 
           <div class="input-group advanced-params">
             <label for="recurringCost" data-i18n-node="sim.recurringCost">
-              Coût récurrent mensuel (outillage, licences)<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
+              Coût récurrent mensuel (outillage, licences)&nbsp;<span class="advanced-badge" data-i18n="sim.badgeAdv">avancé</span>
               <span class="value-display" id="recurringCostDisplay">0 €</span>
             </label>
             <input type="number" id="recurringCost" value="0" min="0" step="100">
@@ -1367,8 +1367,8 @@
             </div>
             <div class="kpi-card">
               <div class="kpi-card__label" data-i18n="res.kRoi">ROI estimé</div>
-              <div class="kpi-card__value" id="kpiRoi">Instantané</div>
-              <div class="kpi-card__range" id="kpiRoiRange">&nbsp;</div>
+              <div class="kpi-card__value" id="kpiRoi">18 mois</div>
+              <div class="kpi-card__range" id="kpiRoiRange">fourchette : 15,7 – 21,2 mois</div>
             </div>
           </div>
 
@@ -1393,14 +1393,14 @@
           <div class="kpi-grid">
             <div class="kpi-card kpi-card--highlight">
               <div class="kpi-card__label" data-i18n="res.kTotalCo2">Empreinte carbone totale évitée</div>
-              <div class="kpi-card__value" id="kpiTotalCo2An">77 490<span class="kpi-card__unit">kg CO₂/an</span></div>
-              <div class="kpi-card__range" id="kpiTotalCo2AnRange">fourchette : 55 000 – 100 000 kg/an</div>
+              <div class="kpi-card__value" id="kpiTotalCo2An">30 642<span class="kpi-card__unit">kg CO₂/an</span></div>
+              <div class="kpi-card__range" id="kpiTotalCo2AnRange">fourchette : 22 694 – 38 591 kg/an</div>
             </div>
           </div>
           <div class="kpi-breakdown">
             <div class="kpi-card kpi-card--small">
               <div class="kpi-card__label" data-i18n="res.kCloudCo2">Dont Cloud (usage)</div>
-              <div class="kpi-card__value kpi-card__value--sm" id="kpiCloudCo2An">48 000 kg</div>
+              <div class="kpi-card__value kpi-card__value--sm" id="kpiCloudCo2An">1 152 kg</div>
             </div>
             <div class="kpi-card kpi-card--small">
               <div class="kpi-card__label" data-i18n="res.kParcCo2">Dont parc sur site</div>
@@ -1645,7 +1645,7 @@
         "sim.computePct": "Compute share of budget", "sim.badgeAdv": "advanced",
         "sim.computePctNote": "Breakdown of the bill. Only compute can be shut down; shutdown and rightsizing only act on this share.",
         "sim.storagePct": "Storage share of budget",
-        "sim.storagePctNote": "The rest (100 − compute − storage) is treated as network/misc. The \"storage\" lever applies only to this share.",
+        "sim.storagePctNote": "The rest (100 − compute − storage) is treated as network/misc. The \"storage\" lever applies to the storage share; the \"logs\" lever applies to storage + network.",
         "sim.horsProd": "Share of Non-Production environments (Dev/Test)",
         "sim.envCount": "Number of non-prod environments",
         "sim.secAuto": "Automation &amp; shutdown", "sim.extinction": "Planned shutdown hours / week",
@@ -2074,9 +2074,9 @@
         var totalCo2Low = co2CloudAnnuel * (1 - UNC_CO2_CLOUD) + co2ParcAnnuel * (1 - UNC_CO2_PARC);
         var totalCo2High = co2CloudAnnuel * (1 + UNC_CO2_CLOUD) + co2ParcAnnuel * (1 + UNC_CO2_PARC);
         kpiRanges.totalCo2An.textContent = t('rangePre') + formatNumber(totalCo2Low) + ' – ' + formatNumber(totalCo2High) + ' ' + t('uKgYear');
-        if (investissement > 0 && economieTotale > 0) {
-          var roiBest = investissement / (economieTotale * (1 + UNC_FIN));
-          var roiWorst = investissement / (economieTotale * (1 - UNC_FIN));
+        if (investissement > 0 && economieNette > 0) {
+          var roiBest = investissement / (economieNette * (1 + UNC_FIN));
+          var roiWorst = investissement / (economieNette * (1 - UNC_FIN));
           kpiRanges.roi.textContent = t('rangePre') + (Math.round(roiBest * 10) / 10).toLocaleString(currentLocale()) +
             ' – ' + (Math.round(roiWorst * 10) / 10).toLocaleString(currentLocale()) + ' ' + t('roiMonths');
         } else {
@@ -2216,7 +2216,7 @@
         document.getElementById('printArea').innerHTML = '';
       });
 
-      calculate();
+      document.getElementById('presetCdc').click();
 
       /* ── Mobile menu ── */
       var menuToggle = document.getElementById('menuToggle');
