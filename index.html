@@ -1141,7 +1141,7 @@
             </label>
             <div class="slider-wrap">
               <div class="slider-fill" id="envCountFill"></div>
-              <input type="range" id="envCount" min="1" max="50" value="12" step="1">
+              <input type="range" id="envCount" min="0" max="50" value="12" step="1">
             </div>
           </div>
 
@@ -1211,7 +1211,7 @@
             </label>
             <div class="slider-wrap">
               <div class="slider-fill" id="pueFill"></div>
-              <input type="range" id="pue" min="10" max="20" value="12" step="1">
+              <input type="range" id="pue" min="0" max="20" value="12" step="1">
             </div>
             <p class="source-note" data-i18n="sim.pueNote">PUE = énergie totale / énergie IT. 1,0 = parfait, 1,5+ = peu efficient.</p>
           </div>
@@ -1292,7 +1292,7 @@
             </label>
             <div class="slider-wrap">
               <div class="slider-fill" id="dureeActuelleFill"></div>
-              <input type="range" id="dureeActuelle" min="2" max="10" value="4" step="1">
+              <input type="range" id="dureeActuelle" min="0" max="10" value="4" step="1">
             </div>
           </div>
 
@@ -1303,7 +1303,7 @@
             </label>
             <div class="slider-wrap">
               <div class="slider-fill" id="dureeCibleFill"></div>
-              <input type="range" id="dureeCible" min="2" max="12" value="6" step="1">
+              <input type="range" id="dureeCible" min="0" max="12" value="6" step="1">
             </div>
             <p class="source-note" data-i18n="sim.dureeCibleNote">Allonger la durée de vie réduit le carbone de fabrication amorti chaque année — levier n°1 du Green IT.</p>
           </div>
@@ -2132,7 +2132,15 @@
         setActivePreset('presetSncf'); sncfNote.hidden = false;
       });
       document.getElementById('presetReset').addEventListener('click', function () {
-        applyPreset(withParc({ budget: 50000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 12, extinction: 84, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, investissement: 0, recurringCost: 0 }));
+        applyPreset({
+          budget: 0, computePct: 0, storagePct: 0, horsProd: 0, envCount: 0,
+          extinction: 0, rightsizing: 0, stockage: 0, logs: 0,
+          datacenter: 'france', pue: 0, investissement: 0, recurringCost: 0,
+          siteLocation: 'france',
+          nbPostes: 0, consoPoste: 0, reductionPostes: 0,
+          nbServeurs: 0, consoServeur: 0, reductionServeurs: 0,
+          empreintePoste: 0, empreinteServeur: 0, dureeActuelle: 0, dureeCible: 0
+        });
         setActivePreset('presetReset'); sncfNote.hidden = true;
       });
 
