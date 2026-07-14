@@ -2,6 +2,22 @@
 
 Projet M1 MCSI · SylvaOps Consulting · Cas SNCF Connect & Tech
 Document de référence méthodologique du simulateur FinOps & Green IT (`index.html`).
+**Dernière mise à jour :** juillet 2026 — site déployé sur Vercel (`sylvaops.vercel.app`), ROI cible **18 mois**, bascule **FR/EN**, preset CDC au chargement.
+
+---
+
+## État du site — prêt pour la soutenance
+
+| Critère | Statut |
+|---------|--------|
+| Vitrine complète (problématique, piliers, méthode, conformité, témoignages) | ✅ |
+| Simulateur temps réel + traçabilité + fourchettes ± | ✅ |
+| 4 presets (CDC, business, SNCF, réinitialiser à 0) | ✅ |
+| Synthèse + impression PDF (1–2 pages) | ✅ |
+| Modale contact + consentement RGPD | ✅ |
+| Mode sombre + **bascule FR/EN** (persistance `localStorage`) | ✅ |
+| Déploiement GitHub → Vercel (HTTPS) | ✅ |
+| Documentation + PDFs d'architecture à jour | ✅ (ce dossier `vf/`) |
 
 ---
 
@@ -26,7 +42,7 @@ Tous les résultats sont recalculés **en temps réel** à chaque modification d
 |---|-----------|-------------|------|-------|-------|-------------------|
 | 1 | Budget Cloud mensuel global | `budget` | Nombre | € | ≥ 0 | 50 000 |
 | 2 | Part environnements Hors-Production | `horsProd` | Slider | % | 0 – 100 | 40 |
-| 3 | Nombre d'environnements non-prod | `envCount` | Slider | unité | 1 – 50 | 12 |
+| 3 | Nombre d'environnements non-prod | `envCount` | Slider | unité | 0 – 50 | 12 |
 | 4 | Heures d'extinction / semaine | `extinction` | Slider | h | 0 – 168 | 84 |
 | 5 | Rightsizing instances hors-prod | `rightsizing` | Slider | % | 0 – 50 | 0 |
 | 6 | Optimisation stockage | `stockage` | Slider | % | 0 – 20 | 0 |
@@ -213,7 +229,7 @@ Empreinte_totale_évitée = CO₂_cloud_annuel + CO₂_parc_annuel    (kg CO₂/
 ## 5. Exemples chiffrés (les 2 presets de démonstration)
 
 ### Preset A — « Cas référence (CDC) »
-Paramètres : B = 50 000 €, compute 60 % / stockage 30 % / réseau 10 %, %HP = 40 %, H = 84 h, %RS/%ST/%LG = 0, France (Fg = 0,05), PUE = 1,2, I = 84 000 €, coût récurrent = 0.
+Paramètres : B = 50 000 €, compute 60 % / stockage 30 % / réseau 10 %, %HP = 40 %, H = 84 h, %RS/%ST/%LG = 0, France (Fg = 0,05), PUE = 1,2, I = **108 000 €**, coût récurrent = 0.
 
 | Étape | Calcul | Résultat |
 |-------|--------|----------|
@@ -225,11 +241,11 @@ Paramètres : B = 50 000 €, compute 60 % / stockage 30 % / réseau 10 %, %HP =
 | vCPU-heures évitées | 6 000 / 0,045 | ≈ 133 333 h/mois |
 | Énergie | 133 333 × 12 / 1000 | ≈ 1 600 kWh/mois |
 | **CO₂ cloud** | 1 600 × 1,2 × 0,05 | **≈ 96 kg CO₂/mois** |
-| ROI net | 84 000 / 6 000 | **14 mois** |
-| VAN 3 ans | taux 8 %/an | ≈ +108 000 € |
+| ROI net | 108 000 / 6 000 | **18 mois** |
+| VAN 3 ans | taux 8 %/an | ≈ **+84 260 €** |
 
 ### Preset B — « Cas business réaliste »
-Paramètres : B = 50 000 €, compute 60 % / stockage 30 %, %HP = 40 %, H = 52 h, RS = 10 %, ST = 5 %, LG = 3 %, France, I = 71 300 €, coût récurrent = 800 €/mois.
+Paramètres : B = 50 000 €, compute 60 % / stockage 30 %, %HP = 40 %, H = 52 h, RS = 10 %, ST = 5 %, LG = 3 %, France, I = **91 700 €**, coût récurrent = 800 €/mois.
 
 | Étape | Calcul | Résultat |
 |-------|--------|----------|
@@ -240,16 +256,16 @@ Paramètres : B = 50 000 €, compute 60 % / stockage 30 %, %HP = 40 %, H = 52 h
 | Éco_annuelle | × 12 | **≈ 70 700 €/an** |
 | **CO₂ cloud** | méthode vCPU | **≈ 73 kg CO₂/mois** |
 | Éco nette | 5 893 − 800 | ≈ 5 093 €/mois |
-| ROI net | 71 300 / 5 093 | **≈ 14 mois** |
-| VAN 3 ans | taux 8 %/an | ≈ +92 000 € |
+| ROI net | 91 700 / 5 093 | **≈ 18 mois** |
+| VAN 3 ans | taux 8 %/an | ≈ **+71 500 €** |
 
 ### Preset C — « Démo SNCF Connect & Tech » (données publiques)
 
-Scénario **illustratif** à partir de données publiques (voir sources en fin de doc). Le budget cloud n'est **pas public** ; il est **posé en hypothèse**.
+Scénario **illustratif** à partir de données publiques (voir sources en fin de doc). Le budget cloud n'est **pas public** ; il est **posé en hypothèse** (~200 k€/mois) pour refléter la taille d'un grand compte cloud (×4 le cas CDC à 50 k€).
 
 **Ancrage public :** bilan carbone 2023 ≈ **11 000 t CO₂e**, dont **cloud AWS ≈ 7–8 %** ≈ **800 t CO₂e/an**.
 
-Paramètres : budget **200 000 €/mois** (hypothèse), compute 60 % / stockage 30 %, hors-prod 40 %, extinction 60 h/sem, rightsizing 10 %, stockage 3 %, logs 2 %, datacenter **Europe** (0,23), PUE 1,2, I = 310 000 €, coût récurrent = 1 500 €/mois. Parc : 1 200 postes, 15 serveurs.
+Paramètres : budget **200 000 €/mois** (hypothèse), compute 60 % / stockage 30 %, hors-prod 40 %, extinction 60 h/sem, rightsizing 10 %, stockage 3 %, logs 2 %, datacenter **Europe** (0,23), PUE 1,2, I = **398 000 €**, coût récurrent = 1 500 €/mois. Parc : 1 200 postes, 15 serveurs.
 
 | Étape | Calcul | Résultat |
 |-------|--------|----------|
@@ -261,7 +277,9 @@ Paramètres : budget **200 000 €/mois** (hypothèse), compute 60 % / stockage 
 | **CO₂ cloud évité** | méthode vCPU (Europe 0,23) | **≈ 17,9 t CO₂e/an** |
 | CO₂ parc évité | usage + fabrication amortie | ≈ 23,9 t CO₂e/an |
 | **Empreinte totale évitée** | cloud + parc | **≈ 41,7 t CO₂e/an** |
-| ROI net | 310 000 / 22 129 | **≈ 14 mois** |
+| Éco nette | 23 629 − 1 500 | ≈ 22 129 €/mois |
+| ROI net | 398 000 / 22 129 | **≈ 18 mois** |
+| VAN 3 ans | taux 8 %/an | ≈ **+311 000 €** |
 
 > **Carbone cloud volontairement conservateur :** la méthode vCPU-heures donne une empreinte opérationnelle évitée (~18 t/an) bien plus faible que l'ancien proxy. C'est une **fraction** des ~800 t publiées par AWS (périmètre plus large : mémoire, stockage, réseau, méthodologie AWS). On présente donc un chiffre défendable et prudent, pas un chiffre gonflé.
 
@@ -275,17 +293,17 @@ Paramètres : budget **200 000 €/mois** (hypothèse), compute 60 % / stockage 
 - **Détail de traçabilité :** un encart affiche chaque étape intermédiaire (Budget_HP, facteur, gains, total, énergie, CO₂) pour rendre le calcul vérifiable.
 - **Recommandations dynamiques :** 4 cartes sont générées, une par levier (extinction, rightsizing, stockage, logs), avec le gain € associé. Les leviers à 0 apparaissent grisés.
 - **Rapport de synthèse :** le bouton « Générer la synthèse » produit un paragraphe décisionnel reprenant tous les résultats et la localisation/PUE ; impression PDF possible.
-- **Presets :** trois boutons (Cas CDC, Cas business, Réinitialiser) préremplissent l'ensemble des champs pour une démonstration reproductible.
+- **Presets :** quatre boutons — **Cas référence (CDC)**, **Cas business réaliste**, **Démo SNCF**, **Réinitialiser** (remet **tous** les paramètres numériques à **0**). Le preset **CDC est appliqué automatiquement au chargement** de la page (ROI 18 mois affiché dès l'ouverture du simulateur).
 
 ---
 
 ## 7. Hypothèses et limites (à assumer en soutenance)
 
 1. **Estimation, pas mesure.** Les résultats reposent sur des hypothèses paramétrables. Un audit réel des ressources (via CloudWatch, Azure Monitor, GCP Monitoring) est nécessaire pour un chiffrage définitif.
-2. **Coût énergétique = proxy FinOps.** La conversion € → kWh utilise un ratio moyen, non un relevé de consommation réelle. Il est explicitement paramétrable et documenté.
-3. **Linéarité.** Les gains sont modélisés linéairement ; en réalité, les rendements peuvent être dégressifs.
-4. **Périmètre.** L'extinction ne concerne que les environnements Dev/Test ; la production reste disponible 24/7 (aucun impact sur la qualité de service).
-5. **Facteurs d'émission moyens.** Les facteurs grid sont des moyennes ; un chiffrage précis utiliserait les données horaires réelles du mix électrique.
+2. **Modèle linéaire.** Les gains sont modélisés linéairement ; en réalité, les rendements peuvent être dégressifs.
+3. **Périmètre.** L'extinction ne concerne que les environnements Dev/Test ; la production reste disponible 24/7 (aucun impact sur la qualité de service).
+4. **Facteurs d'émission moyens.** Les facteurs grid sont des moyennes ; un chiffrage précis utiliserait les données horaires réelles du mix électrique.
+5. **Carbone cloud conservateur.** La méthode vCPU-heures ne couvre que l'usage compute évité ; le stockage/logs génèrent surtout des économies financières.
 
 ---
 
@@ -302,7 +320,7 @@ Pour éviter une **fausse impression de précision**, chaque KPI est affiché av
 ```
 Borne_basse = Valeur × (1 − marge)
 Borne_haute = Valeur × (1 + marge)
-ROI_fourchette : ROI_meilleur = I / (Éco × 1,15) ; ROI_pire = I / (Éco × 0,85)
+ROI_fourchette : ROI_meilleur = I / (Éco_nette × 1,15) ; ROI_pire = I / (Éco_nette × 0,85)
 CO₂_total_fourchette : somme des bornes cloud (± 50 %) et parc (± 25 %)
 ```
 
@@ -411,10 +429,11 @@ CO₂_total_fourchette : somme des bornes cloud (± 50 %) et parc (± 25 %)
 ### Points techniques JavaScript notables
 
 - **Application 100 % côté client (SPA)** : une seule page HTML, navigation gérée en JS (affichage/masquage des « pages »). Aucun serveur, aucune fuite de données.
-- **`localStorage`** : mémorise le thème choisi (`sylvaops-theme`) entre les visites.
+- **`localStorage`** : mémorise le thème (`sylvaops-theme`) et la langue (`sylvaops-lang`) entre les visites.
 - **`window.matchMedia('(prefers-color-scheme: dark)')`** : respecte le thème système au premier chargement.
 - **`requestAnimationFrame`** : met à jour les KPI en douceur (animation « updating »).
-- **`Intl` via `toLocaleString('fr-FR')`** : formatage des nombres à la française (espaces milliers, virgule décimale).
+- **`Intl` via `currentLocale()`** : formatage des nombres en `fr-FR` ou `en-US` selon la langue active.
+- **Moteur i18n** : `STR` + `I18N_EN`, attributs `data-i18n` / `data-i18n-node`, fonction `applyLang()` (FR ↔ EN).
 - **Écoute d'événements `input`/`change`** sur chaque champ → recalcul temps réel.
 - **`window.print()` + événement `afterprint`** : génération PDF navigateur puis nettoyage.
 
@@ -426,7 +445,7 @@ Le site est une **Single-Page Application (SPA)** : un seul fichier `index.html`
 
 ### Navigation
 
-- Barre de navigation fixe (`header`) avec liens **Accueil** / **Simulateur**, bouton **thème** (clair/sombre) et bouton **Audit gratuit**.
+- Barre de navigation fixe (`header`) avec liens **Accueil** / **Simulateur**, bouton **FR/EN**, bouton **thème** (clair/sombre) et bouton **Audit gratuit**.
 - Menu **burger** sur mobile.
 - Le logo ramène à l'accueil.
 
@@ -436,7 +455,7 @@ Enchaînement de sections (fond alterné blanc / gris clair) :
 
 | Section | Contenu | Rôle |
 |---------|---------|------|
-| **Hero** | Titre d'accroche + 2 boutons d'appel à l'action. | Capter l'attention, orienter vers le simulateur. |
+| **Hero** | Titre d'accroche + 2 boutons d'appel à l'action + stats (−30 %, ROI **18 mois**, 4 % GES). | Capter l'attention, orienter vers le simulateur. |
 | **Problématique** | 3 cartes : inflation des coûts cloud, environnements sous-utilisés, empreinte carbone. | Poser le problème. |
 | **4 Piliers** | Performance économique, responsabilité environnementale, excellence opérationnelle, sécurité & conformité. | Structurer la promesse. |
 | **À propos** | Présentation du cabinet + expertises (FinOps, Green IT/SCI, automatisation). | Crédibilité. |
@@ -471,7 +490,8 @@ Disposition **2 colonnes** (desktop) :
 | **Mode sombre** | Thème clair/sombre, mémorisé. | Bascule l'attribut `data-theme`, redéfinit les variables CSS, stocke le choix dans `localStorage`, échange les logos clairs/sombres. |
 | **Calcul temps réel** | Chaque curseur/champ met à jour instantanément tous les résultats. | La fonction `calculate()` est appelée à chaque `input`/`change`. |
 | **Curseurs remplis** | La partie « remplie » d'un slider suit sa valeur. | `updateSliderFill()` calcule un pourcentage et colore la piste. |
-| **Presets** | 4 boutons : Cas référence (CDC), Cas business réaliste, Démo SNCF, Réinitialiser. | `applyPreset()` injecte un jeu de valeurs prédéfinies puis recalcule. |
+| **Presets** | 4 boutons : Cas référence (CDC), Cas business réaliste, Démo SNCF, Réinitialiser (tout à **0**). | `applyPreset()` injecte un jeu de valeurs puis recalcule. CDC appliqué au chargement. |
+| **Internationalisation (FR/EN)** | Bascule de langue sur toute la vitrine, le simulateur, les KPI, recommandations et synthèse. | `applyLang()` + `localStorage` (`sylvaops-lang`). Formatage nombres/€ selon locale. |
 | **Mode simple / détaillé** | Affiche ou masque les paramètres avancés. | Bascule la classe `visible` sur les `.advanced-params`. |
 | **Fourchettes d'incertitude** | Chaque KPI affiche une plage ± au lieu d'un faux chiffre exact. | Financier ± 15 %, carbone cloud ± 50 %, carbone parc ± 25 %. |
 | **Détail / traçabilité** | Bloc dépliant montrant chaque étape de calcul. | Chaque ligne est mise à jour dans `calculate()`. |
@@ -523,6 +543,12 @@ R : L'extinction ne cible que le **hors-production** (dev/test). La prod reste d
 
 **Q : Le cas SNCF est-il réel ?**
 R : C'est un scénario **illustratif** appuyé sur des données publiques (bilan carbone, part cloud). Le budget cloud est une **hypothèse posée**, à valider avec le client. Les témoignages et clients affichés sont **fictifs**.
+
+**Q : Pourquoi le preset SNCF affiche ~23 k€/mois et les autres ~6 k€ ?**
+R : Parce que le budget cloud SNCF est posé à **200 k€/mois** (hypothèse grand compte), soit **×4** le cas CDC (50 k€). Le **taux de réduction** reste comparable (~12 %). Ce n'est pas le même modèle, c'est le **même modèle à plus grande échelle**.
+
+**Q : Que fait le bouton Réinitialiser ?**
+R : Il remet **tous les paramètres numériques à 0** (budget, leviers, parc, investissement). Les listes déroulantes (datacenter, site) restent sur France. Utile pour repartir d'une feuille blanche avant une démo personnalisée.
 
 **Q : Que feriez-vous pour aller plus loin (perspectives) ?**
 R : Brancher un inventaire réel (nombre de vCPU, instances), affiner les coefficients par région/fournisseur, connecter les APIs de facturation cloud (AWS Cost Explorer), et calculer l'empreinte **totale** (pas seulement évitée).

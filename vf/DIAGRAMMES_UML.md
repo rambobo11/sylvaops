@@ -20,6 +20,7 @@ flowchart LR
     direction TB
     uc1(["Consulter la vitrine"])
     uc2(["Basculer thème clair / sombre"])
+    uc2b(["Basculer la langue FR / EN"])
     uc3(["Ouvrir le simulateur"])
     uc4(["Choisir un scénario (preset)"])
     uc5(["Ajuster les paramètres"])
@@ -32,6 +33,7 @@ flowchart LR
 
   prospect --- uc1
   prospect --- uc2
+  prospect --- uc2b
   prospect --- uc3
   prospect --- uc4
   prospect --- uc5
@@ -100,6 +102,12 @@ classDiagram
     +applyTheme(theme)
     +toggle()
   }
+  class I18nManager {
+    -lang : localStorage
+    +applyLang(fr|en)
+    +t(key)
+    +currentLocale()
+  }
   class Router {
     -pages : accueil, simulateur
     +showPage(name)
@@ -136,6 +144,7 @@ classDiagram
 
 **Rôle de chaque module**
 - **ThemeManager** : mode clair/sombre persistant (`localStorage`).
+- **I18nManager** : bascule FR/EN, traduction vitrine + simulateur + synthèse, formatage locale.
 - **Router** : navigation SPA entre la vitrine et le simulateur.
 - **Simulator** : cœur du produit — lecture des paramètres, calcul, affichage des KPI et recommandations.
 - **PresetManager** : scénarios pré-remplis (CDC, business, SNCF).

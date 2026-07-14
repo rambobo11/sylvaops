@@ -172,7 +172,7 @@ Le fil conducteur retenu est un **scénario illustratif appuyé sur des données
 | Rightsizing / stockage / logs | 10 % / 3 % / 2 % | Paramètres de scénario |
 | Localisation, PUE | Europe · 1,2 | Cohérent avec un cloud multi-régions |
 | Parc sur site | 1 200 postes · 15 serveurs · 4 → 6 ans | Hypothèse |
-| Investissement projet · coût récurrent | 310 000 € · 1 500 €/mois | Hypothèse de mission |
+| Investissement projet · coût récurrent | **398 000 €** · 1 500 €/mois | Hypothèse de mission (ROI cible 18 mois) |
 
 **Ancrage public :** bilan carbone 2023 de SNCF Connect & Tech ≈ 11 000 t CO₂e, dont cloud AWS ≈ 7–8 % (≈ 800 t CO₂e/an). L'entreprise pratique déjà l'extinction des environnements de développement et dispose d'un pilotage FinOps + CO₂ (label Numérique Responsable niveau 2). SylvaOps se positionne donc en **complément**, jamais en substitution.
 
@@ -181,12 +181,13 @@ Le fil conducteur retenu est un **scénario illustratif appuyé sur des données
 La démonstration suit un déroulé volontairement court et lisible :
 
 1. **Page d'accueil** — présentation express du cabinet et de la problématique (coûts Cloud, environnements sous-utilisés, empreinte carbone). Transition : « Pour objectiver tout cela, voici notre simulateur. »
-2. **Accès au simulateur** — clic sur « Simuler mes économies ».
-3. **Chargement du préréglage « Démo SNCF Connect & Tech »** — d'un clic, tous les paramètres du scénario sont renseignés et l'encadré d'hypothèses s'affiche.
-4. **Lecture des indicateurs** — commentaire des KPI financiers, énergétiques et carbone, en insistant sur les **fourchettes d'incertitude** (on présente des ordres de grandeur, pas de faux chiffres exacts).
-5. **Ouverture du détail de calcul** — démonstration de la **traçabilité** : chaque euro et chaque kilo de CO₂ est justifié étape par étape (aucune boîte noire).
-6. **Activation du mode détaillé** — pour montrer la décomposition du budget et la méthode carbone en vCPU-heures.
-7. **Génération de la synthèse décisionnelle** puis **export PDF** — le livrable remis au client.
+2. **Accès au simulateur** — clic sur « Simuler mes économies ». Le preset **Cas référence (CDC)** est déjà chargé (ROI 18 mois visible).
+3. **(Option) Bascule FR/EN** — démonstration de l'internationalisation si le jury est mixte.
+4. **Chargement du préréglage « Démo SNCF Connect & Tech »** — d'un clic, tous les paramètres du scénario grand compte sont renseignés et l'encadré d'hypothèses s'affiche.
+5. **Lecture des indicateurs** — commentaire des KPI financiers, énergétiques et carbone, en insistant sur les **fourchettes d'incertitude** (on présente des ordres de grandeur, pas de faux chiffres exacts).
+6. **Ouverture du détail de calcul** — démonstration de la **traçabilité** : chaque euro et chaque kilo de CO₂ est justifié étape par étape (aucune boîte noire).
+7. **Activation du mode détaillé** — pour montrer la décomposition du budget et la méthode carbone en vCPU-heures.
+8. **Génération de la synthèse décisionnelle** puis **export PDF** — le livrable remis au client.
 
 ## 13.4 Résultats clés présentés
 
@@ -199,7 +200,7 @@ Les ordres de grandeur obtenus pour ce scénario :
 | CO₂ cloud évité | ≈ **17,9 t CO₂e/an** | Estimation conservatrice (méthode vCPU-heures). |
 | CO₂ parc évité | ≈ 23,9 t CO₂e/an | Dominé par le carbone de fabrication. |
 | Empreinte totale évitée | ≈ **41,7 t CO₂e/an** | Cloud + parc matériel. |
-| Retour sur investissement net | ≈ **14 mois** | Calculé sur l'économie nette. |
+| Retour sur investissement net | ≈ **18 mois** | Calculé sur l'économie nette (22 129 €/mois). |
 
 > Ces valeurs sont des **ordres de grandeur** issus d'hypothèses paramétrables ; elles seraient affinées par un audit réel. Le carbone cloud évité (~18 t/an) est volontairement une **fraction** des ~800 t publiées par AWS, dont le périmètre et la méthodologie sont plus larges.
 
