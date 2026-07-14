@@ -1,7 +1,7 @@
 # Faiblesses du projet & stratégie de défense
 
 Projet M1 MCSI · Démonstrateur SylvaOps (FinOps & Green IT)
-Document de préparation à la soutenance — à usage personnel.
+**Dernière mise à jour :** juillet 2026 (ROI 18 mois, presets, bascule FR/EN).
 
 ---
 
@@ -45,8 +45,12 @@ Trois réflexes :
 **→ Défense :** « Ce sont des facteurs publics de référence (RTE/ADEME/AIE). Pour un ordre de grandeur c'est suffisant ; la granularité par région exacte relève de l'audit. »
 
 ### 1.7 Le taux d'actualisation (8 %) et les investissements sont posés
-**Faiblesse :** la VAN dépend d'un taux (8 %/an) et d'un montant d'investissement choisis.
-**→ Défense :** « 8 % est un taux d'actualisation d'entreprise classique, et l'investissement est paramétrable. Ce sont des hypothèses transparentes, pas des vérités ; le jury peut les faire varier en direct. »
+**Faiblesse :** la VAN dépend d'un taux (8 %/an) et d'un montant d'investissement choisis. Les presets calibrent l'investissement pour afficher un **ROI cible de 18 mois** (108 k€ CDC, 91,7 k€ business, 398 k€ SNCF) — ce ne sont pas des devis réels.
+**→ Défense :** « 8 % est un taux d'actualisation d'entreprise classique, et l'investissement est **entièrement paramétrable**. Les presets servent à une démo reproductible : j'ai calibré l'investissement pour un ROI de **18 mois**, crédible pour un comité de direction. Le jury peut faire varier les montants en direct. »
+
+### 1.8 L'écart d'économies entre presets (6 k€ vs 23 k€) peut surprendre
+**Faiblesse :** le preset SNCF affiche ~23 k€/mois d'économies contre ~6 k€ pour le CDC, alors que le taux de réduction est similaire (~12 %).
+**→ Défense :** « C'est le **même modèle à plus grande échelle** : le budget SNCF est posé à 200 k€/mois (hypothèse grand compte), soit ×4 le cas CDC (50 k€). Ce n'est pas une incohérence de calcul, c'est une différence de **taille d'organisation**. »
 
 ---
 
@@ -79,6 +83,10 @@ Trois réflexes :
 ### 3.3 Formulaire non fonctionnel, pas de persistance
 **Faiblesse :** le formulaire de contact n'envoie rien ; pas de sauvegarde de scénarios, pas de comptes utilisateurs.
 **→ Défense :** « C'est cohérent avec un POC 100 % côté client, sans backend : **aucune donnée n'est collectée**, ce qui est un atout RGPD. Un back-office (envoi, sauvegarde, multi-utilisateur) est une évolution naturelle. »
+
+### 3.4 Traduction FR/EN intégrée mais non certifiée
+**Faiblesse :** la bascule de langue couvre vitrine, simulateur, KPI et synthèse, mais les traductions anglaises ne sont pas relues par un locuteur natif ni validées juridiquement.
+**→ Défense :** « C'est un **plus pour la démo** (jury ou client international), pas une localisation produit. Le français reste la langue de référence ; l'anglais sert à montrer l'ouverture du positionnement sans backend supplémentaire. »
 
 ---
 
@@ -124,6 +132,9 @@ Trois réflexes :
 | Pas de backend / formulaire inactif | Atout RGPD (aucune donnée) ; évolution naturelle. |
 | Mono-fichier | Sobriété et pérennité, cohérent avec le message Green IT. |
 | Sécurité déléguée | Site statique = surface d'attaque minimale par conception. |
+| Investissements calibrés (ROI 18 mois) | Hypothèses de démo reproductible ; tout est paramétrable en direct. |
+| Écart 6 k€ vs 23 k€ entre presets | Même taux ~12 % ; budget SNCF ×4 (grand compte). |
+| Traduction FR/EN | Plus démo, pas localisation certifiée ; FR = référence. |
 | Témoignages fictifs | Signalés comme illustratifs (cadre académique). |
 
 > **À retenir :** un projet dont tu connais parfaitement les limites est plus solide qu'un projet qu'on croit parfait. Ta lucidité est ta meilleure note.
