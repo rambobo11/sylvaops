@@ -751,7 +751,7 @@
             <div class="hero__stat-label" data-i18n="hero.stat1">Coûts Cloud optimisables</div>
           </div>
           <div role="listitem">
-            <div class="hero__stat-value" data-i18n="hero.stat2v">14 mois</div>
+            <div class="hero__stat-value" data-i18n="hero.stat2v">18 mois</div>
             <div class="hero__stat-label" data-i18n="hero.stat2">ROI moyen constaté</div>
           </div>
           <div role="listitem">
@@ -1031,7 +1031,7 @@
               <div class="testimonial-card__metric" data-i18n="tem.m2">−34 t CO₂ évitées sur la première année</div>
             </article>
             <article class="testimonial-card">
-              <p class="testimonial-card__quote" data-i18n="tem.q3">Le retour sur investissement a été atteint en un peu plus d'un an. Le simulateur nous a permis de convaincre le comité de direction avec des chiffres concrets dès la phase d'avant-vente.</p>
+              <p class="testimonial-card__quote" data-i18n="tem.q3">Le retour sur investissement a été atteint en environ un an et demi. Le simulateur nous a permis de convaincre le comité de direction avec des chiffres concrets dès la phase d'avant-vente.</p>
               <div class="testimonial-card__author">
                 <div class="testimonial-card__avatar" aria-hidden="true">SR</div>
                 <div>
@@ -1039,7 +1039,7 @@
                   <div class="testimonial-card__role" data-i18n="tem.r3">Directrice des Opérations · Capgemini</div>
                 </div>
               </div>
-              <div class="testimonial-card__metric" data-i18n="tem.m3">ROI atteint en 14 mois</div>
+              <div class="testimonial-card__metric" data-i18n="tem.m3">ROI atteint en 18 mois</div>
             </article>
           </div>
           <p class="source-note" style="text-align:center; margin-top:24px;" data-i18n="tem.note">Témoignages illustratifs — projet académique M1 MCSI. Personnes et chiffres fictifs à visée de démonstration.</p>
@@ -1576,7 +1576,7 @@
         "hero.title": "Combine IT Performance with Digital Sobriety.",
         "hero.subtitle": "SylvaOps Consulting helps IT and Cloud departments cut their infrastructure costs by up to 30&nbsp;% while reducing their digital carbon footprint.",
         "hero.ctaSim": "Simulate my savings", "hero.ctaAudit": "Request an audit",
-        "hero.stat1": "Optimisable Cloud costs", "hero.stat2v": "14 months", "hero.stat2": "Average observed ROI", "hero.stat3": "Global digital GHG",
+        "hero.stat1": "Optimisable Cloud costs", "hero.stat2v": "18 months", "hero.stat2": "Average observed ROI", "hero.stat3": "Global digital GHG",
         "prob.label": "The situation", "prob.title": "A three-dimensional challenge",
         "prob.desc": "IT departments must cut costs and carbon footprint without degrading service quality.",
         "prob.c1t": "Rising Cloud costs", "prob.c1d": "Cloud spending grows by 15 to 20&nbsp;% per year (Flexera, State of the Cloud 2024), with a large share left unoptimised.",
@@ -1628,8 +1628,8 @@
         "tem.r1": "CIO · RATP", "tem.m1": "−28% non-prod Cloud costs in 6 months",
         "tem.q2": "The methodology is transparent: every euro saved and every kilo of CO₂ avoided is traceable. It's exactly what we needed for our CSRD reporting.",
         "tem.r2": "CSR Manager · ENGIE", "tem.m2": "−34 t CO₂ avoided in the first year",
-        "tem.q3": "The return on investment was reached in a little over a year. The simulator let us convince the executive committee with concrete figures from the pre-sales stage.",
-        "tem.r3": "Head of Operations · Capgemini", "tem.m3": "ROI reached in 14 months",
+        "tem.q3": "The return on investment was reached in around a year and a half. The simulator let us convince the executive committee with concrete figures from the pre-sales stage.",
+        "tem.r3": "Head of Operations · Capgemini", "tem.m3": "ROI reached in 18 months",
         "tem.note": "Illustrative testimonials — M1 MCSI academic project. Fictional people and figures for demonstration purposes.",
         "ctaHome.title": "Ready to estimate your savings&nbsp;?",
         "ctaHome.desc": "Use our FinOps &amp; Green IT simulator to project the financial and environmental impact of your Cloud optimisations.",
@@ -2119,15 +2119,15 @@
 
       var sncfNote = document.getElementById('sncfNote');
       document.getElementById('presetCdc').addEventListener('click', function () {
-        applyPreset(withParc({ budget: 50000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 12, extinction: 84, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, investissement: 84000, recurringCost: 0 }));
+        applyPreset(withParc({ budget: 50000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 12, extinction: 84, rightsizing: 0, stockage: 0, logs: 0, datacenter: 'france', pue: 12, investissement: 108000, recurringCost: 0 }));
         setActivePreset('presetCdc'); sncfNote.hidden = true;
       });
       document.getElementById('presetBusiness').addEventListener('click', function () {
-        applyPreset(withParc({ budget: 50000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 12, extinction: 52, rightsizing: 10, stockage: 5, logs: 3, datacenter: 'france', pue: 12, investissement: 71300, recurringCost: 800 }));
+        applyPreset(withParc({ budget: 50000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 12, extinction: 52, rightsizing: 10, stockage: 5, logs: 3, datacenter: 'france', pue: 12, investissement: 91700, recurringCost: 800 }));
         setActivePreset('presetBusiness'); sncfNote.hidden = true;
       });
       document.getElementById('presetSncf').addEventListener('click', function () {
-        applyPreset({ budget: 200000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 20, extinction: 60, rightsizing: 10, stockage: 3, logs: 2, datacenter: 'europe', pue: 12, investissement: 310000, recurringCost: 1500,
+        applyPreset({ budget: 200000, computePct: 60, storagePct: 30, horsProd: 40, envCount: 20, extinction: 60, rightsizing: 10, stockage: 3, logs: 2, datacenter: 'europe', pue: 12, investissement: 398000, recurringCost: 1500,
           siteLocation: 'france', nbPostes: 1200, consoPoste: 120, reductionPostes: 20, nbServeurs: 15, consoServeur: 4000, reductionServeurs: 15, empreintePoste: 200, empreinteServeur: 1500, dureeActuelle: 4, dureeCible: 6 });
         setActivePreset('presetSncf'); sncfNote.hidden = false;
       });
