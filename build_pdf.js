@@ -34,8 +34,10 @@ const html = `<!DOCTYPE html>
   td { border: 1px solid #d8e0da; padding: 6px 9px; vertical-align: top; }
   tr:nth-child(even) td { background: #f6faf7; }
   hr { border: none; border-top: 1px solid #d8e0da; margin: 22px 0; }
+  img { display: block; max-width: 100%; height: auto; margin: 14px auto; border: 1px solid #d8e0da; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  p > em:only-child, p > em:first-child:last-child { display: block; text-align: center; font-size: 11px; color: #4b5563; margin: -6px 0 16px; font-style: italic; }
   h2, h3 { page-break-after: avoid; }
-  table, blockquote { page-break-inside: avoid; }
+  table, blockquote, img { page-break-inside: avoid; }
 </style></head><body>
 ${body}
 </body></html>`;
